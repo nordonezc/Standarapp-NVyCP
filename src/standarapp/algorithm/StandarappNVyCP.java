@@ -9,8 +9,17 @@ import me.xdrop.diffutils.DiffUtils;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
- *
- * @author Niki
+ * Credits
+ * seatgeek 
+ * Adam Cohen 
+ * David Necas (python-Levenshtein) 
+ * Mikko Ohtamaa (python-Levenshtein) 
+ * Antti Haapala (python-Levenshtein)
+ * 
+ * This project is an implementation of levenstein distance development
+ * by people called before. 
+ * 
+ * @author Niki Ordoñez
  */
 public class StandarappNVyCP {
     
