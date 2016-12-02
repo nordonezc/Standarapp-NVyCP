@@ -28,14 +28,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Niki Ordoñez
  */
-
 public class StandarappNVyCP {
-    
+
     private static String nameExcel1, nameExcel2;
-    private static Hashtable<String,ArrayList<String>> contenedor;
+    private static Hashtable<String, ArrayList<String>> bar_ver, dir_res, nmun_resi, ndep_notif;
+    private static ArrayList<ArrayList<String>> registry; //21, 22, 97, 99 each 4 its a different registry
     private static FileInputStream file;
     private static XSSFWorkbook workbook;
     private static XSSFSheet sheet;
+
     /**
      * @param args the command line arguments
      */
@@ -47,59 +48,69 @@ public class StandarappNVyCP {
         nameExcel2 = "C:\\Users\\Niki\\Downloads\\LEISHMANIASI.xlsx";
 
         //Files where will be located the names of each cell
-        contenedor=new Hashtable<String,ArrayList<String>>();
-        
+        registry = new ArrayList<>();
+
+        bar_ver = new Hashtable<String, ArrayList<String>>();
+        dir_res = new Hashtable<String, ArrayList<String>>();
+        nmun_resi = new Hashtable<String, ArrayList<String>>();
+        ndep_notif = new Hashtable<String, ArrayList<String>>();
+
         try {
             file = new FileInputStream(new File(nameExcel2));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             //Create Workbook instance holding reference to .xlsx file
             workbook = new XSSFWorkbook(file);
         } catch (IOException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //Get first/desired sheet from the workbook
         sheet = workbook.getSheetAt(0);
 
         //Iterate through each rows one by one
-            for(Row row: sheet){
-                for(Cell cell:row){
-                    /*
-                        
-                        if(cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22){
-                        String indice = "" + cell.getStringCellValue().substring(0, 1);
-                        if(contenedor.containsKey(indice)){
-                            contenedor.get(indice).add(cell.getStringCellValue());
+        for (Row row : sheet) {
+            ArrayList<String> cellsWI = new ArrayList<>();
+            for (Cell cell : row) {
+                switch (cell.getCellType()) {
+                    case Cell.CELL_TYPE_STRING:
+                        //cellsWI = cells with information
+                        if (cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
+                            //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
+                            String info = cell.getStringCellValue().toUpperCase();
+                            info = info.replace(" ", "");
+                            info = info.replace("Á", "");
+                            info = info.replace("É", "");
+                            info = info.replace("Í", "");
+                            info = info.replace("Ó", "");
+                            info = info.replace("Ú", "");
+                            info = info.replace("Ñ", "N");
+                            info = info.replace("VEREDA", "");
+                            info = info.replace("CORREGIMIENTO", "");
+                            info = info.replace("FINCA", "");
+                            
+                            cellsWI.add(info);
+                            System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
                         }
-                        else{
-                            ArrayList<String> nuevo = new ArrayList<>();
-                            nuevo.add(cell.getStringCellValue());
-                            contenedor.put(indice, nuevo);
-                        }
-                    }*/
-                    
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_NUMERIC:
-                            System.out.print(cell.getColumnIndex() + ":" + cell.getNumericCellValue() + "\t\t");
-                            break;
-                        case Cell.CELL_TYPE_STRING:
-                            System.out.print(cell.getColumnIndex() + ":" +  cell.getStringCellValue() + "\t\t");
-                            break;
-                    }
+                        break;
                 }
-                System.out.println("");
             }
-            
+            System.out.println("");
+            if(!cellsWI.isEmpty())
+                registry.add(cellsWI);
+        }
+
         try {
             file.close();
         } catch (IOException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
+
+        
+        System.out.println("Cantidad de registros: " + registry.size());
         //Levenstein distance applied to two random words
         String s1 = "Test";
         String s2 = "Testo";
