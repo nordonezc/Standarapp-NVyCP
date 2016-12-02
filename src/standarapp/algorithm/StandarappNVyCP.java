@@ -81,6 +81,7 @@ public class StandarappNVyCP {
                         if (cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
                             //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
                             String info = cell.getStringCellValue().toUpperCase();
+                            //Eliminacion de palabras sobrantes y tildes
                             info = info.replace(" ", "");
                             info = info.replace("Á", "");
                             info = info.replace("É", "");
