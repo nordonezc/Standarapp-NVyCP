@@ -108,14 +108,15 @@ public class StandarappNVyCP {
             for (Cell cell : row) {
                 switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_STRING:
+                        System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
                         if (!cell.getStringCellValue().contains("1") && !cell.getStringCellValue().contains("2") && !cell.getStringCellValue().contains("0") && !cell.getStringCellValue().contains("3") && !cell.getStringCellValue().contains("4") && !cell.getStringCellValue().contains("5") && !cell.getStringCellValue().contains("6") && !cell.getStringCellValue().contains("7") && !cell.getStringCellValue().contains("8") && !cell.getStringCellValue().contains("9")) {
-                            if (cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
+                            if (cell.getColumnIndex() == 20 || cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
                                 String info = cell.getStringCellValue().toUpperCase();
                                 
                                 //Eliminacion de palabras sobrantes y tildes
                                 info = fixWords(info);
                                 cellsWI.add(info);
-                                System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
+                                //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
                             }
                         }
                         break;
@@ -199,7 +200,7 @@ public class StandarappNVyCP {
                             if (cell.getColumnIndex() == 7) {
                                 vycp = cell.getStringCellValue();
                             }
-                            System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
+                            //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
                             break;
                     }
                 }
@@ -237,8 +238,7 @@ public class StandarappNVyCP {
                 if (!vycp_codigo.containsKey(codigo)) {
                     vycp_codigo.put(codigo, vycp);
                 }
-
-                System.out.println("");
+                //System.out.println();
             }
         }
         
@@ -250,6 +250,7 @@ public class StandarappNVyCP {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        /*
         System.out.println("Cantidad de registros: " + registry.size());
         for (String key : dptoMncp.keySet())
             System.out.println("Departamento: " + key);
@@ -259,6 +260,7 @@ public class StandarappNVyCP {
         System.out.println("Numero de municipios: " + mncpVyCP.size());
         System.out.println("Numero de departamentos: " + dptoMncp.size());
         System.out.println("Numero de veredas y CP: " + vycp_codigo.size());
+        */
 
         //Levenstein distance applied to two random words
         String s1 = "Test";
