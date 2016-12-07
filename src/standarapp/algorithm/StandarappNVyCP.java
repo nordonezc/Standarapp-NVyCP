@@ -56,7 +56,7 @@ public class StandarappNVyCP {
     private static String nameExcel1, nameExcel2;
     private static Hashtable<String, ArrayList<String>> dptoMncp; // relacion de departamento con municipio
     private static Hashtable<String, ArrayList<String>> mncpVyCP; // relacion de centro poblado y vereda con municipio
-    private static Hashtable<Integer, String> vycp_codigo; //codigo de cada vereda con centro poblado
+    private static Hashtable<String, Integer> vycp_codigo; //codigo de cada vereda con centro poblado
     private static ArrayList<ArrayList<String>> registry; //21, 22, 97, 99 each 4 its a different registry
     private static FileInputStream file;
     private static XSSFWorkbook workbook;
@@ -76,12 +76,12 @@ public class StandarappNVyCP {
         registry = new ArrayList<>();
         dptoMncp = new Hashtable<String, ArrayList<String>>();
         mncpVyCP = new Hashtable<String, ArrayList<String>>();
-        vycp_codigo = new Hashtable<Integer, String>();
+        vycp_codigo = new Hashtable<String, Integer>();
 
         //Reading the file which contains registries
         //Lectura del archivo xls de registros
-        try { 
-            file = new FileInputStream(new File(nameExcel2)); 
+        try {
+            file = new FileInputStream(new File(nameExcel2));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,8 +90,7 @@ public class StandarappNVyCP {
         //Creando una instancia haciendo referencia al archivo xls ubicado en file
         try {
             workbook = new XSSFWorkbook(file);
-        } 
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -108,11 +107,11 @@ public class StandarappNVyCP {
             for (Cell cell : row) {
                 switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_STRING:
-                        System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
+                        //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
                         if (!cell.getStringCellValue().contains("1") && !cell.getStringCellValue().contains("2") && !cell.getStringCellValue().contains("0") && !cell.getStringCellValue().contains("3") && !cell.getStringCellValue().contains("4") && !cell.getStringCellValue().contains("5") && !cell.getStringCellValue().contains("6") && !cell.getStringCellValue().contains("7") && !cell.getStringCellValue().contains("8") && !cell.getStringCellValue().contains("9")) {
                             if (cell.getColumnIndex() == 20 || cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
                                 String info = cell.getStringCellValue().toUpperCase();
-                                
+
                                 //Eliminacion de palabras sobrantes y tildes
                                 info = fixWords(info);
                                 cellsWI.add(info);
@@ -122,14 +121,16 @@ public class StandarappNVyCP {
                         break;
                 }
             }
-            System.out.println("");
+            //System.out.println("");
             //Se añade a la lista de registros leidos correctamente.
-            if (!cellsWI.isEmpty()) registry.add(cellsWI);
+            if (!cellsWI.isEmpty()) {
+                registry.add(cellsWI);
+            }
         }
 
         //Se cierra el archivo leido.
         //Close file readed
-        try {  
+        try {
             file.close();
         } catch (IOException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,8 +144,7 @@ public class StandarappNVyCP {
             }
             System.out.println("");
         }
-        */
-
+         */
         //Lectura de archivo que contiene nombres estandar de veredas
         //Reading the file which contains stantard names and codes of 'Veredas'
         try {
@@ -176,14 +176,13 @@ public class StandarappNVyCP {
             String vycp = "";
 
             /**
-             * If Sentence where specifies that:
-             * First row doesnt have information
-             * Fourth row is different to zero
-             * 
-             * Sentencia condicional donde especifica que haga analice la fila solo si:
-             * La fila no es la primera del archivo .xlsx (Es decir el titulo de cada columna
-             * La celda numero 4 es diferente de cero 
-            */
+             * If Sentence where specifies that: First row doesnt have
+             * information Fourth row is different to zero
+             *
+             * Sentencia condicional donde especifica que haga analice la fila
+             * solo si: La fila no es la primera del archivo .xlsx (Es decir el
+             * titulo de cada columna La celda numero 4 es diferente de cero
+             */
             if (row.getRowNum() != 0 && !row.getCell(4).getStringCellValue().equals(String.valueOf(0))) {
                 for (Cell cell : row) {
                     switch (cell.getCellType()) {
@@ -220,7 +219,7 @@ public class StandarappNVyCP {
                 } else if (!dptoMncp.get(departamento).contains(municipio)) {
                     dptoMncp.get(departamento).add(municipio);
                 }
-                
+
                 //Add municipio if it isn't exist
                 //Añade municipio a la tabla hash si no existe
                 //Add vycp if municipio doesnt contained it
@@ -235,13 +234,13 @@ public class StandarappNVyCP {
 
                 //Add vycp_codigo if it isn't exist
                 //Añade el municipio y su codigo si aun no se ha agregado
-                if (!vycp_codigo.containsKey(codigo)) {
-                    vycp_codigo.put(codigo, vycp);
+                if (!vycp_codigo.containsKey(vycp)) {
+                    vycp_codigo.put(vycp, codigo);
                 }
                 //System.out.println();
             }
         }
-        
+
         //Close file readed
         //Se cierra el archivo leido
         try {
@@ -250,27 +249,92 @@ public class StandarappNVyCP {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        /*
         System.out.println("Cantidad de registros: " + registry.size());
-        for (String key : dptoMncp.keySet())
+        for (String key : dptoMncp.keySet()) {
             System.out.println("Departamento: " + key);
-        for (String key : mncpVyCP.keySet())
+        }
+        for (String key : mncpVyCP.keySet()) {
             System.out.println("Municipio: " + key);
-        
+        }
+
         System.out.println("Numero de municipios: " + mncpVyCP.size());
         System.out.println("Numero de departamentos: " + dptoMncp.size());
         System.out.println("Numero de veredas y CP: " + vycp_codigo.size());
-        */
 
         //Levenstein distance applied to two random words
         String s1 = "Test";
         String s2 = "Testo";
         int lvd = FuzzySearch.tokenSetRatio(s1, s2);
         System.out.println("Levenstein: " + lvd);
+
+        
+
+        //for(int i=1; i<registry.size();i++){
+        String mncpWithBestLevenstein = "";
+        int mncpMajorLev = 0;
+        ArrayList<String> registro = registry.get(1);
+        //Municipio search
+        //Busqueda del municipio
+        System.out.println(" **** Comparación MUNICIPIO con Ratio ****");
+        for (String key : dptoMncp.keySet()) {
+            int levMncp = FuzzySearch.ratio(registro.get(4), key);
+            if (levMncp > mncpMajorLev) {
+                mncpWithBestLevenstein = key;
+                mncpMajorLev = levMncp;
+            }
+            System.out.println("Comparación entre " + registro.get(4) + " y " + key + " presenta levenstein: " + levMncp);
+        }
+        System.out.println("Mayor levenstein es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
+
+        //Departamento search
+        //Busqueda del departamento
+        String dptoWithBestLevenstein = "";
+        int dptoMajorLevenstein = 0;
+        System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
+        for(String value: dptoMncp.get(mncpWithBestLevenstein)){
+            int levDpto = FuzzySearch.ratio(registro.get(3), value);
+            if(levDpto > dptoMajorLevenstein){
+                dptoWithBestLevenstein = value;
+                dptoMajorLevenstein = levDpto;
+                System.out.println("Comparación entre " + registro.get(3) + " y " + value + " presenta levenstein: " + levDpto);
+            }
+        }
+        System.out.println("Mayor levenstein es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
+
+        //Departamento search
+        //Busqueda del departamento
+        String vycpWithTheBestLev = "";
+        int vycpMajorLevenstein = 0;
+        System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
+        for(String value: mncpVyCP.get(dptoWithBestLevenstein)){
+            int levVyCP = FuzzySearch.ratio(registro.get(2), value);
+            if(levVyCP > vycpMajorLevenstein){
+                vycpWithTheBestLev = value;
+                vycpMajorLevenstein = levVyCP;
+                System.out.println("Comparación entre " + registro.get(2) + " y " + value + " presenta levenstein: " + levVyCP);
+            }
+            
+            levVyCP = FuzzySearch.ratio(registro.get(1), value);
+            if(levVyCP > vycpMajorLevenstein){
+                vycpWithTheBestLev = value;
+                vycpMajorLevenstein = levVyCP;
+                System.out.println("Comparación entre " + registro.get(1) + " y " + value + " presenta levenstein: " + levVyCP);
+            }
+            
+            levVyCP = FuzzySearch.ratio(registro.get(0), value);
+            if(levVyCP > vycpMajorLevenstein){
+                vycpWithTheBestLev = value;
+                vycpMajorLevenstein = levVyCP;
+                System.out.println("Comparación entre " + registro.get(0) + " y " + value + " presenta levenstein: " + levVyCP);
+            }
+        }
+        System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
+        System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + vycp_codigo.get(vycpWithTheBestLev));
     }
 
     /**
      * Recieved word and returns the same without special characters
+     *
      * @param message
      * @return info
      */
