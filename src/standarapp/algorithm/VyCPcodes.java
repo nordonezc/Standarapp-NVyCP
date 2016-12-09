@@ -12,16 +12,20 @@ import java.util.List;
  *
  * @author Niki
  */
-public class Candidates {
-    private ArrayList<String> words;
+public class VyCPcodes {
+    private String name;
+    private int code;
     
-    public Candidates(String[] word){
-        words = new ArrayList<>();
-        for(String s:word){
-            words.add(s);
-        }
+    public VyCPcodes(String name, int code){
+        name = this.name;
+        code = this.code;
     }
-    
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCode() {
+        return code;
+    }
 }

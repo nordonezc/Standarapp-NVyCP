@@ -57,8 +57,8 @@ public class StandarappNVyCP {
      */
     private static String nameExcel1, nameExcel2, nameExcel3;
     private static Hashtable<String, ArrayList<String>> dptoMncp; // relacion de departamento con municipio
-    private static Hashtable<String, ArrayList<String>> mncpVyCP; // relacion de centro poblado y vereda con municipio
-    private static Hashtable<String, Integer> vycp_codigo; //codigo de cada vereda con centro poblado
+    private static Hashtable<String, Hashtable<String, Integer>> mncpVyCP; // relacion de centro poblado y vereda con municipio
+    private static Hashtable<Integer, String> vycp_codigo; //codigo de cada vereda con centro poblado
     private static ArrayList<ArrayList<String>> registry; //21, 22, 97, 99 each 4 its a different registry
     private static FileInputStream file;
     private static XSSFWorkbook workbook;
@@ -80,8 +80,8 @@ public class StandarappNVyCP {
         nameExcel3 = "C:\\Users\\Niki\\Downloads\\municipio de cada casco urbano.xls";
         registry = new ArrayList<>();
         dptoMncp = new Hashtable<String, ArrayList<String>>();
-        mncpVyCP = new Hashtable<String, ArrayList<String>>();
-        vycp_codigo = new Hashtable<String, Integer>();
+        mncpVyCP = new Hashtable<String, Hashtable<String, Integer>>();
+        vycp_codigo = new Hashtable<Integer, String>();
 
         //Reading the file which contains registries
         //Lectura del archivo xls de registros
@@ -230,17 +230,18 @@ public class StandarappNVyCP {
                 //Add vycp if municipio doesnt contained it
                 //Añade vycp si no se encuentra ubicado en el municipio
                 if (!mncpVyCP.containsKey(municipio)) {
-                    ArrayList<String> primerGeoEnMunicipio = new ArrayList<>();
-                    primerGeoEnMunicipio.add(vycp);
+                    Hashtable<String, Integer> primerGeoEnMunicipio = new Hashtable<String, Integer>();
+                    primerGeoEnMunicipio.put(vycp, codigo);
                     mncpVyCP.put(municipio, primerGeoEnMunicipio);
-                } else if (!mncpVyCP.get(municipio).contains(vycp)) {
-                    mncpVyCP.get(municipio).add(vycp);
                 }
-
                 //Add vycp_codigo if it isn't exist
                 //Añade el municipio y su codigo si aun no se ha agregado
-                if (!vycp_codigo.containsKey(vycp)) {
-                    vycp_codigo.put(vycp, codigo);
+                else if (!mncpVyCP.get(municipio).containsKey(vycp)) {
+                    mncpVyCP.get(municipio).put(vycp, codigo);
+                }
+                
+                if (!vycp_codigo.containsKey(codigo)) {
+                    vycp_codigo.put(codigo, vycp);
                 }
                 //System.out.println();
             }
@@ -286,7 +287,81 @@ public class StandarappNVyCP {
         //Get first/desired sheet from the workbook
         hsheet = hworkbook.getSheetAt(0);
         int centroPobladoCodigo = 0;
+//Iteración de cada una de las filas y celdas del archivo cargado
+        //Iterate through each rows one by one
+        
+        for (Row row : hsheet) {
+            //Auxiliar variables which contains important information of each row
+            //Variables auxiliares donde se almacena temporalmente la información de cada fila
+            centroPobladoCodigo +=1;
+            String departamento = "";
+            String municipio = "";
+            String vycp = "";
 
+            /**
+             * If Sentence where specifies that: First row doesnt have
+             * information Fourth row is different to zero
+             *
+             * Sentencia condicional donde especifica que haga analice la fila
+             * solo si: La fila no es la primera del archivo .xlsx (Es decir el
+             * titulo de cada columna La celda numero 4 es diferente de cero
+             */
+            if (row.getRowNum() != 0) {
+                for (Cell cell : row) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            if (cell.getColumnIndex() == 2) {
+                                departamento = cell.getStringCellValue();
+                            }
+                            if (cell.getColumnIndex() == 3) {
+                                municipio = cell.getStringCellValue();
+                            }
+                            if (cell.getColumnIndex() == 0) {
+                                vycp = cell.getStringCellValue();
+                            }
+                            //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
+                            break;
+                    }
+                }
+
+                departamento = fixWords(departamento);
+                municipio = fixWords(municipio);
+                vycp = fixWords(vycp);
+
+                //Add departamento if it isn't exist
+                //Añade deparmenteo a la tabla hash si no existe
+                //Add municipio if departamento doesnt contained it
+                //Añade municipio si no se encuentra ubicado en el deparamento
+                if (!dptoMncp.containsKey(departamento)) {
+                    ArrayList<String> primerMunicipio = new ArrayList<>();
+                    primerMunicipio.add(municipio);
+                    dptoMncp.put(departamento, primerMunicipio);
+                } else if (!dptoMncp.get(departamento).contains(municipio)) {
+                    dptoMncp.get(departamento).add(municipio);
+                }
+
+                //Add municipio if it isn't exist
+                //Añade municipio a la tabla hash si no existe
+                //Add vycp if municipio doesnt contained it
+                //Añade vycp si no se encuentra ubicado en el municipio
+                if (!mncpVyCP.containsKey(municipio)) {
+                    Hashtable<String, Integer> primerGeoEnMunicipio = new Hashtable<>();
+                    primerGeoEnMunicipio.put(vycp, centroPobladoCodigo);
+                    mncpVyCP.put(municipio, primerGeoEnMunicipio);
+                }
+                //Add vycp_codigo if it isn't exist
+                //Añade el municipio y su codigo si aun no se ha agregado
+                else if (!mncpVyCP.get(municipio).containsKey(vycp)) {
+                    mncpVyCP.get(municipio).put(vycp, centroPobladoCodigo);
+                }
+                
+                if (!vycp_codigo.containsKey(centroPobladoCodigo)) {
+                    vycp_codigo.put(centroPobladoCodigo, vycp);
+                }
+                //System.out.println();
+            }
+        }
+        
         
         //Iteración de cada una de las filas y celdas del archivo cargado
         //Iterate through each rows one by one
@@ -299,17 +374,18 @@ public class StandarappNVyCP {
         //Levenstein distance applied to two random words
         String s1 = "Test";
         String s2 = "Testo";
-        int lvd = FuzzySearch.tokenSetRatio(s1, s2);
+        
+        int lvd = FuzzySearch.partialRatio(s1, s2);
         System.out.println("Levenstein: " + lvd);
 
         for (int i = 1; i < 10; i++) {
             String mncpWithBestLevenstein = "";
             int mncpMajorLev = 0;
             ArrayList<String> registro = registry.get(i);
-            //Municipio search
-            //Busqueda del municipio
+            //Departamento search
+            //Busqueda del Departamento
             System.out.println("**********************");
-            //System.out.println(" **** Comparación MUNICIPIO con Ratio ****");
+            //System.out.println(" **** Comparación Departamento con Ratio ****");
             for (String key : dptoMncp.keySet()) {
                 int levMncp = FuzzySearch.ratio(registro.get(4), key);
                 if (levMncp > mncpMajorLev) {
@@ -320,8 +396,8 @@ public class StandarappNVyCP {
             }
             System.out.println("Mayor levenstein de " + registro.get(4) + " es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
 
-            //Departamento search
-            //Busqueda del departamento
+            //Municipio search
+            //Busqueda del Municipio
             String dptoWithBestLevenstein = "";
             int dptoMajorLevenstein = 0;
             //System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
@@ -335,12 +411,12 @@ public class StandarappNVyCP {
             }
             System.out.println("Mayor levenstein de " + registro.get(3) + " es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
 
-            //Municipio search
-            //Busqueda del municipio
+            //Vereda y centro poblado search
+            //Busqueda del Vereda y centro poblado
             String vycpWithTheBestLev = "";
             int vycpMajorLevenstein = 0;
-            //System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
-            for (String value : mncpVyCP.get(dptoWithBestLevenstein)) {
+            //System.out.println(" **** Comparación Vereda y Centro Poblado con Ratio ****");
+            for (String value : mncpVyCP.get(dptoWithBestLevenstein).keySet()) {
                 int levVyCP = FuzzySearch.ratio(registro.get(2), value);
                 if (levVyCP > vycpMajorLevenstein) {
                     vycpWithTheBestLev = value;
@@ -363,7 +439,7 @@ public class StandarappNVyCP {
                 }
             }
             System.out.println("Mayor levenstein de " + registro.get(2) + " o " + registro.get(1) + " o " + registro.get(0) + " es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
-            System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + vycp_codigo.get(vycpWithTheBestLev));
+            System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + mncpVyCP.get(dptoWithBestLevenstein).get(vycpWithTheBestLev));
 
         }
         
