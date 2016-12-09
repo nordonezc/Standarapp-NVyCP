@@ -14,6 +14,8 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -53,7 +55,7 @@ public class StandarappNVyCP {
      * excel almacenado en file sheet: Almacena cada una de las hojas que
      * existen en el workbook
      */
-    private static String nameExcel1, nameExcel2;
+    private static String nameExcel1, nameExcel2, nameExcel3;
     private static Hashtable<String, ArrayList<String>> dptoMncp; // relacion de departamento con municipio
     private static Hashtable<String, ArrayList<String>> mncpVyCP; // relacion de centro poblado y vereda con municipio
     private static Hashtable<String, Integer> vycp_codigo; //codigo de cada vereda con centro poblado
@@ -61,6 +63,8 @@ public class StandarappNVyCP {
     private static FileInputStream file;
     private static XSSFWorkbook workbook;
     private static XSSFSheet sheet;
+    private static HSSFWorkbook hworkbook;
+    private static HSSFSheet hsheet;
 
     /**
      * @param args the command line arguments
@@ -73,6 +77,7 @@ public class StandarappNVyCP {
         //Nombre de los archivos de excel, inicializar variables
         nameExcel1 = "C:\\Users\\Niki\\Downloads\\VyCPcorregido.xlsx";
         nameExcel2 = "C:\\Users\\Niki\\Downloads\\LEISHMANIASI.xlsx";
+        nameExcel3 = "C:\\Users\\Niki\\Downloads\\municipio de cada casco urbano.xls";
         registry = new ArrayList<>();
         dptoMncp = new Hashtable<String, ArrayList<String>>();
         mncpVyCP = new Hashtable<String, ArrayList<String>>();
@@ -249,6 +254,9 @@ public class StandarappNVyCP {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        /*
+        Muestra todos los departamentos en la base de datos
+        Shows the departamentos and municipios located in the database
         System.out.println("Cantidad de registros: " + registry.size());
         for (String key : dptoMncp.keySet()) {
             System.out.println("Departamento: " + key);
@@ -256,6 +264,33 @@ public class StandarappNVyCP {
         for (String key : mncpVyCP.keySet()) {
             System.out.println("Municipio: " + key);
         }
+         */
+
+        //Reading the file which contains registries
+        //Lectura del archivo xls de registros
+        try {
+            file = new FileInputStream(new File(nameExcel3));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Create Workbook instance holding reference to .xlsx file
+        //Creando una instancia haciendo referencia al archivo xls ubicado en file
+        try {
+            hworkbook = new HSSFWorkbook(file);
+        } catch (IOException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Obtiene la primera oja del archivo de excel.
+        //Get first/desired sheet from the workbook
+        hsheet = hworkbook.getSheetAt(0);
+        int centroPobladoCodigo = 0;
+
+        
+        //Iteración de cada una de las filas y celdas del archivo cargado
+        //Iterate through each rows one by one
+       
 
         System.out.println("Numero de municipios: " + mncpVyCP.size());
         System.out.println("Numero de departamentos: " + dptoMncp.size());
@@ -267,69 +302,79 @@ public class StandarappNVyCP {
         int lvd = FuzzySearch.tokenSetRatio(s1, s2);
         System.out.println("Levenstein: " + lvd);
 
+        for (int i = 1; i < 10; i++) {
+            String mncpWithBestLevenstein = "";
+            int mncpMajorLev = 0;
+            ArrayList<String> registro = registry.get(i);
+            //Municipio search
+            //Busqueda del municipio
+            System.out.println("**********************");
+            //System.out.println(" **** Comparación MUNICIPIO con Ratio ****");
+            for (String key : dptoMncp.keySet()) {
+                int levMncp = FuzzySearch.ratio(registro.get(4), key);
+                if (levMncp > mncpMajorLev) {
+                    mncpWithBestLevenstein = key;
+                    mncpMajorLev = levMncp;
+                }
+                //System.out.println("Comparación entre " + registro.get(4) + " y " + key + " presenta levenstein: " + levMncp);
+            }
+            System.out.println("Mayor levenstein de " + registro.get(4) + " es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
+
+            //Departamento search
+            //Busqueda del departamento
+            String dptoWithBestLevenstein = "";
+            int dptoMajorLevenstein = 0;
+            //System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
+            for (String value : dptoMncp.get(mncpWithBestLevenstein)) {
+                int levDpto = FuzzySearch.ratio(registro.get(3), value);
+                if (levDpto > dptoMajorLevenstein) {
+                    dptoWithBestLevenstein = value;
+                    dptoMajorLevenstein = levDpto;
+                    //System.out.println("Comparación entre " + registro.get(3) + " y " + value + " presenta levenstein: " + levDpto);
+                }
+            }
+            System.out.println("Mayor levenstein de " + registro.get(3) + " es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
+
+            //Municipio search
+            //Busqueda del municipio
+            String vycpWithTheBestLev = "";
+            int vycpMajorLevenstein = 0;
+            //System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
+            for (String value : mncpVyCP.get(dptoWithBestLevenstein)) {
+                int levVyCP = FuzzySearch.ratio(registro.get(2), value);
+                if (levVyCP > vycpMajorLevenstein) {
+                    vycpWithTheBestLev = value;
+                    vycpMajorLevenstein = levVyCP;
+                    //System.out.println("Comparación entre " + registro.get(2) + " y " + value + " presenta levenstein: " + levVyCP);
+                }
+
+                levVyCP = FuzzySearch.ratio(registro.get(1), value);
+                if (levVyCP > vycpMajorLevenstein) {
+                    vycpWithTheBestLev = value;
+                    vycpMajorLevenstein = levVyCP;
+                    //System.out.println("Comparación entre " + registro.get(1) + " y " + value + " presenta levenstein: " + levVyCP);
+                }
+
+                levVyCP = FuzzySearch.ratio(registro.get(0), value);
+                if (levVyCP > vycpMajorLevenstein) {
+                    vycpWithTheBestLev = value;
+                    vycpMajorLevenstein = levVyCP;
+                    //System.out.println("Comparación entre " + registro.get(0) + " y " + value + " presenta levenstein: " + levVyCP);
+                }
+            }
+            System.out.println("Mayor levenstein de " + registro.get(2) + " o " + registro.get(1) + " o " + registro.get(0) + " es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
+            System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + vycp_codigo.get(vycpWithTheBestLev));
+
+        }
         
-
-        //for(int i=1; i<registry.size();i++){
-        String mncpWithBestLevenstein = "";
-        int mncpMajorLev = 0;
-        ArrayList<String> registro = registry.get(1);
-        //Municipio search
-        //Busqueda del municipio
-        System.out.println(" **** Comparación MUNICIPIO con Ratio ****");
-        for (String key : dptoMncp.keySet()) {
-            int levMncp = FuzzySearch.ratio(registro.get(4), key);
-            if (levMncp > mncpMajorLev) {
-                mncpWithBestLevenstein = key;
-                mncpMajorLev = levMncp;
-            }
-            System.out.println("Comparación entre " + registro.get(4) + " y " + key + " presenta levenstein: " + levMncp);
+        //Se cierra el archivo leido.
+        //Close file readed
+        try {
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Mayor levenstein es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
 
-        //Departamento search
-        //Busqueda del departamento
-        String dptoWithBestLevenstein = "";
-        int dptoMajorLevenstein = 0;
-        System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
-        for(String value: dptoMncp.get(mncpWithBestLevenstein)){
-            int levDpto = FuzzySearch.ratio(registro.get(3), value);
-            if(levDpto > dptoMajorLevenstein){
-                dptoWithBestLevenstein = value;
-                dptoMajorLevenstein = levDpto;
-                System.out.println("Comparación entre " + registro.get(3) + " y " + value + " presenta levenstein: " + levDpto);
-            }
-        }
-        System.out.println("Mayor levenstein es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
-
-        //Departamento search
-        //Busqueda del departamento
-        String vycpWithTheBestLev = "";
-        int vycpMajorLevenstein = 0;
-        System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
-        for(String value: mncpVyCP.get(dptoWithBestLevenstein)){
-            int levVyCP = FuzzySearch.ratio(registro.get(2), value);
-            if(levVyCP > vycpMajorLevenstein){
-                vycpWithTheBestLev = value;
-                vycpMajorLevenstein = levVyCP;
-                System.out.println("Comparación entre " + registro.get(2) + " y " + value + " presenta levenstein: " + levVyCP);
-            }
-            
-            levVyCP = FuzzySearch.ratio(registro.get(1), value);
-            if(levVyCP > vycpMajorLevenstein){
-                vycpWithTheBestLev = value;
-                vycpMajorLevenstein = levVyCP;
-                System.out.println("Comparación entre " + registro.get(1) + " y " + value + " presenta levenstein: " + levVyCP);
-            }
-            
-            levVyCP = FuzzySearch.ratio(registro.get(0), value);
-            if(levVyCP > vycpMajorLevenstein){
-                vycpWithTheBestLev = value;
-                vycpMajorLevenstein = levVyCP;
-                System.out.println("Comparación entre " + registro.get(0) + " y " + value + " presenta levenstein: " + levVyCP);
-            }
-        }
-        System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
-        System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + vycp_codigo.get(vycpWithTheBestLev));
     }
 
     /**
