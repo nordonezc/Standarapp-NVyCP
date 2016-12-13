@@ -61,7 +61,7 @@ public class StandarappNVyCP {
     private static Hashtable<String, String> dptoMncp;
     private static Hashtable<String, Hashtable<String, Integer>> mncpVyCP; // relacion de centro poblado y vereda con municipio
     private static Hashtable<Integer, String> vycp_codigo; //codigo de cada vereda con centro poblado
-    private static ArrayList<ArrayList<String>> registry; //21, 22, 97, 99 each 4 its a different registry
+    private static ArrayList<String[]> registry; //21, 22, 97, 99 each 4 its a different registry
     private static FileInputStream file;
     private static XSSFWorkbook workbook;
     private static XSSFSheet sheet;
@@ -81,7 +81,7 @@ public class StandarappNVyCP {
         nameExcel1 = "C:\\Users\\Niki\\Downloads\\VyCPcorregido.xlsx";
         nameExcel2 = "C:\\Users\\Niki\\Downloads\\LEISHMANIASI.xlsx";
         nameExcel3 = "C:\\Users\\Niki\\Downloads\\municipio de cada casco urbano.xls";
-        registry = new ArrayList<>();
+        registry = new ArrayList<String[]>();
         repeated = 0;
         listOfStandarNames = new Hashtable<String, Hashtable<String, Hashtable<String, Integer>>>();
         dptoMncp = new Hashtable<>();
@@ -113,18 +113,53 @@ public class StandarappNVyCP {
         for (Row row : sheet) {
             //cellsWI = cells with important information
             //celdas donde esta la información que se compara con levenstein
-            ArrayList<String> cellsWI = new ArrayList<>();
+            String[] cellsWI = new String[5];
+            for(int i=0; i< cellsWI.length; i++){
+                cellsWI[i] = "";
+            }
             for (Cell cell : row) {
                 switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_STRING:
                         //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
                         if (!cell.getStringCellValue().contains("1") && !cell.getStringCellValue().contains("2") && !cell.getStringCellValue().contains("0") && !cell.getStringCellValue().contains("3") && !cell.getStringCellValue().contains("4") && !cell.getStringCellValue().contains("5") && !cell.getStringCellValue().contains("6") && !cell.getStringCellValue().contains("7") && !cell.getStringCellValue().contains("8") && !cell.getStringCellValue().contains("9")) {
-                            if (cell.getColumnIndex() == 20 || cell.getColumnIndex() == 21 || cell.getColumnIndex() == 22 || cell.getColumnIndex() == 97 || cell.getColumnIndex() == 99) {
+                            if (cell.getColumnIndex() == 20){
                                 String info = cell.getStringCellValue().toUpperCase();
 
                                 //Eliminacion de palabras sobrantes y tildes
                                 info = fixWords(info);
-                                cellsWI.add(info);
+                                cellsWI[0] = info;
+                                //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
+                            }
+                            if (cell.getColumnIndex() == 21){
+                                String info = cell.getStringCellValue().toUpperCase();
+
+                                //Eliminacion de palabras sobrantes y tildes
+                                info = fixWords(info);
+                                cellsWI[1] = info;
+                                //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
+                            }
+                            if (cell.getColumnIndex() == 22){
+                                String info = cell.getStringCellValue().toUpperCase();
+
+                                //Eliminacion de palabras sobrantes y tildes
+                                info = fixWords(info);
+                                cellsWI[2] = info;
+                                //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
+                            }
+                            if (cell.getColumnIndex() == 97){
+                                String info = cell.getStringCellValue().toUpperCase();
+
+                                //Eliminacion de palabras sobrantes y tildes
+                                info = fixWords(info);
+                                cellsWI[3] = info;
+                                //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
+                            }
+                            if (cell.getColumnIndex() == 99) {
+                                String info = cell.getStringCellValue().toUpperCase();
+
+                                //Eliminacion de palabras sobrantes y tildes
+                                info = fixWords(info);
+                                cellsWI[4] = info;
                                 //System.out.print(cell.getColumnIndex() + ":" + info + "\t\t");
                             }
                         }
@@ -133,9 +168,7 @@ public class StandarappNVyCP {
             }
             //System.out.println("");
             //Se añade a la lista de registros leidos correctamente.
-            if (!cellsWI.isEmpty()) {
-                registry.add(cellsWI);
-            }
+            registry.add(cellsWI);
         }
 
         //Se cierra el archivo leido.
@@ -379,8 +412,8 @@ public class StandarappNVyCP {
          * municipios Copiar en un excel todas las localidades con codigos en
          * departamentos y municipios
          */
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("StandarCodes");
+        workbook = new XSSFWorkbook();
+        sheet = workbook.createSheet("StandarCodes");
 
         int rowCount = 0;
         int columnCount = 0;
@@ -422,23 +455,74 @@ public class StandarappNVyCP {
         int lvd = FuzzySearch.partialRatio(s1, s2);
         System.out.println("Levenstein: " + lvd);
 
+        /**
+         * Write all localidades with codes, with his departamentos and
+         * municipios Copiar en un excel todas las localidades con codigos en
+         * departamentos y municipios
+         */
+        workbook = new XSSFWorkbook();
+        sheet = workbook.createSheet("StandarCodes");
+
+        rowCount = 0;
+        columnCount = 0;
+        row = sheet.createRow(rowCount);
+        cell = row.createCell(columnCount);
+        cell.setCellValue("Municipio Entrada");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Departamento Entrada");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad Entrada 1");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad Entrada 2");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad Entrada 3");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Municipio Estandarizado");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Departamento Estandarizado");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad Estandarizado");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Codigo Estandarizado");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Mayor Levenstein Localidad");
+        
         for (int i = 1; i < 10; i++) {
             String mncpWithBestLevenstein = "";
             int mncpMajorLev = 0;
-            ArrayList<String> registro = registry.get(i);
+            String[] registro = registry.get(i);
+            
+            //Create new row
+            //Crea una nueva fila
+            row = sheet.createRow(++rowCount);
+            columnCount = 0;
+            cell = row.createCell(columnCount);
+            cell.setCellValue(registro[4]);
+            cell = row.createCell(++columnCount);
+            cell.setCellValue(registro[3]);
+            cell = row.createCell(++columnCount);
+            cell.setCellValue(registro[2]);
+            cell = row.createCell(++columnCount);
+            cell.setCellValue(registro[1]);
+            cell = row.createCell(++columnCount);
+            cell.setCellValue(registro[0]);
+            
+            
             //Departamento search
             //Busqueda del Departamento
-            System.out.println("**********************");
+            //System.out.println("**********************");
             //System.out.println(" **** Comparación Departamento con Ratio ****");
             for (String key : listOfStandarNames.keySet()) {
-                int levMncp = FuzzySearch.ratio(registro.get(4), key);
+                int levMncp = FuzzySearch.ratio(registro[4], key);
                 if (levMncp > mncpMajorLev) {
                     mncpWithBestLevenstein = key;
                     mncpMajorLev = levMncp;
                 }
                 //System.out.println("Comparación entre " + registro.get(4) + " y " + key + " presenta levenstein: " + levMncp);
             }
-            System.out.println("Mayor levenstein de " + registro.get(4) + " es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
+            cell = row.createCell(++columnCount);
+            cell.setCellValue(mncpWithBestLevenstein);
+            //System.out.println("Mayor levenstein de " + registro.get(4) + " es: " + mncpWithBestLevenstein + " con una distancia de: " + mncpMajorLev);
 
             //Municipio search
             //Busqueda del Municipio
@@ -446,14 +530,19 @@ public class StandarappNVyCP {
             int dptoMajorLevenstein = 0;
             //System.out.println(" **** Comparación DEPARTAMENTO con Ratio ****");
             for (String value : listOfStandarNames.get(mncpWithBestLevenstein).keySet()) {
-                int levDpto = FuzzySearch.ratio(registro.get(3), value);
+                int levDpto = FuzzySearch.ratio(registro[3], value);
                 if (levDpto > dptoMajorLevenstein) {
                     dptoWithBestLevenstein = value;
                     dptoMajorLevenstein = levDpto;
                     //System.out.println("Comparación entre " + registro.get(3) + " y " + value + " presenta levenstein: " + levDpto);
                 }
             }
-            System.out.println("Mayor levenstein de " + registro.get(3) + " es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
+            
+            cell = row.createCell(++columnCount);
+            if(dptoMajorLevenstein >= 50){
+            cell.setCellValue(mncpWithBestLevenstein);
+            
+            //System.out.println("Mayor levenstein de " + registro.get(3) + " es: " + dptoWithBestLevenstein + " con una distancia de: " + dptoMajorLevenstein);
 
             //Vereda y centro poblado search
             //Busqueda del Vereda y centro poblado
@@ -461,30 +550,50 @@ public class StandarappNVyCP {
             int vycpMajorLevenstein = 0;
             //System.out.println(" **** Comparación Vereda y Centro Poblado con Ratio ****");
             for (String value : listOfStandarNames.get(mncpWithBestLevenstein).get(dptoWithBestLevenstein).keySet()) {
-                int levVyCP = FuzzySearch.ratio(registro.get(2), value);
+                int levVyCP = FuzzySearch.ratio(registro[2], value);
                 if (levVyCP > vycpMajorLevenstein) {
                     vycpWithTheBestLev = value;
                     vycpMajorLevenstein = levVyCP;
                     //System.out.println("Comparación entre " + registro.get(2) + " y " + value + " presenta levenstein: " + levVyCP);
                 }
 
-                levVyCP = FuzzySearch.ratio(registro.get(1), value);
+                levVyCP = FuzzySearch.ratio(registro[1], value);
                 if (levVyCP > vycpMajorLevenstein) {
                     vycpWithTheBestLev = value;
                     vycpMajorLevenstein = levVyCP;
                     //System.out.println("Comparación entre " + registro.get(1) + " y " + value + " presenta levenstein: " + levVyCP);
                 }
 
-                levVyCP = FuzzySearch.ratio(registro.get(0), value);
+                levVyCP = FuzzySearch.ratio(registro[0], value);
                 if (levVyCP > vycpMajorLevenstein) {
                     vycpWithTheBestLev = value;
                     vycpMajorLevenstein = levVyCP;
                     //System.out.println("Comparación entre " + registro.get(0) + " y " + value + " presenta levenstein: " + levVyCP);
                 }
             }
-            System.out.println("Mayor levenstein de " + registro.get(2) + " o " + registro.get(1) + " o " + registro.get(0) + " es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
-            System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + listOfStandarNames.get(mncpWithBestLevenstein).get(dptoWithBestLevenstein).get(vycpWithTheBestLev));
+            
+            cell = row.createCell(++columnCount);
+            if(vycpMajorLevenstein >= 80){
+                cell.setCellValue(vycpWithTheBestLev);
+            }
+            else{
+                cell.setCellValue("Indeterminado");
+            }
+            
+            cell = row.createCell(++columnCount);
+            cell.setCellValue("Localidad: " + vycpWithTheBestLev);
+            //System.out.println("Mayor levenstein de " + registro.get(2) + " o " + registro.get(1) + " o " + registro.get(0) + " es: " + vycpWithTheBestLev + " con una distancia de: " + vycpMajorLevenstein);
+            //System.out.println("Mayor levenstein es: " + vycpWithTheBestLev + " y su codigo es: " + listOfStandarNames.get(mncpWithBestLevenstein).get(dptoWithBestLevenstein).get(vycpWithTheBestLev));
 
+            }
+            else{
+                cell.setCellValue("Indeterminado");
+                cell = row.createCell(++columnCount);
+                cell.setCellValue("");
+                cell = row.createCell(++columnCount);
+            cell.setCellValue("Municipio: "+ mncpWithBestLevenstein);
+            }
+            
         }
 
         //Se cierra el archivo leido.
@@ -493,6 +602,10 @@ public class StandarappNVyCP {
             file.close();
         } catch (IOException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try (FileOutputStream outputStream = new FileOutputStream("standarizedRegistries.xlsx")) {
+            workbook.write(outputStream);
         }
 
     }
