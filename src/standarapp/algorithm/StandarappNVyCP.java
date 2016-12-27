@@ -92,7 +92,7 @@ public class StandarappNVyCP {
 
         //Reading the file which contains registries
         //Lectura del archivo xls de registros
-        workbook = xlsLecture(nameExcel);
+        workbook = lectureXLSX(nameExcel);
 
         //Obtiene la primera oja del archivo de excel.
         //Get first/desired sheet from the workbook
@@ -664,7 +664,7 @@ public class StandarappNVyCP {
         return info;
     }
 
-    private static XSSFWorkbook xlsLecture(String nameFile) {
+    private static XSSFWorkbook lectureXLSX(String nameFile) {
         XSSFWorkbook excelFile = new XSSFWorkbook();
         //Reading the file which contains registries
         //Lectura del archivo xls de registros
@@ -680,7 +680,7 @@ public class StandarappNVyCP {
         return excelFile;
     }
 
-    private static HSSFWorkbook xlsxLecture(String nameFile) {
+    private static HSSFWorkbook lectureXLS(String nameFile) {
         
         HSSFWorkbook excelFile = new HSSFWorkbook();
         //Reading the file which contains registries
@@ -712,7 +712,7 @@ public class StandarappNVyCP {
         boolean answer = false;
 
         if (typeOfFile == false) {
-            XSSFWorkbook xworkbook = xlsLecture(nameFile);
+            XSSFWorkbook xworkbook = lectureXLSX(nameFile);
             XSSFSheet xsheet = xworkbook.getSheetAt(0);
             xsheet.createRow(row);
             xsheet.getRow(row).createCell(col).setCellValue(cell);
@@ -727,7 +727,7 @@ public class StandarappNVyCP {
             }
             
         } else {
-            HSSFWorkbook hwb = xlsxLecture(nameFile);
+            HSSFWorkbook hwb = lectureXLS(nameFile);
             HSSFSheet hs = hwb.getSheetAt(0);
             hs.createRow(row);
             hs.getRow(row).createCell(col).setCellValue(cell);
