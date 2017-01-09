@@ -32,7 +32,7 @@ public class CodeAssign {
         //Logica de la aplicacion
         listOfStandarNames = new Hashtable<String, Hashtable<String, Hashtable<String, Integer>>>();
 
-        String nameExcel = "C:\\Users\\Niki\\Downloads\\Localidades.xlsx";
+        String nameExcel = "C:\\Users\\Niki\\Downloads\\pruebaCorregido.xlsx";
         XSSFWorkbook xwb = lectureXLSX(nameExcel);
         XSSFSheet xsheet = xwb.getSheetAt(0);
         int repeated = 0;

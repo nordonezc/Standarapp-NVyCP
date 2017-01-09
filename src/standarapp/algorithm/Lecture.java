@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
@@ -37,7 +38,7 @@ public abstract class Lecture {
     
     public static void fixFile(String nameFile, int col[], boolean option){
         if(option == true)
-            fixXLSX(nameFile, nameFile, "fixed Sheet", col);
+            fixXLSXwithoutChangeName(nameFile, nameFile, col);
         else
             fixXLS(nameFile, nameFile, "fixed Sheet", col);
     }
@@ -52,7 +53,7 @@ public abstract class Lecture {
     
     public static void fixFile(String nameFile, String nameFileExit, int col[], boolean option){
         if(option == true)
-            fixXLSX(nameFile, nameFileExit, "fixed Sheet", col);
+            fixXLSXwithoutChangeName(nameFile, nameFileExit, col);
         else
             fixXLS(nameFile, nameFile, "fixed Sheet", col);
     }
@@ -91,20 +92,24 @@ public abstract class Lecture {
         for (Row row : xsheet) {
             xsheet_WRITE.createRow(row.getRowNum());
             for (Cell cell : row) {
+                //System.out.println("");
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
+                            //System.out.print(cell + "\t\t");
                             String contenido = cell.getStringCellValue();
                             if (columnas.length==0 ||containsInColumns(columnas, cell.getColumnIndex()))
                                 contenido = fixWords(contenido);
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido);
                             break;
                         case Cell.CELL_TYPE_NUMERIC:
+                            //System.out.print(cell + "\t\t");
                             double contenido_Numerico = cell.getNumericCellValue();
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido_Numerico);
                             break;
-                        default:
+                        /*default:
+                            System.err.print(cell + "\t\t");
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCTCell((CTCell) cell);
-                            break;   
+                            break;*/
                     }
             }
         }
@@ -121,22 +126,143 @@ public abstract class Lecture {
         }
     }
     
+    private static void cloneCell( Cell cNew, Cell cOld ){
+        cNew.setCellComment( cOld.getCellComment() );
+        cNew.setCellStyle( cOld.getCellStyle() );
+
+        switch ( cNew.getCellType() ){
+            case Cell.CELL_TYPE_BOOLEAN:{
+                cNew.setCellValue( cOld.getBooleanCellValue() );
+                break;
+            }
+            case Cell.CELL_TYPE_NUMERIC:{
+                cNew.setCellValue( cOld.getNumericCellValue() );
+                break;
+            }
+            case Cell.CELL_TYPE_STRING:{
+                cNew.setCellValue( cOld.getStringCellValue() );
+                break;
+            }
+            case Cell.CELL_TYPE_ERROR:{
+                cNew.setCellValue( cOld.getErrorCellValue() );
+                break;
+            }
+            case Cell.CELL_TYPE_FORMULA:{
+                cNew.setCellFormula( cOld.getCellFormula() );
+                break;
+            }
+        }
+
+    }
+    
+    public static void deleteColumn( Sheet sheet, int columnToDelete ){
+        int maxColumn = 0;
+        for ( int r=0; r < sheet.getLastRowNum()+1; r++ ){
+            Row row = sheet.getRow( r );
+
+            // if no row exists here; then nothing to do; next!
+            if ( row == null )
+                continue;
+
+            // if the row doesn't have this many columns then we are good; next!
+            int lastColumn = row.getLastCellNum();
+            if ( lastColumn > maxColumn )
+                maxColumn = lastColumn;
+
+            if ( lastColumn < columnToDelete )
+                continue;
+
+            for ( int x=columnToDelete+1; x < lastColumn + 1; x++ ){
+                Cell oldCell    = row.getCell(x-1);
+                if ( oldCell != null )
+                    row.removeCell( oldCell );
+
+                Cell nextCell   = row.getCell( x );
+                if ( nextCell != null ){
+                    Cell newCell    = row.createCell( x-1, nextCell.getCellType() );
+                    cloneCell(newCell, nextCell);
+                }
+            }
+        }
+
+
+        // Adjust the column widths
+        for ( int c=columnToDelete; c < maxColumn; c++ ){
+            sheet.setColumnWidth( c, sheet.getColumnWidth(c+1) );
+        }
+    }
+    
+    private static void fixXLSXwithoutChangeName(String nameIn, String nameOut, int columnas[]){
+        XSSFWorkbook xwb = lectureXLSX(nameIn);
+        XSSFSheet xsheet = xwb.getSheetAt(0);
+        String temporal;
+        
+        for (Row row : xsheet) {
+            temporal = "";
+            //xsheet.createRow(row.getRowNum());
+            for (Cell cell : row) {
+                //System.out.println("");
+                if (columnas.length==0 ||containsInColumns(columnas, cell.getColumnIndex())){
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            //System.out.print(cell + "\t\t");
+                            String contenido = cell.getStringCellValue();
+                            /*if(cell.getColumnIndex()==1)
+                                temporal = contenido;*/
+                            
+                            if(!cell.getStringCellValue().equals("")){
+                                contenido = fixWords(contenido);
+                                xsheet.getRow(row.getRowNum()).getCell(cell.getColumnIndex()).setCellValue(contenido);
+                            }
+                            else{
+                                xsheet.getRow(row.getRowNum()).getCell(cell.getColumnIndex()).setCellValue("");
+                            }
+                            break;
+                        /*case Cell.CELL_TYPE_NUMERIC:
+                            //System.out.print(cell + "\t\t");
+                            double contenido_Numerico = cell.getNumericCellValue();
+                            xsheet.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido_Numerico);
+                            break;
+                        default:
+                            System.err.print(cell + "\t\t");
+                            xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCTCell((CTCell) cell);
+                            break;*/
+                    }
+                }
+            }
+            
+            /*
+            if(!temporal.equals("") && row.getRowNum()>0){
+                temporal = fixWords(temporal);
+                xsheet.getRow(row.getRowNum()).getCell(7).setCellValue(temporal);
+            }*/
+            
+        }
+        
+        try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
+            xwb.write(outputStream);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         //Logica de la aplicacion
-        fixFile("C:\\Users\\Niki\\Downloads\\FINAL.xlsx", "C:\\Users\\Niki\\Downloads\\FINALAHORASI.xlsx", true);
+        int col[] = {1,2,3,4,5,6,7};
+        fixFile("C:\\Users\\Niki\\Downloads\\prueba.xlsx", "C:\\Users\\Niki\\Downloads\\pruebaCorregido.xlsx", col, true);
     }
 
     private static boolean containsInColumns(int columnas[], int num) {
         boolean answer = false;
-
         for (int i = 0; i < columnas.length; i++) {
             if (columnas[i] == num) {
                 answer = true;
                 break;
             }
         }
-
         return answer;
     }
 
@@ -214,12 +340,13 @@ public abstract class Lecture {
 
     public static String fixWords(String message) {
         String info = message;
-        //Caracteres especiales
+        /*Caracteres especiales
         info = info.replace(",", "");
         info = info.replace("-", "");
         info = info.replace("\"", "");
         info = info.replace("\n", "");
         info = info.replace("'", "");
+        */
 
         //Cambios caracteres especiales en veredas
         info = info.replace("├â┬ü", "A");
@@ -227,18 +354,31 @@ public abstract class Lecture {
         info = info.replace("├â┬ì", "I");
         info = info.replace("├âÔÇ£", "O");
         info = info.replace("├â┼í", "U");
-
+        info = info.replace("├Â┼Ô", "U");
+        
+        info = info.replace("├âÔÇÿ", "N");
+        
+        /* U CON DIERESIS
+        info = info.replace("ÃƒÅ“", "U");
+        
+        Cambio caracteres csv lectura_ok
+        info = info.replace("Ãƒâ€˜", "N");
+        info = info.replace("ÃƒÂ", "A");
+        info = info.replace("Ãƒâ€°", "E");
+        info = info.replace("ÃƒÂ", "I");
+        info = info.replace("Ãƒâ€œ", "O");
+        */
+        
         info = info.replace("├Ü", "A");
         info = info.replace("├Ô", "O");
 
         info = info.replace("├Æ", "N");
-        info = info.replace("├âÔÇÿ", "N");
 
         //Errores en centros poblados
         info = info.replace("ßÜ", "A");
         info = info.replace("ßü", "a");
         //Solo para antes de pasar centros poblados
-        //info = info.replace("Ú", "e");
+        info = info.replace("Ú", "e");
         info = info.replace("Ý", "i");
         info = info.replace("¾", "o");
         info = info.replace("š", "u");
@@ -265,6 +405,7 @@ public abstract class Lecture {
         info = info.replace("Í", "I");
         info = info.replace("Ó", "O");
         info = info.replace("Ú", "U");
+        info = info.replace("Ñ", "N");
         
         //Tildes invertidas
         info = info.replace("À", "A");
@@ -274,6 +415,9 @@ public abstract class Lecture {
         info = info.replace("Ù", "U");
 
         info = info.replace("Ñ", "N");
+        
+        
+        
         
         //Tildes raras
         info = info.replace("Á", "A");
