@@ -136,6 +136,21 @@ public class Menu extends javax.swing.JFrame {
 
     private void menuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButtonActionPerformed
         // TODO add your handling code here:
+       if(fixCharacters.isSelected()){
+           this.setVisible(false);
+           FixChar windowTwo = new FixChar();
+           windowTwo.setVisible(true);
+       }
+       if(readRegistry.isSelected()){
+           this.setVisible(false);
+           ReadCases windowTwo = new ReadCases();
+           windowTwo.setVisible(true);
+       }
+       if(search.isSelected()){
+           this.setVisible(false);
+           ParticularSearch windowTwo = new ParticularSearch();
+           windowTwo.setVisible(true);
+       }
     }//GEN-LAST:event_menuButtonActionPerformed
 
     private void fixCharactersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixCharactersActionPerformed
