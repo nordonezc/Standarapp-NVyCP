@@ -248,12 +248,13 @@ public abstract class Lecture {
         }
     }
     
+    /*
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         //Logica de la aplicacion
         int col[] = {1,2,3,4,5,6,7};
         fixFile("C:\\Users\\Niki\\Downloads\\prueba.xlsx", "C:\\Users\\Niki\\Downloads\\pruebaCorregido.xlsx", col, true);
-    }
+    }*/
 
     private static boolean containsInColumns(int columnas[], int num) {
         boolean answer = false;
