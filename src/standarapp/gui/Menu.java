@@ -5,6 +5,9 @@
  */
 package standarapp.gui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -194,9 +197,13 @@ public class Menu extends javax.swing.JFrame {
            windowTwo.setVisible(true);
        }
        if(search.isSelected()){
-           this.setVisible(false);
-           ParticularSearch windowTwo = new ParticularSearch(this.getX(), this.getY());
-           windowTwo.setVisible(true);
+           try {
+               this.setVisible(false);
+               ParticularSearch windowTwo = new ParticularSearch(this.getX(), this.getY());
+               windowTwo.setVisible(true);
+           } catch (IOException ex) {
+               Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+           }
        }
     }//GEN-LAST:event_menuButtonActionPerformed
 
