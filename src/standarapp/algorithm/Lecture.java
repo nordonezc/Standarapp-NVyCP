@@ -10,49 +10,55 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
 
 /**
  *
- * @author Niki
+ * @author Niki Ordoñez
  */
 public abstract class Lecture {
 
-    public static void fixFile(String nameFile, boolean option){
+    private static boolean determineExtensionFile(String nameFile){
+        char lastPosition = nameFile.charAt(nameFile.length());
+        boolean answer = false;
+        if(lastPosition == 'x')
+            return true;
+        
+        return answer;
+    }
+    
+    public static void fixFile(String nameFile){
         int temp[] = {};
-        if(option == true)
+        if(determineExtensionFile(nameFile))
             fixXLSX(nameFile, nameFile, "", temp);
         else
             fixXLS(nameFile, nameFile, "", temp);
     }
     
-    public static void fixFile(String nameFile, int col[], boolean option){
-        if(option == true)
+    public static void fixFile(String nameFile, int col[]){
+        if(determineExtensionFile(nameFile))
             fixXLSXwithoutChangeName(nameFile, nameFile, col);
         else
             fixXLS(nameFile, nameFile, "fixed Sheet", col);
     }
     
-    public static void fixFile(String nameFile, String nameFileExit, boolean option){
+    public static void fixFile(String nameFile, String nameFileExit){
         int temp[] = {};
-        if(option == true)
+        if(determineExtensionFile(nameFile))
             fixXLSX(nameFile, nameFileExit, "", temp);
         else
             fixXLS(nameFile, nameFile, "fixed Sheet", temp);
     }
     
-    public static void fixFile(String nameFile, String nameFileExit, int col[], boolean option){
-        if(option == true)
+    public static void fixFile(String nameFile, String nameFileExit, int col[]){
+        if(determineExtensionFile(nameFile))
             fixXLSXwithoutChangeName(nameFile, nameFileExit, col);
         else
             fixXLS(nameFile, nameFile, "fixed Sheet", col);
@@ -70,10 +76,6 @@ public abstract class Lecture {
         else{
             xsheet_WRITE = xwb.createSheet("Fixed Sheet");
         }
-            
-        
-        
-
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
             xwb.write(outputStream);
         } catch (FileNotFoundException ex) {
@@ -125,73 +127,7 @@ public abstract class Lecture {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private static void cloneCell( Cell cNew, Cell cOld ){
-        cNew.setCellComment( cOld.getCellComment() );
-        cNew.setCellStyle( cOld.getCellStyle() );
-
-        switch ( cNew.getCellType() ){
-            case Cell.CELL_TYPE_BOOLEAN:{
-                cNew.setCellValue( cOld.getBooleanCellValue() );
-                break;
-            }
-            case Cell.CELL_TYPE_NUMERIC:{
-                cNew.setCellValue( cOld.getNumericCellValue() );
-                break;
-            }
-            case Cell.CELL_TYPE_STRING:{
-                cNew.setCellValue( cOld.getStringCellValue() );
-                break;
-            }
-            case Cell.CELL_TYPE_ERROR:{
-                cNew.setCellValue( cOld.getErrorCellValue() );
-                break;
-            }
-            case Cell.CELL_TYPE_FORMULA:{
-                cNew.setCellFormula( cOld.getCellFormula() );
-                break;
-            }
-        }
-
-    }
-    
-    public static void deleteColumn( Sheet sheet, int columnToDelete ){
-        int maxColumn = 0;
-        for ( int r=0; r < sheet.getLastRowNum()+1; r++ ){
-            Row row = sheet.getRow( r );
-
-            // if no row exists here; then nothing to do; next!
-            if ( row == null )
-                continue;
-
-            // if the row doesn't have this many columns then we are good; next!
-            int lastColumn = row.getLastCellNum();
-            if ( lastColumn > maxColumn )
-                maxColumn = lastColumn;
-
-            if ( lastColumn < columnToDelete )
-                continue;
-
-            for ( int x=columnToDelete+1; x < lastColumn + 1; x++ ){
-                Cell oldCell    = row.getCell(x-1);
-                if ( oldCell != null )
-                    row.removeCell( oldCell );
-
-                Cell nextCell   = row.getCell( x );
-                if ( nextCell != null ){
-                    Cell newCell    = row.createCell( x-1, nextCell.getCellType() );
-                    cloneCell(newCell, nextCell);
-                }
-            }
-        }
-
-
-        // Adjust the column widths
-        for ( int c=columnToDelete; c < maxColumn; c++ ){
-            sheet.setColumnWidth( c, sheet.getColumnWidth(c+1) );
-        }
-    }
-    
+ 
     private static void fixXLSXwithoutChangeName(String nameIn, String nameOut, int columnas[]){
         XSSFWorkbook xwb = lectureXLSX(nameIn);
         XSSFSheet xsheet = xwb.getSheetAt(0);
@@ -379,7 +315,7 @@ public abstract class Lecture {
         info = info.replace("ßÜ", "A");
         info = info.replace("ßü", "a");
         //Solo para antes de pasar centros poblados
-        info = info.replace("Ú", "e");
+        //info = info.replace("Ú", "e");
         info = info.replace("Ý", "i");
         info = info.replace("¾", "o");
         info = info.replace("š", "u");

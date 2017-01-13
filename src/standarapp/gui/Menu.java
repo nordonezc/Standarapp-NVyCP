@@ -5,18 +5,29 @@
  */
 package standarapp.gui;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Niki
  */
 public class Menu extends javax.swing.JFrame {
 
+    int xMouse;
+    int yMouse;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
+    }
+    
+    public Menu(int x, int y) {
+        initComponents();
+        this.setLocation(x, y);
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
     }
 
     /**
@@ -39,10 +50,15 @@ public class Menu extends javax.swing.JFrame {
         labelTittle = new javax.swing.JLabel();
         exitButton = new javax.swing.JButton();
         minimizeButton = new javax.swing.JButton();
+        iconLabel = new javax.swing.JLabel();
+        derechosLabel = new javax.swing.JLabel();
+        derechosEmailLabel = new javax.swing.JLabel();
+        dragLabel = new javax.swing.JLabel();
         backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,7 +72,7 @@ public class Menu extends javax.swing.JFrame {
                 menuButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 110, -1));
+        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 110, -1));
 
         menuButtonGroup.add(fixCharacters);
         fixCharacters.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -103,8 +119,9 @@ public class Menu extends javax.swing.JFrame {
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
         labelTittle.setFont(new java.awt.Font("Gill Sans MT", 1, 28)); // NOI18N
+        labelTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTittle.setText("StandarApp 1.0");
-        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, 40));
+        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 220, 40));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
         exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -114,18 +131,46 @@ public class Menu extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 70, -1));
 
         minimizeButton.setBackground(new java.awt.Color(0, 153, 153));
         minimizeButton.setFont(new java.awt.Font("Adobe Arabic", 0, 3)); // NOI18N
         minimizeButton.setForeground(new java.awt.Color(255, 255, 255));
         minimizeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/minimize.png"))); // NOI18N
+        minimizeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 minimizeButtonActionPerformed(evt);
             }
         });
         getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 20, 20));
+
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
+        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 22, -1, 40));
+
+        derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
+        derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 260, 20));
+
+        derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
+        derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 260, 20));
+
+        dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                dragLabelMouseDragged(evt);
+            }
+        });
+        dragLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                dragLabelMousePressed(evt);
+            }
+        });
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 290, 260));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 11)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
@@ -138,17 +183,17 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
        if(fixCharacters.isSelected()){
            this.setVisible(false);
-           FixChar windowTwo = new FixChar();
+           FixChar windowTwo = new FixChar(this.getX(), this.getY());
            windowTwo.setVisible(true);
        }
        if(readRegistry.isSelected()){
            this.setVisible(false);
-           ReadCases windowTwo = new ReadCases();
+           ReadCases windowTwo = new ReadCases(this.getX(), this.getY());
            windowTwo.setVisible(true);
        }
        if(search.isSelected()){
            this.setVisible(false);
-           ParticularSearch windowTwo = new ParticularSearch();
+           ParticularSearch windowTwo = new ParticularSearch(this.getX(), this.getY());
            windowTwo.setVisible(true);
        }
     }//GEN-LAST:event_menuButtonActionPerformed
@@ -174,6 +219,20 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         setState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeButtonActionPerformed
+
+    private void dragLabelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dragLabelMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_dragLabelMouseDragged
+
+    private void dragLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dragLabelMousePressed
+        // TODO add your handling code here:
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_dragLabelMousePressed
 
     /**
      * @param args the command line arguments
@@ -212,8 +271,12 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backgroundLabel;
+    private javax.swing.JLabel derechosEmailLabel;
+    private javax.swing.JLabel derechosLabel;
+    private javax.swing.JLabel dragLabel;
     private javax.swing.JButton exitButton;
     private javax.swing.JRadioButton fixCharacters;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JLabel labelNumber1;
     private javax.swing.JLabel labelNumber2;
     private javax.swing.JLabel labelNumber3;

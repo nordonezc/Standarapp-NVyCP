@@ -5,6 +5,7 @@
  */
 package standarapp.gui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -13,12 +14,15 @@ import javax.swing.JLabel;
  */
 public class ReadCases extends javax.swing.JFrame {
 
+    int xMouse;
+    int yMouse;
     /**
      * Creates new form Menu
      */
-    public ReadCases() {
+    public ReadCases(int x, int y) {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocation(x, y);
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
     }
 
     /**
@@ -61,6 +65,8 @@ public class ReadCases extends javax.swing.JFrame {
         exitButton = new javax.swing.JButton();
         derechosLabel = new javax.swing.JLabel();
         derechosEmailLabel = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
+        dragLabel = new javax.swing.JLabel();
         backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -261,6 +267,21 @@ public class ReadCases extends javax.swing.JFrame {
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
         getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 470, 260, 20));
 
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
+        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, 40));
+
+        dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                dragLabelMouseDragged(evt);
+            }
+        });
+        dragLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                dragLabelMousePressed(evt);
+            }
+        });
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 530, 500));
+
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
         getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 490));
@@ -280,7 +301,7 @@ public class ReadCases extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Menu windowTwo = new Menu();
+        Menu windowTwo = new Menu(this.getX(), this.getY());
         windowTwo.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
@@ -309,6 +330,20 @@ public class ReadCases extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_percentTextFieldThreeActionPerformed
 
+    private void dragLabelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dragLabelMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_dragLabelMouseDragged
+
+    private void dragLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dragLabelMousePressed
+        // TODO add your handling code here:
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_dragLabelMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel OmitLabelTwo;
     private javax.swing.JLabel answerLabel;
@@ -319,7 +354,9 @@ public class ReadCases extends javax.swing.JFrame {
     private javax.swing.JLabel derechosEmailLabel;
     private javax.swing.JLabel derechosLabel;
     private javax.swing.JButton doButton;
+    private javax.swing.JLabel dragLabel;
     private javax.swing.JButton exitButton;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JButton inFileButton;
     private javax.swing.JTextField inFileTextField;
     private javax.swing.JLabel instructionFive;
