@@ -23,6 +23,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         initComponents();
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
+        this.setTitle("StandarApp");
     }
 
     /**

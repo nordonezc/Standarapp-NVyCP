@@ -18,15 +18,16 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
 
 /**
  *
  * @author Niki Ordoñez
  */
-public abstract class Lecture {
+public class Lecture{
 
     private static boolean determineExtensionFile(String nameFile){
-        char lastPosition = nameFile.charAt(nameFile.length());
+        char lastPosition = nameFile.charAt(nameFile.length()-1);
         boolean answer = false;
         if(lastPosition == 'x')
             return true;
@@ -34,77 +35,65 @@ public abstract class Lecture {
         return answer;
     }
     
-    public static void fixFile(String nameFile){
+    public void fixFile(String nameFile){
         int temp[] = {};
         if(determineExtensionFile(nameFile))
-            fixXLSX(nameFile, nameFile, "", temp);
+            fixXLSX(nameFile, nameFile, 0, temp);
         else
-            fixXLS(nameFile, nameFile, "", temp);
+            fixXLS(nameFile, nameFile, 0, temp);
     }
     
-    public static void fixFile(String nameFile, int col[]){
+    public void fixFile(String nameFile, int col[]){
         if(determineExtensionFile(nameFile))
-            fixXLSXwithoutChangeName(nameFile, nameFile, col);
+            fixXLSX(nameFile, nameFile, 0,col);
         else
-            fixXLS(nameFile, nameFile, "fixed Sheet", col);
+            fixXLS(nameFile, nameFile, 0, col);
     }
     
-    public static void fixFile(String nameFile, String nameFileExit){
+    public void fixFile(String nameFile, int sheet, int col[]){
+        if(determineExtensionFile(nameFile))
+            fixXLSX(nameFile, nameFile, sheet,col);
+        else
+            fixXLS(nameFile, nameFile, sheet, col);
+    }
+
+    public void fixFile(String nameFile, String nameFileExit){
         int temp[] = {};
         if(determineExtensionFile(nameFile))
-            fixXLSX(nameFile, nameFileExit, "", temp);
+            fixXLSX(nameFile, nameFileExit, 0, temp);
         else
-            fixXLS(nameFile, nameFile, "fixed Sheet", temp);
+            fixXLS(nameFile, nameFileExit, 0, temp);
     }
     
-    public static void fixFile(String nameFile, String nameFileExit, int col[]){
+    public void fixFile(String nameFile, String nameFileExit, int col[]){
         if(determineExtensionFile(nameFile))
-            fixXLSXwithoutChangeName(nameFile, nameFileExit, col);
+            fixXLSX(nameFile, nameFileExit, 0,col);
         else
-            fixXLS(nameFile, nameFile, "fixed Sheet", col);
+            fixXLS(nameFile, nameFileExit, 0, col);
     }
     
-    private static void fixXLS(String nameIn, String nameOut, String nameSheet, int columnas[]){
-        //String nameExcel = "C:\\Users\\Niki\\Downloads\\Original.xlsx";
+    public void fixFile(String nameFile, String nameFileExit, int sheet, int col[]) throws Exception, IOException{
+        if(determineExtensionFile(nameFile))
+            fixXLSX(nameFile, nameFileExit, sheet,col);
+        else
+            fixXLS(nameFile, nameFileExit, sheet, col);
+    }
+    
+    private static void fixXLS(String nameIn, String nameOut, int nameSheet, int columnas[]){
         HSSFWorkbook xwb = lectureXLS(nameIn);
         HSSFSheet xsheet = xwb.getSheetAt(0);
-        HSSFSheet xsheet_WRITE;
-        if(nameSheet.equals("")){
-            xsheet_WRITE = xwb.getSheetAt(0);
-        }
-            
-        else{
-            xsheet_WRITE = xwb.createSheet("Fixed Sheet");
-        }
-        try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
-            xwb.write(outputStream);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private static void fixXLSX(String nameIn, String nameOut, String nameSheet, int columnas[]){
-        //String nameExcel = "C:\\Users\\Niki\\Downloads\\Original.xlsx";
-        XSSFWorkbook xwb = lectureXLSX(nameIn);
-        XSSFSheet xsheet = xwb.getSheetAt(0);
-        XSSFSheet xsheet_WRITE = xwb.createSheet();
-       
+        HSSFSheet xsheet_WRITE = xwb.createSheet();
         for (Row row : xsheet) {
             xsheet_WRITE.createRow(row.getRowNum());
             for (Cell cell : row) {
-                //System.out.println("");
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
-                            //System.out.print(cell + "\t\t");
                             String contenido = cell.getStringCellValue();
                             if (columnas.length==0 ||containsInColumns(columnas, cell.getColumnIndex()))
                                 contenido = fixWords(contenido);
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido);
                             break;
                         case Cell.CELL_TYPE_NUMERIC:
-                            //System.out.print(cell + "\t\t");
                             double contenido_Numerico = cell.getNumericCellValue();
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido_Numerico);
                             break;
@@ -115,12 +104,9 @@ public abstract class Lecture {
                     }
             }
         }
-
-        if(nameSheet.equals("")){
-            //xwb.removeSheetAt(xsheet.getSheetName());
-        }
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
             xwb.write(outputStream);
+            xwb.removeSheetAt(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -128,24 +114,17 @@ public abstract class Lecture {
         }
     }
  
-    private static void fixXLSXwithoutChangeName(String nameIn, String nameOut, int columnas[]){
+    private static void fixXLSX(String nameIn, String nameOut, int sheet, int columnas[]){
         XSSFWorkbook xwb = lectureXLSX(nameIn);
-        XSSFSheet xsheet = xwb.getSheetAt(0);
-        String temporal;
+        XSSFSheet xsheet = xwb.getSheetAt(sheet);
         
         for (Row row : xsheet) {
-            temporal = "";
             //xsheet.createRow(row.getRowNum());
             for (Cell cell : row) {
-                //System.out.println("");
                 if (columnas.length==0 ||containsInColumns(columnas, cell.getColumnIndex())){
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
-                            //System.out.print(cell + "\t\t");
                             String contenido = cell.getStringCellValue();
-                            /*if(cell.getColumnIndex()==1)
-                                temporal = contenido;*/
-                            
                             if(!cell.getStringCellValue().equals("")){
                                 contenido = fixWords(contenido);
                                 xsheet.getRow(row.getRowNum()).getCell(cell.getColumnIndex()).setCellValue(contenido);
@@ -154,25 +133,17 @@ public abstract class Lecture {
                                 xsheet.getRow(row.getRowNum()).getCell(cell.getColumnIndex()).setCellValue("");
                             }
                             break;
-                        /*case Cell.CELL_TYPE_NUMERIC:
-                            //System.out.print(cell + "\t\t");
+                        case Cell.CELL_TYPE_NUMERIC:
                             double contenido_Numerico = cell.getNumericCellValue();
                             xsheet.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCellValue(contenido_Numerico);
                             break;
                         default:
                             System.err.print(cell + "\t\t");
-                            xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCTCell((CTCell) cell);
-                            break;*/
+                            xsheet.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCTCell((CTCell) cell);
+                            break;
                     }
                 }
             }
-            
-            /*
-            if(!temporal.equals("") && row.getRowNum()>0){
-                temporal = fixWords(temporal);
-                xsheet.getRow(row.getRowNum()).getCell(7).setCellValue(temporal);
-            }*/
-            
         }
         
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
@@ -365,4 +336,8 @@ public abstract class Lecture {
         info = info.toUpperCase();
         return info;
     }
+
+    public Lecture() {
+    }
+    
 }

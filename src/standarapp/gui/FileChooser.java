@@ -5,6 +5,9 @@
  */
 package standarapp.gui;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Niki
@@ -34,6 +37,11 @@ public class FileChooser extends javax.swing.JFrame {
         jFileChooser1.setBackground(new java.awt.Color(255, 255, 255));
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
         jFileChooser1.setToolTipText("");
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,6 +62,19 @@ public class FileChooser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser selectorArchivo = (JFileChooser) evt.getSource();
+        String command = evt.getActionCommand();
+        if(command.equals(JFileChooser.APPROVE_SELECTION)){
+            //new JOptionPane(). 
+        }
+        else{
+            
+        }
+        //if(command.)
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

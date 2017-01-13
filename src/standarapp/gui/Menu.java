@@ -21,13 +21,15 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/images/SPiconDesktop.png")).getImage());
+        this.setTitle("StandarApp");
     }
     
     public Menu(int x, int y) {
         initComponents();
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
+        this.setTitle("StandarApp");
     }
 
     /**

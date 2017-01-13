@@ -5,8 +5,15 @@
  */
 package standarapp.gui;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import standarapp.algorithm.Lecture;
 
 /**
  *
@@ -16,7 +23,7 @@ public class FixChar extends javax.swing.JFrame {
 
     int xMouse;
     int yMouse;
-    
+
     /**
      * Creates new form Menu
      */
@@ -24,9 +31,9 @@ public class FixChar extends javax.swing.JFrame {
         initComponents();
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
+        this.setTitle("StandarApp");
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +101,11 @@ public class FixChar extends javax.swing.JFrame {
 
         inFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         inFileButton.setText("jButton1");
+        inFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inFileButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 30, 30));
 
         instructionTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -101,7 +113,7 @@ public class FixChar extends javax.swing.JFrame {
         getContentPane().add(instructionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 240, 30));
 
         collumnsTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        collumnsTextField.setText("1,2,...");
+        collumnsTextField.setText("0,1,2,...");
         collumnsTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 collumnsTextFieldActionPerformed(evt);
@@ -120,7 +132,7 @@ public class FixChar extends javax.swing.JFrame {
         getContentPane().add(numberPageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 200, 30));
 
         numberPageTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        numberPageTextField.setText("1,2,...");
+        numberPageTextField.setText("0");
         numberPageTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberPageTextFieldActionPerformed(evt);
@@ -144,6 +156,11 @@ public class FixChar extends javax.swing.JFrame {
 
         outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         outFileButton.setText("jButton1");
+        outFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outFileButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 30, 30));
 
         omitLabelThree.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
@@ -225,6 +242,49 @@ public class FixChar extends javax.swing.JFrame {
 
     private void doButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doButtonActionPerformed
         // TODO add your handling code here:
+        Lecture lec = new Lecture();
+        String nameIn = inFileTextField.getText();
+        String nameOut = outFileTextField.getText();
+        String collumns = collumnsTextField.getText();
+        int[] col = {};
+
+        double pages = Double.valueOf(numberPageTextField.getText());
+
+        if (!collumns.equals("0,1,2,...")) {
+            String[] temporal = collumns.split(",");
+            col = new int[temporal.length];
+            for (int i = 0; i < temporal.length; i++) {
+                double tmp = Double.valueOf(temporal[i]);
+                col[i] = (int) tmp;
+            }
+        }
+        try {
+            //C:\Users\Niki\Downloads\municipio de cada casco urbano.xls
+            if (!nameIn.contains("...")) {
+                if (nameOut.contains("...")) {
+                    lec.fixFile(nameIn, (int) pages, col);
+                    answerLabel.setForeground(Color.BLUE);
+                    answerLabel.setText("Archivo corregido en: " + nameIn);
+
+                } else if (nameIn.charAt(nameIn.length() - 1) == 'x') {
+                    lec.fixFile(nameIn, nameOut + "\\fixedFile.xlsx", (int) pages, col);
+                    answerLabel.setForeground(Color.BLUE);
+                    answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xlsx");
+                } else {
+                    lec.fixFile(nameIn, nameOut + "\\fixedFile.xls", (int) pages, col);
+                    answerLabel.setForeground(Color.BLUE);
+                    answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xls");
+                }
+            } else {
+                answerLabel.setForeground(Color.red);
+                answerLabel.setText("No ha seleccionado ningun archivo");
+            }
+        } catch (Exception e) {
+            answerLabel.setForeground(Color.red);
+            answerLabel.setText("Revisar los campos de seleccion de archivos");
+        }
+
+
     }//GEN-LAST:event_doButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
@@ -256,7 +316,6 @@ public class FixChar extends javax.swing.JFrame {
         // TODO add your handling code here:
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
 
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_dragLabelMouseDragged
@@ -266,6 +325,39 @@ public class FixChar extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_dragLabelMousePressed
+
+    private void inFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inFileButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xls", "xlsx"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("xls Files", "xls"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("xlsx Files", "xlsx"));
+        chooser.setAcceptAllFileFilterUsed(false);
+        int option = chooser.showOpenDialog(this);
+
+        if (JFileChooser.CANCEL_OPTION == option) {
+            inFileTextField.setText("No ha seleccionado ningun archivo...");
+        }
+        if (JFileChooser.APPROVE_OPTION == option) {
+            inFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_inFileButtonActionPerformed
+
+    private void outFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outFileButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        int option = chooser.showSaveDialog(this);
+        if (JFileChooser.APPROVE_OPTION == option) {
+            outFileTextField.setText("No ha seleccionado ninguna ubicación...");
+        }
+        if (JFileChooser.APPROVE_OPTION == option) {
+            outFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_outFileButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
