@@ -58,7 +58,6 @@ public class StandarappNVyCP {
      */
     private static String nameExcel;
     private static Hashtable<String, Hashtable<String, Hashtable<String, Integer>>> listOfStandarNames; // relacion de departamento con municipio
-    private static Hashtable<String, String> dptoMncp;
     private static Hashtable<String, Hashtable<String, Integer>> mncpVyCP; // relacion de centro poblado y vereda con municipio
     private static Hashtable<Integer, String> vycp_codigo; //codigo de cada vereda con centro poblado
     private static ArrayList<String[]> registry; //21, 22, 97, 99 each 4 its a different registry
@@ -74,17 +73,107 @@ public class StandarappNVyCP {
      * @param args the command line arguments
      */
     
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        //Logica de la aplicacion
-
-        nameExcel = "";
+    public StandarappNVyCP(){
         listOfStandarNames = new Hashtable<String, Hashtable<String, Hashtable<String, Integer>>>();
         registry = new ArrayList<String[]>();
-        dptoMncp = new Hashtable<>();
         mncpVyCP = new Hashtable<String, Hashtable<String, Integer>>();
         vycp_codigo = new Hashtable<Integer, String>();
         repeated = 0;
+        nameExcel = "/databaseFiles/LocalidadesConCodigo.xlsx";
+        
+        //Reading the file which contains registries
+        //Lectura del archivo xls de registros
+        workbook = lectureXLSX(nameExcel);
+        sheet = workbook.getSheetAt(0);
+        
+        //Iterate through each rows one by one
+        //Iteración en cada celda y fila
+        for (Row row : sheet) {
+            //Auxiliar variables which contains important information of each row
+            //Variables auxiliares donde se almacena temporalmente la información de cada fila
+            int codigo = 0;
+            String departamento = "";
+            String municipio = "";
+            String vycp = "";
+
+            /**
+             * If Sentence where specifies that: First row doesnt have
+             * information Fourth row is different to zero
+             *
+             * Sentencia condicional donde especifica que haga analice la fila
+             * solo si: La fila no es la primera del archivo .xlsx (Es decir el
+             * titulo de cada columna La celda numero 4 es diferente de cero
+             */
+            if (row.getRowNum() != 0 && !row.getCell(4).getStringCellValue().equals(String.valueOf(0))) {
+                for (Cell cell : row) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            if (cell.getColumnIndex() == 1) 
+                                codigo = Integer.parseInt(cell.getStringCellValue());
+                            if (cell.getColumnIndex() == 2) 
+                                departamento = cell.getStringCellValue();
+                            if (cell.getColumnIndex() == 3) 
+                                municipio = cell.getStringCellValue();
+                            if (cell.getColumnIndex() == 4) 
+                                vycp = cell.getStringCellValue();
+                            break;
+                    }
+                }
+
+                departamento = fixWords(departamento);
+                municipio = fixWords(municipio);
+                vycp = fixWords(vycp);
+
+                //Add departamento if it isn't exist
+                //Añade deparmenteo a la tabla hash si no existe
+                //Add municipio if departamento doesnt contained it
+                //Añade municipio si no se encuentra ubicado en el deparamento
+                if (!listOfStandarNames.containsKey(departamento)) {
+                    Hashtable<String, Hashtable<String, Integer>> primerMunicipio = new Hashtable<String, Hashtable<String, Integer>>();
+                    Hashtable<String, Integer> primerLocalidad = new Hashtable<>();
+                    primerLocalidad.put(vycp, codigo);
+                    primerMunicipio.put(municipio, primerLocalidad);
+                    listOfStandarNames.put(departamento, primerMunicipio);
+                    mncpVyCP.put(municipio, primerLocalidad);
+                    vycp_codigo.put(codigo, vycp);
+                } 
+                //Add municipio if it isn't exist
+                //Añade municipio a la tabla hash si no existe
+                //Add vycp if municipio doesnt contained it
+                //Añade vycp si no se encuentra ubicado en el municipio
+                else if (!listOfStandarNames.get(departamento).containsKey(municipio)) {
+                    Hashtable<String, Integer> primerGeo = new Hashtable<String, Integer>();
+                    primerGeo.put(vycp, codigo);
+                    listOfStandarNames.get(departamento).put(municipio, primerGeo);
+                    mncpVyCP.put(municipio, primerGeo);
+                    vycp_codigo.put(codigo, vycp);
+                } 
+                //Add vycp_codigo if it isn't exist
+                //Añade el municipio y su codigo si aun no se ha agregado
+                else if (!listOfStandarNames.get(departamento).get(municipio).contains(codigo)) {
+                    listOfStandarNames.get(departamento).get(municipio).put(vycp, codigo);
+                    vycp_codigo.put(codigo, vycp);
+                } else {
+                    repeated++;
+                }
+            }
+        }
+        //Close file readed
+        //Se cierra el archivo leido
+        try {
+            file.close();
+        } catch (IOException ex) {
+            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void lectureRegistry(String nameFile, int[] col, int[] percent) throws IOException{
+        // TODO code application logic here
+        //Logica de la aplicacion
+        listOfStandarNames = new Hashtable<String, Hashtable<String, Hashtable<String, Integer>>>();
+        registry = new ArrayList<String[]>();
+        mncpVyCP = new Hashtable<String, Hashtable<String, Integer>>();
+        vycp_codigo = new Hashtable<Integer, String>();
         
         //Name of excel Files, initialize variables
         //Nombre de los archivos de excel, inicializar variables
@@ -171,253 +260,7 @@ public class StandarappNVyCP {
             Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        /*
-        System.out.println("Cantidad de registros: " + registry.size());
-        for (ArrayList<String> registro : registry) {
-            for (String celda : registro) {
-                System.out.print(celda + "\t\t");
-            }
-            System.out.println("");
-        }
-         */
-        //Lectura de archivo que contiene nombres estandar de veredas
-        //Reading the file which contains stantard names and codes of 'Veredas'
-        nameExcel = "C:\\Users\\Niki\\Downloads\\VyCPcorregido.xlsx";
-        try {
-            file = new FileInputStream(new File(nameExcel));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Create Workbook instance holding reference to .xlsx file
-        //Analogamente al anterior, creación de la instancia del libro del archivo xlsx.
-        try {
-            workbook = new XSSFWorkbook(file);
-        } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Get first/desired sheet from the workbook
-        //Se obtiene la primera hoja del libro
-        sheet = workbook.getSheetAt(0);
-
-        //Iterate through each rows one by one
-        //Iteración en cada celda y fila
-        for (Row row : sheet) {
-            //Auxiliar variables which contains important information of each row
-            //Variables auxiliares donde se almacena temporalmente la información de cada fila
-            int codigo = 0;
-            String departamento = "";
-            String municipio = "";
-            String vycp = "";
-
-            /**
-             * If Sentence where specifies that: First row doesnt have
-             * information Fourth row is different to zero
-             *
-             * Sentencia condicional donde especifica que haga analice la fila
-             * solo si: La fila no es la primera del archivo .xlsx (Es decir el
-             * titulo de cada columna La celda numero 4 es diferente de cero
-             */
-            if (row.getRowNum() != 0 && !row.getCell(4).getStringCellValue().equals(String.valueOf(0))) {
-                for (Cell cell : row) {
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_STRING:
-                            if (cell.getColumnIndex() == 4) {
-                                codigo = Integer.parseInt(cell.getStringCellValue());
-                            }
-                            if (cell.getColumnIndex() == 5) {
-                                departamento = cell.getStringCellValue();
-                            }
-                            if (cell.getColumnIndex() == 6) {
-                                municipio = cell.getStringCellValue();
-                            }
-                            if (cell.getColumnIndex() == 7) {
-                                vycp = cell.getStringCellValue();
-                            }
-                            //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
-                            break;
-                    }
-                }
-
-                departamento = departamento.toUpperCase();
-                departamento = fixWords(departamento);
-                municipio = municipio.toUpperCase();
-                municipio = fixWords(municipio);
-                vycp = vycp.toUpperCase();
-                vycp = fixWords(vycp);
-
-                //Add departamento if it isn't exist
-                //Añade deparmenteo a la tabla hash si no existe
-                //Add municipio if departamento doesnt contained it
-                //Añade municipio si no se encuentra ubicado en el deparamento
-                if (!listOfStandarNames.containsKey(departamento)) {
-                    Hashtable<String, Hashtable<String, Integer>> primerMunicipio = new Hashtable<String, Hashtable<String, Integer>>();
-                    Hashtable<String, Integer> primerLocalidad = new Hashtable<>();
-                    primerLocalidad.put(vycp, codigo);
-                    primerMunicipio.put(municipio, primerLocalidad);
-                    listOfStandarNames.put(departamento, primerMunicipio);
-
-                    dptoMncp.put(departamento, municipio);
-                    mncpVyCP.put(municipio, primerLocalidad);
-                    vycp_codigo.put(codigo, vycp);
-
-                } //Add municipio if it isn't exist
-                //Añade municipio a la tabla hash si no existe
-                //Add vycp if municipio doesnt contained it
-                //Añade vycp si no se encuentra ubicado en el municipio
-                else if (!listOfStandarNames.get(departamento).containsKey(municipio)) {
-                    Hashtable<String, Integer> primerGeo = new Hashtable<String, Integer>();
-                    primerGeo.put(vycp, codigo);
-                    listOfStandarNames.get(departamento).put(municipio, primerGeo);
-
-                    mncpVyCP.put(municipio, primerGeo);
-                    vycp_codigo.put(codigo, vycp);
-                } //Add vycp_codigo if it isn't exist
-                //Añade el municipio y su codigo si aun no se ha agregado
-                else if (!listOfStandarNames.get(departamento).get(municipio).contains(codigo)) {
-                    listOfStandarNames.get(departamento).get(municipio).put(vycp, codigo);
-
-                    vycp_codigo.put(codigo, vycp);
-                } else {
-                    repeated++;
-                    System.out.println(vycp);
-                }
-
-                //System.out.println();
-            }
-        }
-
-        //Close file readed
-        //Se cierra el archivo leido
-        try {
-            file.close();
-        } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        /*
-        Muestra todos los departamentos en la base de datos
-        Shows the departamentos and municipios located in the database
-        System.out.println("Cantidad de registros: " + registry.size());
-        for (String key : dptoMncp.keySet()) {
-            System.out.println("Departamento: " + key);
-        }
-        for (String key : mncpVyCP.keySet()) {
-            System.out.println("Municipio: " + key);
-        }
-         */
-        //Reading the file which contains registries
-        //Lectura del archivo xls de registros
-        nameExcel = "C:\\Users\\Niki\\Downloads\\municipio de cada casco urbano.xls";
-        try {
-            file = new FileInputStream(new File(nameExcel));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Create Workbook instance holding reference to .xlsx file
-        //Creando una instancia haciendo referencia al archivo xls ubicado en file
-        try {
-            hworkbook = new HSSFWorkbook(file);
-        } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Obtiene la primera oja del archivo de excel.
-        //Get first/desired sheet from the workbook
-        hsheet = hworkbook.getSheetAt(0);
-        int centroPobladoCodigo = 0;
-//Iteración de cada una de las filas y celdas del archivo cargado
-        //Iterate through each rows one by one
-
-        for (Row row : hsheet) {
-            //Auxiliar variables which contains important information of each row
-            //Variables auxiliares donde se almacena temporalmente la información de cada fila
-            centroPobladoCodigo += 1;
-            String departamento = "";
-            String municipio = "";
-            String vycp = "";
-
-            /**
-             * If Sentence where specifies that: First row doesnt have
-             * information Fourth row is different to zero
-             *
-             * Sentencia condicional donde especifica que haga analice la fila
-             * solo si: La fila no es la primera del archivo .xlsx (Es decir el
-             * titulo de cada columna La celda numero 4 es diferente de cero
-             */
-            if (row.getRowNum() != 0) {
-                for (Cell cell : row) {
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_STRING:
-                            if (cell.getColumnIndex() == 2) {
-                                departamento = cell.getStringCellValue();
-                            }
-                            if (cell.getColumnIndex() == 3) {
-                                municipio = cell.getStringCellValue();
-                            }
-                            if (cell.getColumnIndex() == 0) {
-                                vycp = cell.getStringCellValue();
-                            }
-                            //System.out.print(cell.getColumnIndex() + ":" + cell.getStringCellValue() + "\t\t");
-                            break;
-                    }
-                }
-
-                departamento = departamento.toUpperCase();
-                departamento = fixWords(departamento);
-                municipio = municipio.toUpperCase();
-                municipio = fixWords(municipio);
-                vycp = vycp.toUpperCase();
-                vycp = fixWords(vycp);
-
-                //Add departamento if it isn't exist
-                //Añade deparmenteo a la tabla hash si no existe
-                //Add municipio if departamento doesnt contained it
-                //Añade municipio si no se encuentra ubicado en el deparamento
-                if (!listOfStandarNames.containsKey(departamento)) {
-                    Hashtable<String, Hashtable<String, Integer>> primerMunicipio = new Hashtable<String, Hashtable<String, Integer>>();
-                    Hashtable<String, Integer> primerLocalidad = new Hashtable<>();
-                    primerLocalidad.put(vycp, centroPobladoCodigo);
-                    primerMunicipio.put(municipio, primerLocalidad);
-                    listOfStandarNames.put(departamento, primerMunicipio);
-
-                    dptoMncp.put(departamento, municipio);
-                    mncpVyCP.put(municipio, primerLocalidad);
-                    vycp_codigo.put(centroPobladoCodigo, vycp);
-                } //Add municipio if it isn't exist
-                //Añade municipio a la tabla hash si no existe
-                //Add vycp if municipio doesnt contained it
-                //Añade vycp si no se encuentra ubicado en el municipio
-                else if (!listOfStandarNames.get(departamento).containsKey(municipio)) {
-                    Hashtable<String, Integer> primerGeo = new Hashtable<String, Integer>();
-                    primerGeo.put(vycp, centroPobladoCodigo);
-                    listOfStandarNames.get(departamento).put(municipio, primerGeo);
-
-                    mncpVyCP.put(municipio, primerGeo);
-                    vycp_codigo.put(centroPobladoCodigo, vycp);
-                } //Add vycp_codigo if it isn't exist
-                //Añade el municipio y su codigo si aun no se ha agregado
-                else if (!listOfStandarNames.get(departamento).get(municipio).contains(centroPobladoCodigo)) {
-                    listOfStandarNames.get(departamento).get(municipio).put(vycp, centroPobladoCodigo);
-
-                    vycp_codigo.put(centroPobladoCodigo, vycp);
-                } else {
-                    repeated++;
-                }
-                //System.out.println();
-            }
-        }
-
-        //Iteración de cada una de las filas y celdas del archivo cargado
-        //Iterate through each rows one by one
-        System.out.println("Numero de municipios: " + mncpVyCP.size());
-        System.out.println("Numero de departamentos: " + listOfStandarNames.size());
-        System.out.println("Numero de Localidades: " + vycp_codigo.size());
-        System.out.println("Numero de Repeticiones: " + repeated);
-
-        /**
+       /**
          * Write all localidades with codes, with his departamentos and
          * municipios Copiar en un excel todas las localidades con codigos en
          * departamentos y municipios
@@ -745,11 +588,5 @@ public class StandarappNVyCP {
         return answer;
     }
 
-    private static boolean lectureRegistry(){
-        boolean answer = false;
-        
-        
-        return true;
-    }
     
 }

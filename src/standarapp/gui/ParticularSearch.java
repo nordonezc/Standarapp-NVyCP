@@ -94,7 +94,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         municipioLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         municipioLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         municipioLabel.setText("Municipio:");
-        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, 30));
+        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 30));
 
         municipioTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         municipioTextField.setText("Ingrese un nombre de un municipio");
@@ -103,11 +103,11 @@ public class ParticularSearch extends javax.swing.JFrame {
                 municipioTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 220, 30));
+        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 220, 30));
 
         departamentoLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         departamentoLabel.setText("Departamento:");
-        getContentPane().add(departamentoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 90, 30));
+        getContentPane().add(departamentoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 90, 30));
 
         departamentoTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         departamentoTextField.setText("Ingrese un nombre de departamento");
@@ -116,7 +116,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 departamentoTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 220, 30));
+        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 220, 30));
 
         localidadLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         localidadLabel.setText("Localidad:");
