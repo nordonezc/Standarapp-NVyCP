@@ -336,12 +336,12 @@ public class FixChar extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
         int option = chooser.showOpenDialog(this);
 
-        if (JFileChooser.CANCEL_OPTION == option) {
+        if (JFileChooser.CANCEL_OPTION == option) 
             inFileTextField.setText("No ha seleccionado ningun archivo...");
-        }
-        if (JFileChooser.APPROVE_OPTION == option) {
+        
+        if (JFileChooser.APPROVE_OPTION == option) 
             inFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-        }
+        
     }//GEN-LAST:event_inFileButtonActionPerformed
 
     private void outFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outFileButtonActionPerformed
@@ -351,12 +351,12 @@ public class FixChar extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
 
         int option = chooser.showSaveDialog(this);
-        if (JFileChooser.APPROVE_OPTION == option) {
+        if (JFileChooser.APPROVE_OPTION == option) 
             outFileTextField.setText("No ha seleccionado ninguna ubicación...");
-        }
-        if (JFileChooser.APPROVE_OPTION == option) {
+        
+        if (JFileChooser.APPROVE_OPTION == option) 
             outFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-        }
+        
     }//GEN-LAST:event_outFileButtonActionPerformed
 
 

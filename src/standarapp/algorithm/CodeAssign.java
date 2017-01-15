@@ -5,15 +5,9 @@
  */
 package standarapp.algorithm;
 
-import com.sun.org.apache.xerces.internal.xni.parser.XMLDocumentSource;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -29,12 +23,48 @@ public class CodeAssign {
     private static Hashtable<String, Hashtable<String, Hashtable<String, Integer>>> listOfStandarNames;
     private static Hashtable<Integer, String> allCodes;
 
+    /*
+    Funcion para generar archivo excel con localidades
+    int rowCount = 0;
+        int columnCount = 0;
+        Row row = sheet.createRow(rowCount);
+        Cell cell = row.createCell(columnCount);
+        cell.setCellValue("Municipio");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Departamento");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Codigo");
+        for (String municipio : listOfStandarNames.keySet()) {
+            for (String departamento : listOfStandarNames.get(municipio).keySet()) {
+                for (String localidad : listOfStandarNames.get(municipio).get(departamento).keySet()) {
+                    row = sheet.createRow(++rowCount);
+                    columnCount = 0;
+                    cell = row.createCell(columnCount);
+                    cell.setCellValue(municipio);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(departamento);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(localidad);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(listOfStandarNames.get(municipio).get(departamento).get(localidad));
+                }
+
+            }
+        }
+
+        try (FileOutputStream outputStream = new FileOutputStream("StandartFileWCodes.xlsx")) {
+            workbook.write(outputStream);
+        }
+     */
+     
     public CodeAssign() throws IOException {
         //Logica de la aplicacion
-        listOfStandarNames = new Hashtable<String, Hashtable<String, Hashtable<String, Integer>>>();
+        listOfStandarNames = new Hashtable<>();
         allCodes = new Hashtable<>();
         String nameExcel = "C:\\Users\\Niki\\Documents\\NetBeansProjects\\Standarapp NVyCP\\src\\database\\LocalidadesConCodigo.xlsx";
-        XSSFWorkbook xwb = lectureXLSX(nameExcel);
+        XSSFWorkbook xwb = Lecture.lectureXLSX(nameExcel);
         XSSFSheet xsheet = xwb.getSheetAt(0);
         //int repeated = 0;
         //int codigoCP = 0;
@@ -219,24 +249,27 @@ public class CodeAssign {
 
     public String findByMunicipio(String municipio) {
         String answer = "";
-        String municipioCorrecto = municipio;
-        answer += "El municicpio " + municipioCorrecto + " esta en: \n";
+        String dptoCorrecto = "";
+        answer += "El municicpio " + dptoCorrecto + " esta en: \n";
         int majorLev = 50;
+        
         for (String dpto : listOfStandarNames.keySet()) {
             for (String mncp : listOfStandarNames.get(dpto).keySet()) {
-                int partialLev = FuzzySearch.ratio(mncp, municipioCorrecto);
-                if (partialLev > majorLev) {
-                    //municipioCorrecto = mncp;
-                    //majorLev = partialLev;
+                int partialLev = FuzzySearch.ratio(mncp, municipio);
+                if (partialLev > 50) {
+                    if(partialLev > majorLev){
+                        dptoCorrecto = dpto;
+                        majorLev = partialLev;
+                    }
                     answer += dpto;
                     if(partialLev >= 100) answer += " *MAS POSIBLE* ";
+                    else if(partialLev >= 80) answer += "*muy probable*";
                     answer += "\n";
                     break;
                 }
-                
-                }
             }
-        
+        }
+        answer += dptoCorrecto + " *mayor posibilidad";
         return answer;
     }
 
@@ -357,8 +390,28 @@ public class CodeAssign {
         return answer;
     }
 
-    public String finbByLocalidadAndDepartamento(){
+    public String finbByLocalidadAndDepartamento(String localidad, String departamento){
         String answer = "";
+        String municipioCorrecto = "";
+        String localidadCorrecta = localidad;
+        String departamentoCorrecto = departamento;
+        int majorLev = 50;
+        for (String dpto : listOfStandarNames.keySet()) {
+            if(FuzzySearch.ratio(departamentoCorrecto, dpto)<50)
+                continue;
+            for (String mncp : listOfStandarNames.get(dpto).keySet()) {
+                for(String local: listOfStandarNames.get(dpto).get(mncp).keySet()){
+                    int temporalLev = FuzzySearch.ratio(local, localidadCorrecta);
+                    if(temporalLev>majorLev){
+                        majorLev = temporalLev;
+                        answer = "El municipio que tiene a " + local + " y pertenece a " + dpto + " es: " + mncp;
+                    }
+                    if (majorLev >= 100) break;
+                }
+                if (majorLev >= 100) break;
+            }
+        }
+        
         return answer;
     }
     
@@ -443,23 +496,6 @@ public class CodeAssign {
         return allCodes;
     }
 
-    private static XSSFWorkbook lectureXLSX(String nameFile) {
-        FileInputStream file;
-        XSSFWorkbook excelFile = new XSSFWorkbook();
-        //Reading the file which contains registries
-        //Lectura del archivo xls de registros
-        try {
-            file = new FileInputStream(new File(nameFile));
-            excelFile = new XSSFWorkbook(file);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return excelFile;
-    }
-    
     /*
     private static String fixWords(String message) {
         String info = message;

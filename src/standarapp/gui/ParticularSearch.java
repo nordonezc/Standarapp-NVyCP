@@ -19,6 +19,7 @@ public class ParticularSearch extends javax.swing.JFrame {
     private int xMouse;
     int yMouse;
     private CodeAssign ca;
+
     /**
      * Creates new form Menu
      */
@@ -227,94 +228,77 @@ public class ParticularSearch extends javax.swing.JFrame {
         boolean mncpFilled = false;
         boolean localFilled = false;
         boolean codeFilled = false;
-        
+
         String dpto = departamentoTextField.getText();
         String mncp = municipioTextField.getText();
         String local = localidadTextField.getText();
         String codigo = codigoTextField.getText();
-        
+
         dpto = dpto.toUpperCase();
         mncp = mncp.toUpperCase();
         local = local.toUpperCase();
         codigo = codigo.toUpperCase();
-        
-        if(!dpto.contains("DEPARTAMENTO"))
+
+        if (!dpto.contains("DEPARTAMENTO")) {
             dptoFilled = true;
-        if(!mncp.contains("MUNICIPIO"))
+        }
+        if (!mncp.contains("MUNICIPIO")) {
             mncpFilled = true;
-        if(!local.contains("LOCALIDAD"))
+        }
+        if (!local.contains("LOCALIDAD")) {
             localFilled = true;
-        if(!codigo.contains("LOCALIDAD"))
+        }
+        if (!codigo.contains("LOCALIDAD")) {
             codeFilled = true;
-        
+        }
+
         resetButtonActionPerformed(evt);
-        try{
-        if(dptoFilled == true){
-            if(mncpFilled == true){
-                if(localFilled == true)
-                    answerTextArea.setText(ca.findByAll(dpto, mncp, local));
-                else
-                    answerTextArea.setText(ca.findByMunicipioAndDepartamento(mncp, dpto));
-            }
-            else{
-                if(localFilled == true){
-                    //TO DO answerTextArea.setText(ca.);
-                }
-                else{
-                    if(codeFilled == true){
-                        double codigoTemporal = Double.valueOf(codigo);
-                        int code = (int) codigoTemporal;
-                        answerTextArea.setText(ca.findByCode(code));
+        try {
+            if (dptoFilled == true) {
+                if (mncpFilled == true) {
+                    if (localFilled == true) {
+                        answerTextArea.setText(ca.findByAll(dpto, mncp, local));
+                    } else {
+                        answerTextArea.setText(ca.findByMunicipioAndDepartamento(mncp, dpto));
                     }
-                    else{
-                        answerTextArea.setText(ca.findByDepartamento(dpto));
-                    }
+                } else if (localFilled == true) {
+                    answerTextArea.setText(ca.finbByLocalidadAndDepartamento(local, dpto));
+                } else if (codeFilled == true) {
+                    double codigoTemporal = Double.valueOf(codigo);
+                    int code = (int) codigoTemporal;
+                    answerTextArea.setText(ca.findByCode(code));
+                } else {
+                    answerTextArea.setText(ca.findByDepartamento(dpto));
                 }
-            }
-        }
-        else{
-            if(mncpFilled == true){
-                if(localFilled == true)
+            } else if (mncpFilled == true) {
+                if (localFilled == true) {
                     answerTextArea.setText(ca.findByLocalidadAndMunicipio(local, mncp));
-                else{
-                    if(codeFilled == true){
-                        double codigoTemporal = Double.valueOf(codigo);
-                        int code = (int) codigoTemporal;
-                        answerTextArea.setText(ca.findByCode(code));
-                    }
-                    else{
-                        answerTextArea.setText(ca.findByMunicipio(mncp));
-                    }
+                } else if (codeFilled == true) {
+                    double codigoTemporal = Double.valueOf(codigo);
+                    int code = (int) codigoTemporal;
+                    answerTextArea.setText(ca.findByCode(code));
+                } else {
+                    answerTextArea.setText(ca.findByMunicipio(mncp));
                 }
+            } else if (localFilled == true) {
+                if (codeFilled == true) {
+                    double codigoTemporal = Double.valueOf(codigo);
+                    int code = (int) codigoTemporal;
+                    answerTextArea.setText(ca.findByCode(code));
+                } else {
+                    answerTextArea.setText(ca.findByLocalidad(local));
+                }
+            } else if (codeFilled == true) {
+                double codigoTemporal = Double.valueOf(codigo);
+                int code = (int) codigoTemporal;
+                answerTextArea.setText(ca.findByCode(code));
+            } else {
+                answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n"
+                        + "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
             }
-            else{
-                if(localFilled == true){
-                    if(codeFilled == true){
-                        double codigoTemporal = Double.valueOf(codigo);
-                        int code = (int) codigoTemporal;
-                        answerTextArea.setText(ca.findByCode(code));
-                    }
-                    else{
-                        answerTextArea.setText(ca.findByLocalidad(local));
-                    }
-                }
-                else{
-                    if(codeFilled == true){
-                        double codigoTemporal = Double.valueOf(codigo);
-                        int code = (int) codigoTemporal;
-                        answerTextArea.setText(ca.findByCode(code));
-                    }
-                    else{
-                        answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n" +
-                                "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
-                    }
-                }
-            }
-        }
-        }
-        catch(Exception e){
-            answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n" +
-                                "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
+        } catch (Exception e) {
+            answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n"
+                    + "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
         }
     }//GEN-LAST:event_doButtonActionPerformed
 
@@ -367,8 +351,8 @@ public class ParticularSearch extends javax.swing.JFrame {
         municipioTextField.setText("Ingrese un nombre de un municipio");
         localidadTextField.setText("Ingrese un nombre de localidad");
         codigoTextField.setText("Ingrese un codigo de localidad");
-        answerTextArea.setText("Resultado: \n" +
-"Ingrese texto en el campo por el cual desea buscar y luego  presione el boton búscar.");
+        answerTextArea.setText("Resultado: \n"
+                + "Ingrese texto en el campo por el cual desea buscar y luego  presione el boton búscar.");
     }//GEN-LAST:event_resetButtonActionPerformed
 
 

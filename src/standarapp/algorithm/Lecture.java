@@ -26,7 +26,12 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
  */
 public class Lecture{
 
-    private static boolean determineExtensionFile(String nameFile){
+    /**
+     * 
+     * @param nameFile
+     * @return true if last is X, false in otherwise
+     */
+    public static boolean determineExtensionFile(String nameFile){
         char lastPosition = nameFile.charAt(nameFile.length()-1);
         boolean answer = false;
         if(lastPosition == 'x')
@@ -108,9 +113,9 @@ public class Lecture{
             xwb.write(outputStream);
             xwb.removeSheetAt(0);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
  
@@ -149,21 +154,13 @@ public class Lecture{
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
             xwb.write(outputStream);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    /*
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        //Logica de la aplicacion
-        int col[] = {1,2,3,4,5,6,7};
-        fixFile("C:\\Users\\Niki\\Downloads\\prueba.xlsx", "C:\\Users\\Niki\\Downloads\\pruebaCorregido.xlsx", col, true);
-    }*/
 
-    private static boolean containsInColumns(int columnas[], int num) {
+    public static boolean containsInColumns(int columnas[], int num) {
         boolean answer = false;
         for (int i = 0; i < columnas.length; i++) {
             if (columnas[i] == num) {
@@ -185,9 +182,9 @@ public class Lecture{
             excelFile = new XSSFWorkbook(file);
             xsheet = excelFile.getSheetAt(page);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return xsheet;
@@ -202,9 +199,9 @@ public class Lecture{
             file = new FileInputStream(new File(nameFile));
             excelFile = new XSSFWorkbook(file);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return excelFile;
@@ -221,9 +218,9 @@ public class Lecture{
             excelFile = new HSSFWorkbook(file);
             hsheet = excelFile.getSheetAt(page);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return hsheet;
@@ -238,9 +235,9 @@ public class Lecture{
             file = new FileInputStream(new File(nameFile));
             excelFile = new HSSFWorkbook(file);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(StandarappNVyCP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return excelFile;

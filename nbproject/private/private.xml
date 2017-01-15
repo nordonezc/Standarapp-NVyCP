@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/standarapp/gui/Menu.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>241</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/algorithm/CodeAssign.java</file>
             <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/algorithm/StandarappNVyCP.java</file>
-            <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/algorithm/Lecture.java</file>
             <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/gui/Menu.java</file>
             <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/gui/ParticularSearch.java</file>
-            <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/gui/ReadCases.java</file>
-            <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/gui/FixChar.java</file>
-            <file>file:/C:/Users/Niki/Documents/NetBeansProjects/Standarapp%20NVyCP/src/standarapp/algorithm/Registry.java</file>
         </group>
     </open-files>
 </project-private>
