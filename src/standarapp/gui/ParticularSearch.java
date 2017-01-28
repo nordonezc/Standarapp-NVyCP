@@ -23,12 +23,12 @@ public class ParticularSearch extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public ParticularSearch(int x, int y) throws IOException {
+    public ParticularSearch(int x, int y, String nameExcel) throws IOException {
         initComponents();
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
         this.setTitle("StandarApp");
-        ca = new CodeAssign();
+        ca = new CodeAssign(nameExcel);
     }
 
     /**

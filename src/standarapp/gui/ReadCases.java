@@ -6,11 +6,15 @@
 package standarapp.gui;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import standarapp.algorithm.Lecture;
+import standarapp.algorithm.ReadRegistry;
 
 /**
  *
@@ -20,14 +24,16 @@ public class ReadCases extends javax.swing.JFrame {
 
     int xMouse;
     int yMouse;
+    private ReadRegistry rr;
     /**
      * Creates new form Menu
      */
-    public ReadCases(int x, int y) {
+    public ReadCases(int x, int y, String nameExcel) throws IOException {
         initComponents();
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
         this.setTitle("StandarApp");
+        rr = new ReadRegistry(nameExcel);
     }
 
     /**
@@ -119,7 +125,7 @@ public class ReadCases extends javax.swing.JFrame {
         getContentPane().add(instructionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 240, 30));
 
         collumnsTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        collumnsTextField.setText("1,2,...");
+        collumnsTextField.setText("95,96,97,98,99,100,21,22,23");
         collumnsTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 collumnsTextFieldActionPerformed(evt);
@@ -162,7 +168,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         percentTextFieldOne.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         percentTextFieldOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldOne.setText("80.5");
+        percentTextFieldOne.setText("80");
         percentTextFieldOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 percentTextFieldOneActionPerformed(evt);
@@ -180,7 +186,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         percentTextFieldTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         percentTextFieldTwo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldTwo.setText("80.5");
+        percentTextFieldTwo.setText("80");
         percentTextFieldTwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 percentTextFieldTwoActionPerformed(evt);
@@ -198,7 +204,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         percentTextFieldThree.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         percentTextFieldThree.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldThree.setText("80.5");
+        percentTextFieldThree.setText("50");
         percentTextFieldThree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 percentTextFieldThreeActionPerformed(evt);
@@ -215,7 +221,7 @@ public class ReadCases extends javax.swing.JFrame {
         getContentPane().add(instructionFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 230, 20));
 
         outFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        outFileTextField.setText("Dirección del archivo de entrada...");
+        outFileTextField.setText("Ubicación para el archivo de salida...");
         getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 390, 30));
 
         outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -306,38 +312,40 @@ public class ReadCases extends javax.swing.JFrame {
 
     private void doButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doButtonActionPerformed
         // TODO add your handling code here:
-        Lecture lec = new Lecture();
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
         String collumns = collumnsTextField.getText();
+        double temporalPercentOne = Double.valueOf(percentTextFieldOne.getText());
+        double temporalPercentTwo = Double.valueOf(percentTextFieldTwo.getText());
+        double temporalPercentThree = Double.valueOf(percentTextFieldThree.getText());
+        int percent[] = {(int) temporalPercentOne, (int) temporalPercentTwo, (int) temporalPercentThree};
         int[] col = {};
+        
 
         double pages = Double.valueOf(pagesTextField.getText());
 
-        if (!collumns.equals("0,1,2,...")) {
-            String[] temporal = collumns.split(",");
-            col = new int[temporal.length];
-            for (int i = 0; i < temporal.length; i++) {
-                double tmp = Double.valueOf(temporal[i]);
-                col[i] = (int) tmp;
-            }
+        String[] temporal = collumns.split(",");
+        col = new int[temporal.length];
+        for (int i = 0; i < temporal.length; i++) {
+            double tmp = Double.valueOf(temporal[i]);
+            col[i] = (int) tmp;
         }
+        
         try {
-            //C:\Users\Niki\Downloads\municipio de cada casco urbano.xls
             if (!nameIn.contains("...")) {
                 if (nameOut.contains("...")) {
-                    lec.fixFile(nameIn, (int) pages, col);
+                    String answer = rr.lectureRegistry(nameIn, nameIn, col, percent);
                     answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText("Archivo corregido en: " + nameIn);
+                    answerLabel.setText(answer + nameIn);
 
-                } else if (nameIn.charAt(nameIn.length() - 1) == 'x') {
-                    lec.fixFile(nameIn, nameOut + "\\fixedFile.xlsx", (int) pages, col);
+                } else if (Lecture.determineExtensionFile(nameIn)) {
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xlsx", col, percent);
                     answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xlsx");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\standarizedRegistries.xlsx");
                 } else {
-                    lec.fixFile(nameIn, nameOut + "\\fixedFile.xls", (int) pages, col);
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xls", col, percent);
                     answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xls");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\fixedFile.xls");
                 }
             } else {
                 answerLabel.setForeground(Color.red);
@@ -408,14 +416,13 @@ public class ReadCases extends javax.swing.JFrame {
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("xls Files", "xls"));
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("xlsx Files", "xlsx"));
         chooser.setAcceptAllFileFilterUsed(false);
+        
         int option = chooser.showOpenDialog(this);
-
         if (JFileChooser.CANCEL_OPTION == option) 
             inFileTextField.setText("No ha seleccionado ningun archivo...");
         
         if (JFileChooser.APPROVE_OPTION == option) 
             inFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-        
     }//GEN-LAST:event_inFileButtonActionPerformed
 
     private void outFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outFileButtonActionPerformed
@@ -430,7 +437,6 @@ public class ReadCases extends javax.swing.JFrame {
         
         if (JFileChooser.APPROVE_OPTION == option) 
             outFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
-        
     }//GEN-LAST:event_outFileButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

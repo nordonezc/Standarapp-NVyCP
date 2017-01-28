@@ -84,13 +84,14 @@ public class Lecture{
             fixXLS(nameFile, nameFileExit, sheet, col);
     }
     
-    private static void fixXLS(String nameIn, String nameOut, int nameSheet, int columnas[]){
+    private void fixXLS(String nameIn, String nameOut, int nameSheet, int columnas[]){
         HSSFWorkbook xwb = lectureXLS(nameIn);
         HSSFSheet xsheet = xwb.getSheetAt(0);
         HSSFSheet xsheet_WRITE = xwb.createSheet();
         for (Row row : xsheet) {
             xsheet_WRITE.createRow(row.getRowNum());
             for (Cell cell : row) {
+                try{
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
                             String contenido = cell.getStringCellValue();
@@ -107,11 +108,11 @@ public class Lecture{
                             xsheet_WRITE.getRow(row.getRowNum()).createCell(cell.getColumnIndex()).setCTCell((CTCell) cell);
                             break;*/
                     }
+                } catch(Exception e){}
             }
         }
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
             xwb.write(outputStream);
-            xwb.removeSheetAt(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -119,13 +120,14 @@ public class Lecture{
         }
     }
  
-    private static void fixXLSX(String nameIn, String nameOut, int sheet, int columnas[]){
+    private void fixXLSX(String nameIn, String nameOut, int sheet, int columnas[]){
         XSSFWorkbook xwb = lectureXLSX(nameIn);
         XSSFSheet xsheet = xwb.getSheetAt(sheet);
         
         for (Row row : xsheet) {
             //xsheet.createRow(row.getRowNum());
             for (Cell cell : row) {
+                try{
                 if (columnas.length==0 ||containsInColumns(columnas, cell.getColumnIndex())){
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
@@ -148,6 +150,7 @@ public class Lecture{
                             break;
                     }
                 }
+                } catch(Exception e){}
             }
         }
         
@@ -160,7 +163,7 @@ public class Lecture{
         }
     }
 
-    public static boolean containsInColumns(int columnas[], int num) {
+    public boolean containsInColumns(int columnas[], int num) {
         boolean answer = false;
         for (int i = 0; i < columnas.length; i++) {
             if (columnas[i] == num) {
@@ -245,14 +248,6 @@ public class Lecture{
 
     public static String fixWords(String message) {
         String info = message;
-        /*Caracteres especiales
-        info = info.replace(",", "");
-        info = info.replace("-", "");
-        info = info.replace("\"", "");
-        info = info.replace("\n", "");
-        info = info.replace("'", "");
-        */
-
         //Cambios caracteres especiales en veredas
         info = info.replace("├â┬ü", "A");
         info = info.replace("├âÔÇ░", "E");
@@ -263,22 +258,26 @@ public class Lecture{
         
         info = info.replace("├âÔÇÿ", "N");
         
-        /* U CON DIERESIS
-        info = info.replace("ÃƒÅ“", "U");
-        
-        Cambio caracteres csv lectura_ok
-        info = info.replace("Ãƒâ€˜", "N");
-        info = info.replace("ÃƒÂ", "A");
-        info = info.replace("Ãƒâ€°", "E");
-        info = info.replace("ÃƒÂ", "I");
-        info = info.replace("Ãƒâ€œ", "O");
-        */
-        
+        //Centros poblados
         info = info.replace("├Ü", "A");
+        info = info.replace("├ü", "A");
+        
+        info = info.replace("├ë", "E");
+        
+        info = info.replace("├ì", "I");
+        
+        
+        info = info.replace("├ô", "O");
         info = info.replace("├Ô", "O");
-
+        
+        info = info.replace("├Ô", "O");
+        info = info.replace("├Ô", "O");
+        
+        
+        info = info.replace("├æ", "N");
         info = info.replace("├Æ", "N");
 
+        
         //Errores en centros poblados
         info = info.replace("ßÜ", "A");
         info = info.replace("ßü", "a");
@@ -319,22 +318,8 @@ public class Lecture{
         info = info.replace("Ò", "O");
         info = info.replace("Ù", "U");
 
-        info = info.replace("Ñ", "N");
-        
-        
-        
-        
-        //Tildes raras
-        info = info.replace("Á", "A");
-        info = info.replace("É", "E");
-        info = info.replace("Í", "I");
-        info = info.replace("Ú", "U");
-        
         info = info.toUpperCase();
         return info;
     }
 
-    public Lecture() {
-    }
-    
 }

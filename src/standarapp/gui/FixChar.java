@@ -151,7 +151,7 @@ public class FixChar extends javax.swing.JFrame {
         getContentPane().add(instructionFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 230, 20));
 
         outFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        outFileTextField.setText("Dirección del archivo de entrada...");
+        outFileTextField.setText("Ubicacion para el archivo de salida...");
         getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 390, 30));
 
         outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -266,7 +266,7 @@ public class FixChar extends javax.swing.JFrame {
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText("Archivo corregido en: " + nameIn);
 
-                } else if (nameIn.charAt(nameIn.length() - 1) == 'x') {
+                } else if (Lecture.determineExtensionFile(nameIn)) {
                     lec.fixFile(nameIn, nameOut + "\\fixedFile.xlsx", (int) pages, col);
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xlsx");

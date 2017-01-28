@@ -131,7 +131,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Gill Sans MT" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="1,2,..."/>
+        <Property name="text" type="java.lang.String" value="95,96,97,98,99,100,21,22,23"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="collumnsTextFieldActionPerformed"/>
@@ -237,7 +237,7 @@
           <Font name="Gill Sans MT" size="12" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="80.5"/>
+        <Property name="text" type="java.lang.String" value="80"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="percentTextFieldOneActionPerformed"/>
@@ -280,7 +280,7 @@
           <Font name="Gill Sans MT" size="12" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="80.5"/>
+        <Property name="text" type="java.lang.String" value="80"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="percentTextFieldTwoActionPerformed"/>
@@ -323,7 +323,7 @@
           <Font name="Gill Sans MT" size="12" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="80.5"/>
+        <Property name="text" type="java.lang.String" value="50"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="percentTextFieldThreeActionPerformed"/>
@@ -365,7 +365,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Gill Sans MT" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n del archivo de entrada..."/>
+        <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n para el archivo de salida..."/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

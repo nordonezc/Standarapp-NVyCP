@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -18,6 +20,7 @@ public class Menu extends javax.swing.JFrame {
 
     int xMouse;
     int yMouse;
+
     /**
      * Creates new form Menu
      */
@@ -27,7 +30,7 @@ public class Menu extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPiconDesktop.png")).getImage());
         this.setTitle("StandarApp");
     }
-    
+
     public Menu(int x, int y) {
         initComponents();
         this.setLocation(x, y);
@@ -186,25 +189,55 @@ public class Menu extends javax.swing.JFrame {
 
     private void menuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButtonActionPerformed
         // TODO add your handling code here:
-       if(fixCharacters.isSelected()){
-           this.setVisible(false);
-           FixChar windowTwo = new FixChar(this.getX(), this.getY());
-           windowTwo.setVisible(true);
-       }
-       if(readRegistry.isSelected()){
-           this.setVisible(false);
-           ReadCases windowTwo = new ReadCases(this.getX(), this.getY());
-           windowTwo.setVisible(true);
-       }
-       if(search.isSelected()){
-           try {
-               this.setVisible(false);
-               ParticularSearch windowTwo = new ParticularSearch(this.getX(), this.getY());
-               windowTwo.setVisible(true);
-           } catch (IOException ex) {
-               Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-           }
-       }
+        if (fixCharacters.isSelected()) {
+            this.setVisible(false);
+            FixChar windowTwo = new FixChar(this.getX(), this.getY());
+            windowTwo.setVisible(true);
+        }
+        if (readRegistry.isSelected()) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setToolTipText("Seleccione el archivo xlsx con la base de datos");
+            chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            int option = chooser.showOpenDialog(this);
+            if (JFileChooser.CANCEL_OPTION == option) {
+                //this.setVisible(true);
+            }
+            else if (JFileChooser.APPROVE_OPTION == option) {
+                try {
+                    ReadCases windowTwo;
+                    windowTwo = new ReadCases(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
+                    windowTwo.setVisible(true);
+                    this.setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        if (search.isSelected()) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setToolTipText("Seleccione el archivo xlsx con la base de datos");
+            chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            int option = chooser.showOpenDialog(this);
+            if (JFileChooser.CANCEL_OPTION == option) {
+                //this.setVisible(true);
+            }
+            else if (JFileChooser.APPROVE_OPTION == option) {
+                try {
+                ParticularSearch windowTwo;
+                windowTwo = new ParticularSearch(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
+                windowTwo.setVisible(true);
+                this.setVisible(false);
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        }
     }//GEN-LAST:event_menuButtonActionPerformed
 
     private void fixCharactersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixCharactersActionPerformed
@@ -233,7 +266,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_dragLabelMouseDragged
 
