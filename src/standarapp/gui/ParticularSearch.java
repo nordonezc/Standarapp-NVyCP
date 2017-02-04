@@ -85,7 +85,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
         labelTittle.setFont(new java.awt.Font("Gill Sans MT", 0, 28)); // NOI18N
         labelTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTittle.setText("StandarApp 1.0");
+        labelTittle.setText("StandarApp 2.3");
         getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 620, 40));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N

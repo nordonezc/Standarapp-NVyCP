@@ -128,7 +128,7 @@ public class Menu extends javax.swing.JFrame {
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
         labelTittle.setFont(new java.awt.Font("Gill Sans MT", 1, 28)); // NOI18N
         labelTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTittle.setText("StandarApp 1.0");
+        labelTittle.setText("StandarApp 2.3");
         getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 220, 40));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));

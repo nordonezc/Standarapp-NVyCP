@@ -108,7 +108,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
         labelTittle.setFont(new java.awt.Font("Gill Sans MT", 0, 28)); // NOI18N
-        labelTittle.setText("StandarApp 1.0");
+        labelTittle.setText("StandarApp 2.3");
         getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 220, 40));
 
         instructionOne.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -404,6 +404,7 @@ public class ReadCases extends javax.swing.JFrame {
         try {
             if (!nameIn.contains("...")) {
                 if (nameOut.contains("...")) {
+                    System.out.println("Holi");
                     String answer = rr.lectureRegistry(nameIn, nameIn, col, percent);
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText(answer + nameIn);

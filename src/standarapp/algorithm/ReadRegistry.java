@@ -57,6 +57,22 @@ public class ReadRegistry {
         codigo_Dpto = ca.getCodigo_Dpto();
         codigo_Municipio = ca.getCodigo_Municipio();
         codigo_localidad = ca.getCodigo_localidad();
+        
+        /*
+        for(int cod: mncp_localidad.keySet()){
+            for(double codlc: mncp_localidad.get(cod).keySet()){
+                System.err.println(cod + " " + codlc + " " + mncp_localidad.get(cod).get(codlc) + "");
+            }
+        }
+        
+        for(String dp: listOfStandarNames.keySet()){
+            for(String mn: listOfStandarNames.keySet()){
+                for(String lc: listOfStandarNames.keySet()){
+                    System.out.println(dp + ", " + mn + ", " + lc);
+                }
+            }
+        }
+        */
         registry = new ArrayList<String[]>();
     }
 
@@ -122,10 +138,12 @@ public class ReadRegistry {
             }
         }
 
+        
+        System.out.println("size: " + registry.size());
         int rowCount = 0;
         int columnCount = 0;
         Row row;
-
+        
         if (xlsx) {
             sheet = workbook.createSheet();
             row = sheet.createRow(rowCount);
@@ -134,6 +152,20 @@ public class ReadRegistry {
             row = hsheet.createRow(rowCount);
         }
 
+        /*
+        for(int i = 0; i< registry.size(); i++){
+            System.err.println(registry.get(i)[0] + " " + 
+                    registry.get(i)[1] + " " +
+                    registry.get(i)[2] + " " +
+                    registry.get(i)[3] + " " +
+                    registry.get(i)[4] + " " +
+                    registry.get(i)[5] + " " +
+                    registry.get(i)[6] + " " +
+                    registry.get(i)[7] + " " +
+                    registry.get(i)[8] + " ");
+        }
+        */
+        
         Cell cell = row.createCell(columnCount);
         cell.setCellValue("Cod_Dpto");
         cell = row.createCell(++columnCount);
@@ -152,16 +184,17 @@ public class ReadRegistry {
         cell.setCellValue("Y");
 
         for (int i = 0; i < registry.size(); i++) {
+            try{
             String[] registro = registry.get(i);
             columnCount = -1;
             int cod_Mncp = Integer.parseInt(registro[0]) * 1000 + Integer.parseInt(registro[1]);
             row = sheet.createRow(++rowCount);
             double levenstein = percent;
             double localidad_oficial = 0;
+            
             for (int j = 2; j < 6; j++) {
                 for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
                     String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
-
                     try {
                         int levenstein_local = FuzzySearch.partialRatio(registro[j], loc);
                         if(levenstein_local>levenstein){
@@ -169,19 +202,21 @@ public class ReadRegistry {
                             levenstein = levenstein_local;
                         }
                     } catch (Exception e) {
-                        break;
+                        continue;
                     }
                     
                 }
             }
             
+            System.err.println(i + " " + levenstein + " " + localidad_oficial);
             if(levenstein==50){
-                if(registro[8].equals(registro[9])){
+                System.out.println(registro[7] + " = " + registro[8]);
+                if(registro[8].equals(registro[7])){
                     for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
                     String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
 
                     try {
-                        String direccion = registro[7];
+                        String direccion = registro[6];
                         direccion = deleteTrash(direccion);
                         
                         if(findWords(direccion))
@@ -215,6 +250,8 @@ public class ReadRegistry {
                 quantityFound++;
             }
             
+            System.out.println(dpto_oficial + ", " + mncp_oficial + ", " + loc_oficial);
+            
             cell = row.createCell(++columnCount);
             cell.setCellValue(Integer.parseInt(registro[0]));
             cell = row.createCell(++columnCount);
@@ -228,14 +265,12 @@ public class ReadRegistry {
             cell = row.createCell(++columnCount);
             cell.setCellValue(loc_oficial);
             cell = row.createCell(++columnCount);
-            cell.setCellValue(loc_oficial);
-            cell = row.createCell(++columnCount);
-            cell.setCellValue(loc_oficial);
-            cell = row.createCell(++columnCount);
             cell.setCellValue(locX);
             cell = row.createCell(++columnCount);
             cell.setCellValue(locY);
-            
+            }catch(Exception e){
+                continue;
+            }
         }
 
         percentFound = ((quantityFound) * 100) / (registry.size());

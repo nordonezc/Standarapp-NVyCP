@@ -152,11 +152,15 @@ public class CodeAssign {
                 if (!diccionario_UbicacionLocalidad.containsKey(departamento)) {
                     Hashtable<String, Hashtable<String, Double>> primerMunicipio = new Hashtable<>();
                     Hashtable<String, Double> primerLocalidad = new Hashtable<>();
+                    Hashtable<Double, String> primerLocalidadInv = new Hashtable<>();
                     codigo_Dpto.put(cod_departamento, departamento);
                     codigo_Municipio.put(cod_municipio, municipio);
                     codigo_localidad.put(cod_localidad, localidad);
                     localidad_X.put(cod_localidad, x);
                     localidad_Y.put(cod_localidad, y);
+                    
+                    primerLocalidadInv.put(cod_localidad, localidad);
+                    codigo_municipioLocalidad.put(cod_municipio, primerLocalidadInv);
                     primerLocalidad.put(localidad, cod_localidad);
                     primerMunicipio.put(municipio, primerLocalidad);
                     diccionario_UbicacionLocalidad.put(departamento, primerMunicipio);
@@ -168,12 +172,19 @@ public class CodeAssign {
                     localidad_X.put(cod_localidad, x);
                     localidad_Y.put(cod_localidad, y);
                     primerLocalidad.put(localidad, cod_localidad);
+                    
+                    Hashtable<Double, String> primerLocalidadInv = new Hashtable<>();
+                    
+                    primerLocalidadInv.put(cod_localidad, localidad);
+                    codigo_municipioLocalidad.put(cod_municipio, primerLocalidadInv);
+                    
                     diccionario_UbicacionLocalidad.get(departamento).put(municipio, primerLocalidad);
                     
                 } else if (!diccionario_UbicacionLocalidad.get(departamento).get(municipio).containsKey(localidad)) {
                     codigo_localidad.put(cod_localidad, localidad);
                     localidad_X.put(cod_localidad, x);
                     localidad_Y.put(cod_localidad, y);
+                    codigo_municipioLocalidad.get(cod_municipio).put(cod_localidad, localidad);
                     diccionario_UbicacionLocalidad.get(departamento).get(municipio).put(localidad, cod_localidad);
                 } 
             }
