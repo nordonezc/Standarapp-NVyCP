@@ -50,21 +50,30 @@ public class ReadCases extends javax.swing.JFrame {
         instructionOne = new javax.swing.JLabel();
         inFileTextField = new javax.swing.JTextField();
         inFileButton = new javax.swing.JButton();
-        instructionTwo = new javax.swing.JLabel();
-        collumnsTextField = new javax.swing.JTextField();
-        omitLabelOne = new javax.swing.JLabel();
+        cod_dpto_o_label = new javax.swing.JLabel();
+        cod_dpto_o_textField = new javax.swing.JTextField();
+        cod_mun_o_label = new javax.swing.JLabel();
+        cod_mun_o_textField = new javax.swing.JTextField();
+        localidad_label = new javax.swing.JLabel();
+        localidad_textField = new javax.swing.JTextField();
+        cen_pobla_label = new javax.swing.JLabel();
+        cen_pobla_textField = new javax.swing.JTextField();
+        dir_res_label = new javax.swing.JLabel();
+        dir_res_textField = new javax.swing.JTextField();
+        vereda_label = new javax.swing.JLabel();
+        vereda_textField = new javax.swing.JTextField();
+        bar_ver_label = new javax.swing.JLabel();
+        bar_ver_textField = new javax.swing.JTextField();
+        nmun_proce_label = new javax.swing.JLabel();
+        nmun_proce_textField = new javax.swing.JTextField();
+        nmun_resi_label = new javax.swing.JLabel();
+        nmun_resi = new javax.swing.JTextField();
         instructionThree = new javax.swing.JLabel();
         pagesTextField = new javax.swing.JTextField();
         OmitLabelTwo = new javax.swing.JLabel();
         instructionFour = new javax.swing.JLabel();
-        municipioLabel = new javax.swing.JLabel();
-        percentTextFieldOne = new javax.swing.JTextField();
-        percentOne = new javax.swing.JLabel();
-        departamentoLabel = new javax.swing.JLabel();
-        percentTextFieldTwo = new javax.swing.JTextField();
-        percentTwo = new javax.swing.JLabel();
         localidadLabel = new javax.swing.JLabel();
-        percentTextFieldThree = new javax.swing.JTextField();
+        percentTextField = new javax.swing.JTextField();
         percentThree = new javax.swing.JLabel();
         instructionFive = new javax.swing.JLabel();
         outFileTextField = new javax.swing.JTextField();
@@ -120,28 +129,126 @@ public class ReadCases extends javax.swing.JFrame {
         });
         getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 30, 30));
 
-        instructionTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        instructionTwo.setText("Digite los numeros de las columnas:");
-        getContentPane().add(instructionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 240, 30));
+        cod_dpto_o_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cod_dpto_o_label.setText("cod_dpto_o ");
+        getContentPane().add(cod_dpto_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 80, 40));
 
-        collumnsTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        collumnsTextField.setText("95,96,97,98,99,100,21,22,23");
-        collumnsTextField.addActionListener(new java.awt.event.ActionListener() {
+        cod_dpto_o_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        cod_dpto_o_textField.setText("16");
+        cod_dpto_o_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                collumnsTextFieldActionPerformed(evt);
+                cod_dpto_o_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(collumnsTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 210, 30));
+        getContentPane().add(cod_dpto_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 30, 30));
 
-        omitLabelOne.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
-        omitLabelOne.setForeground(new java.awt.Color(51, 51, 51));
-        omitLabelOne.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        omitLabelOne.setText("(Si desea corregir todo el archivo, ignore este paso)");
-        getContentPane().add(omitLabelOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
+        cod_mun_o_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cod_mun_o_label.setText("cod_mun_o");
+        getContentPane().add(cod_mun_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 80, 40));
+
+        cod_mun_o_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        cod_mun_o_textField.setText("17");
+        cod_mun_o_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cod_mun_o_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cod_mun_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 30, 30));
+
+        localidad_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        localidad_label.setText("localidad_");
+        getContentPane().add(localidad_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 80, 40));
+
+        localidad_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        localidad_textField.setText("19");
+        localidad_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localidad_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 30, 30));
+
+        cen_pobla_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cen_pobla_label.setText("cen_pobla_");
+        getContentPane().add(cen_pobla_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 80, 40));
+
+        cen_pobla_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        cen_pobla_textField.setText("20");
+        cen_pobla_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cen_pobla_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cen_pobla_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 30, 30));
+
+        dir_res_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        dir_res_label.setText("dir_res");
+        getContentPane().add(dir_res_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 80, 40));
+
+        dir_res_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        dir_res_textField.setText("23");
+        dir_res_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dir_res_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(dir_res_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 30, 30));
+
+        vereda_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        vereda_label.setText("vereda_");
+        getContentPane().add(vereda_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 80, 40));
+
+        vereda_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        vereda_textField.setText("21");
+        vereda_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vereda_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(vereda_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 30, 30));
+
+        bar_ver_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        bar_ver_label.setText("bar_ver");
+        getContentPane().add(bar_ver_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 80, 40));
+
+        bar_ver_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        bar_ver_textField.setText("22");
+        bar_ver_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bar_ver_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bar_ver_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 30, 30));
+
+        nmun_proce_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        nmun_proce_label.setText("nmun_proce");
+        getContentPane().add(nmun_proce_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 40));
+
+        nmun_proce_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        nmun_proce_textField.setText("96");
+        nmun_proce_textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nmun_proce_textFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nmun_proce_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 30, 30));
+
+        nmun_resi_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        nmun_resi_label.setText("nmun_resi");
+        getContentPane().add(nmun_resi_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 80, 40));
+
+        nmun_resi.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        nmun_resi.setText("98");
+        nmun_resi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nmun_resiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nmun_resi, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 30, 30));
 
         instructionThree.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         instructionThree.setText("Digite el numero de la pagina:");
-        getContentPane().add(instructionThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 200, 30));
+        getContentPane().add(instructionThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 200, 30));
 
         pagesTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         pagesTextField.setText("0");
@@ -150,79 +257,43 @@ public class ReadCases extends javax.swing.JFrame {
                 pagesTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(pagesTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 80, 30));
+        getContentPane().add(pagesTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 80, 30));
 
         OmitLabelTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
         OmitLabelTwo.setForeground(new java.awt.Color(51, 51, 51));
         OmitLabelTwo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         OmitLabelTwo.setText("(Omitir, en caso de no conocer)");
-        getContentPane().add(OmitLabelTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 150, 30));
+        getContentPane().add(OmitLabelTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 150, 30));
 
         instructionFour.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         instructionFour.setText("Determine los porcentajes de comparación por:");
-        getContentPane().add(instructionFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 280, 30));
-
-        municipioLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        municipioLabel.setText("Municipio:");
-        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 60, 30));
-
-        percentTextFieldOne.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        percentTextFieldOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldOne.setText("80");
-        percentTextFieldOne.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentTextFieldOneActionPerformed(evt);
-            }
-        });
-        getContentPane().add(percentTextFieldOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 40, 30));
-
-        percentOne.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        percentOne.setText("%");
-        getContentPane().add(percentOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 10, 30));
-
-        departamentoLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        departamentoLabel.setText("Departamento:");
-        getContentPane().add(departamentoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 90, 30));
-
-        percentTextFieldTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        percentTextFieldTwo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldTwo.setText("80");
-        percentTextFieldTwo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentTextFieldTwoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(percentTextFieldTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 40, 30));
-
-        percentTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        percentTwo.setText("%");
-        getContentPane().add(percentTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 10, 30));
+        getContentPane().add(instructionFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 280, 30));
 
         localidadLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         localidadLabel.setText("Localidad:");
-        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 60, 30));
+        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 60, 30));
 
-        percentTextFieldThree.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        percentTextFieldThree.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextFieldThree.setText("50");
-        percentTextFieldThree.addActionListener(new java.awt.event.ActionListener() {
+        percentTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        percentTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        percentTextField.setText("50");
+        percentTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                percentTextFieldThreeActionPerformed(evt);
+                percentTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(percentTextFieldThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 40, 30));
+        getContentPane().add(percentTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 40, 30));
 
         percentThree.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         percentThree.setText("%");
-        getContentPane().add(percentThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 10, 30));
+        getContentPane().add(percentThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 10, 30));
 
         instructionFive.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         instructionFive.setText("Indique la ruta del archivo de salida");
-        getContentPane().add(instructionFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 230, 20));
+        getContentPane().add(instructionFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 230, 20));
 
         outFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         outFileTextField.setText("Ubicación para el archivo de salida...");
-        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 390, 30));
+        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 390, 30));
 
         outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         outFileButton.setText("jButton1");
@@ -231,18 +302,18 @@ public class ReadCases extends javax.swing.JFrame {
                 outFileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 30, 30));
+        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 30, 30));
 
         omitLabelThree.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
         omitLabelThree.setForeground(new java.awt.Color(51, 51, 51));
         omitLabelThree.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         omitLabelThree.setText("(Si desea sobreescribir el archivo de entrada,  ignore este paso, y presione arreglar)");
-        getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+        getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
 
         answerLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 11)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         answerLabel.setText("Presione arreglar para continuar");
-        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 380, 430, -1));
+        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 430, 20));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
         doButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -314,23 +385,22 @@ public class ReadCases extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
-        String collumns = collumnsTextField.getText();
-        double temporalPercentOne = Double.valueOf(percentTextFieldOne.getText());
-        double temporalPercentTwo = Double.valueOf(percentTextFieldTwo.getText());
-        double temporalPercentThree = Double.valueOf(percentTextFieldThree.getText());
-        int percent[] = {(int) temporalPercentOne, (int) temporalPercentTwo, (int) temporalPercentThree};
-        int[] col = {};
+        String collumns = cod_dpto_o_textField.getText();
+        double percent = Double.valueOf(percentTextField.getText());
+        int number1 = Integer.valueOf(cod_dpto_o_textField.getText());
+        int number2 = Integer.valueOf(cod_mun_o_textField.getText());
+        int number3 = Integer.valueOf(localidad_textField.getText());
+        int number4 = Integer.valueOf(cen_pobla_textField.getText());
+        int number5 = Integer.valueOf(vereda_textField.getText());
+        int number6 = Integer.valueOf(bar_ver_textField.getText());
+        int number7 = Integer.valueOf(dir_res_textField.getText());
+        int number8 = Integer.valueOf(nmun_proce_textField.getText());
+        int number9 = Integer.valueOf(nmun_resi.getText());
         
-
+        int[] col = {number1,number2,number3,number4,number5,number6,number7,number8,number9};
+        
         double pages = Double.valueOf(pagesTextField.getText());
 
-        String[] temporal = collumns.split(",");
-        col = new int[temporal.length];
-        for (int i = 0; i < temporal.length; i++) {
-            double tmp = Double.valueOf(temporal[i]);
-            col[i] = (int) tmp;
-        }
-        
         try {
             if (!nameIn.contains("...")) {
                 if (nameOut.contains("...")) {
@@ -369,13 +439,9 @@ public class ReadCases extends javax.swing.JFrame {
         windowTwo.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void percentTextFieldOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentTextFieldOneActionPerformed
+    private void cod_dpto_o_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_dpto_o_textFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_percentTextFieldOneActionPerformed
-
-    private void collumnsTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_collumnsTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_collumnsTextFieldActionPerformed
+    }//GEN-LAST:event_cod_dpto_o_textFieldActionPerformed
 
     private void minimizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeButtonActionPerformed
         // TODO add your handling code here:
@@ -386,13 +452,9 @@ public class ReadCases extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pagesTextFieldActionPerformed
 
-    private void percentTextFieldTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentTextFieldTwoActionPerformed
+    private void percentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_percentTextFieldTwoActionPerformed
-
-    private void percentTextFieldThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_percentTextFieldThreeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_percentTextFieldThreeActionPerformed
+    }//GEN-LAST:event_percentTextFieldActionPerformed
 
     private void dragLabelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dragLabelMouseDragged
         // TODO add your handling code here:
@@ -439,15 +501,55 @@ public class ReadCases extends javax.swing.JFrame {
             outFileTextField.setText(chooser.getSelectedFile().getAbsolutePath());
     }//GEN-LAST:event_outFileButtonActionPerformed
 
+    private void cod_mun_o_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_mun_o_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cod_mun_o_textFieldActionPerformed
+
+    private void localidad_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localidad_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_localidad_textFieldActionPerformed
+
+    private void cen_pobla_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cen_pobla_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cen_pobla_textFieldActionPerformed
+
+    private void dir_res_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dir_res_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dir_res_textFieldActionPerformed
+
+    private void vereda_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vereda_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vereda_textFieldActionPerformed
+
+    private void bar_ver_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bar_ver_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bar_ver_textFieldActionPerformed
+
+    private void nmun_proce_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nmun_proce_textFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nmun_proce_textFieldActionPerformed
+
+    private void nmun_resiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nmun_resiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nmun_resiActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel OmitLabelTwo;
     private javax.swing.JLabel answerLabel;
     private javax.swing.JButton backButton;
     private javax.swing.JLabel backgroundLabel;
-    private javax.swing.JTextField collumnsTextField;
-    private javax.swing.JLabel departamentoLabel;
+    private javax.swing.JLabel bar_ver_label;
+    private javax.swing.JTextField bar_ver_textField;
+    private javax.swing.JLabel cen_pobla_label;
+    private javax.swing.JTextField cen_pobla_textField;
+    private javax.swing.JLabel cod_dpto_o_label;
+    private javax.swing.JTextField cod_dpto_o_textField;
+    private javax.swing.JLabel cod_mun_o_label;
+    private javax.swing.JTextField cod_mun_o_textField;
     private javax.swing.JLabel derechosEmailLabel;
     private javax.swing.JLabel derechosLabel;
+    private javax.swing.JLabel dir_res_label;
+    private javax.swing.JTextField dir_res_textField;
     private javax.swing.JButton doButton;
     private javax.swing.JLabel dragLabel;
     private javax.swing.JButton exitButton;
@@ -458,21 +560,22 @@ public class ReadCases extends javax.swing.JFrame {
     private javax.swing.JLabel instructionFour;
     private javax.swing.JLabel instructionOne;
     private javax.swing.JLabel instructionThree;
-    private javax.swing.JLabel instructionTwo;
     private javax.swing.JLabel labelTittle;
     private javax.swing.JLabel localidadLabel;
+    private javax.swing.JLabel localidad_label;
+    private javax.swing.JTextField localidad_textField;
     private javax.swing.JButton minimizeButton;
-    private javax.swing.JLabel municipioLabel;
-    private javax.swing.JLabel omitLabelOne;
+    private javax.swing.JLabel nmun_proce_label;
+    private javax.swing.JTextField nmun_proce_textField;
+    private javax.swing.JTextField nmun_resi;
+    private javax.swing.JLabel nmun_resi_label;
     private javax.swing.JLabel omitLabelThree;
     private javax.swing.JButton outFileButton;
     private javax.swing.JTextField outFileTextField;
     private javax.swing.JTextField pagesTextField;
-    private javax.swing.JLabel percentOne;
-    private javax.swing.JTextField percentTextFieldOne;
-    private javax.swing.JTextField percentTextFieldThree;
-    private javax.swing.JTextField percentTextFieldTwo;
+    private javax.swing.JTextField percentTextField;
     private javax.swing.JLabel percentThree;
-    private javax.swing.JLabel percentTwo;
+    private javax.swing.JLabel vereda_label;
+    private javax.swing.JTextField vereda_textField;
     // End of variables declaration//GEN-END:variables
 }

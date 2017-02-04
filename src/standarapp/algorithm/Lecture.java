@@ -268,7 +268,7 @@ public class Lecture{
         
         
         info = info.replace("├ô", "O");
-        info = info.replace("├Ô", "O");
+        info = info.replace("├£", "U");
         
         info = info.replace("├Ô", "O");
         info = info.replace("├Ô", "O");

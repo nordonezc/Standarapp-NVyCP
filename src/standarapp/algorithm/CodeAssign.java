@@ -20,209 +20,166 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class CodeAssign {
 
-    private static Hashtable<String, Hashtable<String, Hashtable<String, Integer>>> diccionario_UbicacionLocalidad;
+    private static Hashtable<String, Hashtable<String, Hashtable<String, Double>>> diccionario_UbicacionLocalidad;
     private static Hashtable<Integer, String> codigo_Dpto;
     private static Hashtable<Integer, String> codigo_Municipio;
-    private static Hashtable<Integer, String> codigo_localidad;
-    private static Hashtable<Integer, Hashtable<Integer, String>> codigo_municipioLocalidad;
+    private static Hashtable<Integer, Hashtable<Integer, String>> dpto_Municipio;
+    private static Hashtable<Double, String> codigo_localidad;
+    private static Hashtable<Double, Double> localidad_X;
+    private static Hashtable<Double, Double> localidad_Y;
+    private static Hashtable<Integer, Hashtable<Double, String>> codigo_municipioLocalidad;
 
-    public static void main(String args[]) {
-        
-    diccionario_UbicacionLocalidad = new Hashtable<>();
-    codigo_Dpto = new Hashtable<>();
-    codigo_Municipio = new Hashtable<>();
-    codigo_localidad = new Hashtable<>();
-    codigo_municipioLocalidad = new Hashtable<>();
-    
-        XSSFSheet xsheet = Lecture.lectureXLSX("C:\\Users\\Niki\\Documents\\codigosDaneArreglados.xlsx", 0);
-        for (Row row : xsheet) {
-            if(row.getRowNum() >4){
-            String departamento = "";
-            int codigoMunicipio = 0;
-            int codigoDpto = 0;
-            String codigoMun = "";
-            String municipio = "";
-            System.out.print(row.getRowNum() + "| ");
-            for (Cell cell : row) {
-                if (cell.getColumnIndex() == 0) 
-                    departamento = cell.getStringCellValue();
-                
-                if (cell.getColumnIndex() == 2) 
-                    municipio = cell.getStringCellValue();
-                
-                if (cell.getColumnIndex() == 1) {
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_STRING:
-                            System.out.print("String: ");
-                            codigoMun = cell.getStringCellValue();
-                            codigoMunicipio = Integer.parseInt(codigoMun);
-                            break;
-                        case Cell.CELL_TYPE_NUMERIC:
-                            System.out.print("numerico: ");
-                            codigoMunicipio = (int) cell.getNumericCellValue();
-                            codigoMun = String.valueOf(codigoMunicipio);
-                            break;
-                    }
-                    
-                    System.out.print(codigoMunicipio);
-                    String temporal = codigoMun.charAt(0) + "" + codigoMun.charAt(1);
-                    codigoDpto = Integer.parseInt(temporal);
-                    System.out.print(" dpto: " + temporal + "\t\t");
-                    
-                    System.out.println("Municipio: " + municipio);
-                }
-                
-                try{
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_STRING:
-                            String contenido = cell.getStringCellValue();
-                            System.out.print(cell.getColumnIndex() + ": " + contenido + "\t\t");
-                            break;
-                        case Cell.CELL_TYPE_NUMERIC:
-                            double contenido_Numerico = cell.getNumericCellValue();
-                            System.out.print(cell.getColumnIndex() + ": " + contenido_Numerico + "\t\t");
-                    }
-                } catch(Exception e){}
-            }
-            System.out.println();
-            
-            if (!diccionario_UbicacionLocalidad.containsKey(departamento)) {
-                    Hashtable<String, Hashtable<String, Integer>> primerMunicipio = new Hashtable<>();
-                    Hashtable<String, Integer> primerLocalidad = new Hashtable<>();
-                    Hashtable<Integer, String> primerLocalidadporNumero = new Hashtable<>();
-                    
-                    codigo_Dpto.put(codigoDpto, departamento);
-                    
-                    primerMunicipio.put(municipio, primerLocalidad);
-                    diccionario_UbicacionLocalidad.put(departamento, primerMunicipio);
-                    codigo_Municipio.put(codigoMunicipio, municipio);
-                    codigo_municipioLocalidad.put(codigoMunicipio, primerLocalidadporNumero);
-                    
-            } else if (!diccionario_UbicacionLocalidad.get(departamento).containsKey(municipio)) {
-                    Hashtable<String, Integer> primerLocalidad = new Hashtable<String, Integer>();
-                    Hashtable<Integer, String> primerLocalidadporNumero = new Hashtable<>();
-                    
-                    diccionario_UbicacionLocalidad.get(departamento).put(municipio, primerLocalidad);
-                    codigo_Municipio.put(codigoMunicipio, municipio);
-                    codigo_municipioLocalidad.put(codigoMunicipio, primerLocalidadporNumero);
-            } else {
-            }
-        }
-        }
-        
-        /*for(int codigo: codigo_Dpto.keySet())
-            System.out.println(codigo + ": " + codigo_Dpto.get(codigo));
-        
-        System.out.println("Tamaño departamentos: " + codigo_Dpto.size());
-        */
-        
-        for(int codigo: codigo_Municipio.keySet())
-            System.out.println(codigo + ": " + codigo_Municipio.get(codigo));
-        
-        System.out.println("Tamaño municipios: " + codigo_Municipio.size());
+    public static Hashtable<Integer, String> getCodigo_Dpto() {
+        return codigo_Dpto;
     }
-    
-    
+
+    public static Hashtable<Integer, String> getCodigo_Municipio() {
+        return codigo_Municipio;
+    }
+
+    public static Hashtable<Integer, Hashtable<Integer, String>> getDpto_Municipio() {
+        return dpto_Municipio;
+    }
+
+    public static Hashtable<Double, String> getCodigo_localidad() {
+        return codigo_localidad;
+    }
+
+    public static Hashtable<String, Hashtable<String, Hashtable<String, Double>>> getDiccionario_UbicacionLocalidad() {
+        return diccionario_UbicacionLocalidad;
+    }
+
+    public static Hashtable<Double, Double> getLocalidad_X() {
+        return localidad_X;
+    }
+
+    public static Hashtable<Double, Double> getLocalidad_Y() {
+        return localidad_Y;
+    }
+
+    public static Hashtable<Integer, Hashtable<Double, String>> getCodigo_municipioLocalidad() {
+        return codigo_municipioLocalidad;
+    }
+
     public CodeAssign(String nameExcel) throws IOException {
         //Logica de la aplicacion
         diccionario_UbicacionLocalidad = new Hashtable<>();
+        codigo_Dpto = new Hashtable<>();
+        codigo_Municipio = new Hashtable<>();
+        dpto_Municipio = new Hashtable<>();
         codigo_localidad = new Hashtable<>();
+        localidad_X = new Hashtable<>();
+        localidad_Y = new Hashtable<>();
+        codigo_municipioLocalidad = new Hashtable<>();
+
         XSSFWorkbook xwb = Lecture.lectureXLSX(nameExcel);
         XSSFSheet xsheet = xwb.getSheetAt(0);
         double codigoTemporal = 0;
+        
         for (Row row : xsheet) {
             if (row.getRowNum() > 0) {
                 String departamento = "", municipio = "", localidad = "";
-                int codigoVereda = 0;
+                int cod_departamento = 0, cod_municipio = 0;
+                double cod_localidad = 0, x = 0, y = 0;
                 for (Cell cell : row) {
-                    if (cell.getColumnIndex() == 1) {
+                    if (cell.getColumnIndex() == 0) {
                         switch (cell.getCellType()) {
                             case Cell.CELL_TYPE_STRING:
                                 codigoTemporal = Double.valueOf(cell.getStringCellValue());
-                                codigoVereda = (int) codigoTemporal;
+                                cod_departamento = (int) codigoTemporal;
                                 continue;
                             case Cell.CELL_TYPE_NUMERIC:
-                                codigoVereda = (int) cell.getNumericCellValue();
+                                cod_departamento = (int) cell.getNumericCellValue();
                                 continue;
                         }
                     }
-                    if (cell.getColumnIndex() == 2) 
+                    
+                    if (cell.getColumnIndex() == 1)
                         departamento = cell.getStringCellValue();
+                   
+                    if (cell.getColumnIndex() == 2) {
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:
+                                codigoTemporal = Double.valueOf(cell.getStringCellValue());
+                                cod_municipio = (int) codigoTemporal;
+                                continue;
+                            case Cell.CELL_TYPE_NUMERIC:
+                                cod_municipio = (int) cell.getNumericCellValue();
+                                continue;
+                        }
+                    }
+
                     if (cell.getColumnIndex() == 3) 
                         municipio = cell.getStringCellValue();
-                    if (cell.getColumnIndex() == 4) 
+
+                    if (cell.getColumnIndex() == 4) {
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:
+                                cod_localidad = Double.valueOf(cell.getStringCellValue());
+                                continue;
+                            case Cell.CELL_TYPE_NUMERIC:
+                                cod_localidad = (double) cell.getNumericCellValue();
+                                continue;
+                        }
+                    }
+
+                    if (cell.getColumnIndex() == 5)
                         localidad = cell.getStringCellValue();
+        
+                    if (cell.getColumnIndex() == 6) {
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:
+                                x = Double.valueOf(cell.getStringCellValue());
+                                continue;
+                            case Cell.CELL_TYPE_NUMERIC:
+                                x = (double) cell.getNumericCellValue();
+                                continue;
+                        }
+                    }
+
+                    if (cell.getColumnIndex() == 7) {
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:
+                                y = Double.valueOf(cell.getStringCellValue());
+                                continue;
+                            case Cell.CELL_TYPE_NUMERIC:
+                                y = (double) cell.getNumericCellValue();
+                                continue;
+                        }
+                    }
                 }
 
                 if (!diccionario_UbicacionLocalidad.containsKey(departamento)) {
-                    Hashtable<String, Hashtable<String, Integer>> primerMunicipio = new Hashtable<String, Hashtable<String, Integer>>();
-                    Hashtable<String, Integer> primerLocalidad = new Hashtable<>();
-                    primerLocalidad.put(localidad, codigoVereda);
+                    Hashtable<String, Hashtable<String, Double>> primerMunicipio = new Hashtable<>();
+                    Hashtable<String, Double> primerLocalidad = new Hashtable<>();
+                    codigo_Dpto.put(cod_departamento, departamento);
+                    codigo_Municipio.put(cod_municipio, municipio);
+                    codigo_localidad.put(cod_localidad, localidad);
+                    localidad_X.put(cod_localidad, x);
+                    localidad_Y.put(cod_localidad, y);
+                    primerLocalidad.put(localidad, cod_localidad);
                     primerMunicipio.put(municipio, primerLocalidad);
                     diccionario_UbicacionLocalidad.put(departamento, primerMunicipio);
-                    
-                    try{
-                        codigo_localidad.put(codigoVereda, localidad);
-                    }catch(NullPointerException e){
-                        System.err.println(codigoVereda + ": " + localidad);
-                    }
+
                 } else if (!diccionario_UbicacionLocalidad.get(departamento).containsKey(municipio)) {
-                    Hashtable<String, Integer> primerGeo = new Hashtable<String, Integer>();
-                    primerGeo.put(localidad, codigoVereda);
-                    diccionario_UbicacionLocalidad.get(departamento).put(municipio, primerGeo);
-                    codigo_localidad.put(codigoVereda, localidad);
+                    Hashtable<String, Double> primerLocalidad = new Hashtable<>();
+                    codigo_Municipio.put(cod_municipio, municipio);
+                    codigo_localidad.put(cod_localidad, localidad);
+                    localidad_X.put(cod_localidad, x);
+                    localidad_Y.put(cod_localidad, y);
+                    primerLocalidad.put(localidad, cod_localidad);
+                    diccionario_UbicacionLocalidad.get(departamento).put(municipio, primerLocalidad);
+                    
                 } else if (!diccionario_UbicacionLocalidad.get(departamento).get(municipio).containsKey(localidad)) {
-                    diccionario_UbicacionLocalidad.get(departamento).get(municipio).put(localidad, codigoVereda);
-                    codigo_localidad.put(codigoVereda, localidad);
-                } else {
-                }
+                    codigo_localidad.put(cod_localidad, localidad);
+                    localidad_X.put(cod_localidad, x);
+                    localidad_Y.put(cod_localidad, y);
+                    diccionario_UbicacionLocalidad.get(departamento).get(municipio).put(localidad, cod_localidad);
+                } 
             }
         }
     }
 
-    public void generateExcel(String nameDirectory) throws IOException {
-        /**
-         * Write all localidades with codes, with his departamentos and
-         * municipios Copiar en un excel todas las localidades con codigos en
-         * departamentos y municipios
-         */
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("StandarCodes");
-
-        int rowCount = 0;
-        int columnCount = 0;
-        Row row = sheet.createRow(rowCount);
-        Cell cell = row.createCell(columnCount);
-        cell.setCellValue("Municipio");
-        cell = row.createCell(++columnCount);
-        cell.setCellValue("Departamento");
-        cell = row.createCell(++columnCount);
-        cell.setCellValue("Localidad");
-        cell = row.createCell(++columnCount);
-        cell.setCellValue("Codigo");
-        for (String municipio : diccionario_UbicacionLocalidad.keySet()) {
-            for (String departamento : diccionario_UbicacionLocalidad.get(municipio).keySet()) {
-                for (String localidad : diccionario_UbicacionLocalidad.get(municipio).get(departamento).keySet()) {
-                    row = sheet.createRow(++rowCount);
-                    columnCount = 0;
-                    cell = row.createCell(columnCount);
-                    cell.setCellValue(municipio);
-                    cell = row.createCell(++columnCount);
-                    cell.setCellValue(departamento);
-                    cell = row.createCell(++columnCount);
-                    cell.setCellValue(localidad);
-                    cell = row.createCell(++columnCount);
-                    cell.setCellValue(diccionario_UbicacionLocalidad.get(municipio).get(departamento).get(localidad));
-                }
-
-            }
-        }
-
-        try (FileOutputStream outputStream = new FileOutputStream(nameDirectory)) {
-            workbook.write(outputStream);
-        }
-
-    }
 
     public String findByDepartamento(String departamento) {
         String answer = "";
@@ -254,18 +211,21 @@ public class CodeAssign {
         String dptoCorrecto = "";
         answer += "El municicpio " + dptoCorrecto + " esta en: \n";
         int majorLev = 50;
-        
+
         for (String dpto : diccionario_UbicacionLocalidad.keySet()) {
             for (String mncp : diccionario_UbicacionLocalidad.get(dpto).keySet()) {
                 int partialLev = FuzzySearch.ratio(mncp, municipio);
                 if (partialLev > 50) {
-                    if(partialLev > majorLev){
+                    if (partialLev > majorLev) {
                         dptoCorrecto = dpto;
                         majorLev = partialLev;
                     }
                     answer += dpto;
-                    if(partialLev >= 100) answer += " *MAS POSIBLE* ";
-                    else if(partialLev >= 80) answer += "*muy probable*";
+                    if (partialLev >= 100) {
+                        answer += " *MAS POSIBLE* ";
+                    } else if (partialLev >= 80) {
+                        answer += "*muy probable*";
+                    }
                     answer += "\n";
                     break;
                 }
@@ -280,24 +240,26 @@ public class CodeAssign {
         String localidadCorrecta = localidad;
         int majorLev = 50;
         int percent = 80;
-        if(codigo_localidad.contains(localidad))
+        if (codigo_localidad.contains(localidad)) {
             percent = 100;
-        
+        }
+
         for (String dpto : diccionario_UbicacionLocalidad.keySet()) {
             for (String mncp : diccionario_UbicacionLocalidad.get(dpto).keySet()) {
                 for (String local : diccionario_UbicacionLocalidad.get(dpto).get(mncp).keySet()) {
                     int partialLev = 0;
-                    if(percent == 100)
+                    if (percent == 100) {
                         partialLev = FuzzySearch.ratio(local, localidadCorrecta);
-                    else
+                    } else {
                         partialLev = FuzzySearch.tokenSetRatio(local, localidadCorrecta);
+                    }
                     if (partialLev >= majorLev && partialLev >= percent) {
                         localidadCorrecta = local;
                         majorLev = partialLev;
                     }
                     if (majorLev >= percent) {
                         majorLev = 0;
-                        answer += "Dpto: " + dpto + ", municipio: " + mncp + " encontro " + local + ": " + diccionario_UbicacionLocalidad.get(dpto).get(mncp).get(localidadCorrecta) +"\n";
+                        answer += "Dpto: " + dpto + ", municipio: " + mncp + " encontro " + local + ": " + diccionario_UbicacionLocalidad.get(dpto).get(mncp).get(localidadCorrecta) + "\n";
                         //break;
                     }
                 }
@@ -392,32 +354,33 @@ public class CodeAssign {
         return answer;
     }
 
-    public String finbByLocalidadAndDepartamento(String localidad, String departamento){
+    public String finbByLocalidadAndDepartamento(String localidad, String departamento) {
         String answer = "En " + departamento + " se encontro " + localidad + " en: \n";
         String localidadCorrecta = localidad;
         String departamentoCorrecto = departamento;
         int majorLev = 50;
-        if(!diccionario_UbicacionLocalidad.containsKey(departamento)){
-        for (String dpto : diccionario_UbicacionLocalidad.keySet()) {
-            if(FuzzySearch.ratio(departamentoCorrecto, dpto)<50)
-                continue;
-            for (String mncp : diccionario_UbicacionLocalidad.get(dpto).keySet()) {
-                for(String local: diccionario_UbicacionLocalidad.get(dpto).get(mncp).keySet()){
-                    int temporalLev = FuzzySearch.ratio(local, localidadCorrecta);
-                    if(temporalLev>=majorLev){
-                        majorLev = temporalLev;
-                        answer += "El municipio que tiene a " + local + " y pertenece a " + dpto + " es: " + mncp + "\n";
+        if (!diccionario_UbicacionLocalidad.containsKey(departamento)) {
+            for (String dpto : diccionario_UbicacionLocalidad.keySet()) {
+                if (FuzzySearch.ratio(departamentoCorrecto, dpto) < 50) {
+                    continue;
+                }
+                for (String mncp : diccionario_UbicacionLocalidad.get(dpto).keySet()) {
+                    for (String local : diccionario_UbicacionLocalidad.get(dpto).get(mncp).keySet()) {
+                        int temporalLev = FuzzySearch.ratio(local, localidadCorrecta);
+                        if (temporalLev >= majorLev) {
+                            majorLev = temporalLev;
+                            answer += "El municipio que tiene a " + local + " y pertenece a " + dpto + " es: " + mncp + "\n";
+                        }
+                        //if (majorLev >= 100) break;
                     }
                     //if (majorLev >= 100) break;
                 }
-                //if (majorLev >= 100) break;
             }
-        }}
-        else{
+        } else {
             for (String mncp : diccionario_UbicacionLocalidad.get(departamentoCorrecto).keySet()) {
-                for(String local: diccionario_UbicacionLocalidad.get(departamentoCorrecto).get(mncp).keySet()){
+                for (String local : diccionario_UbicacionLocalidad.get(departamentoCorrecto).get(mncp).keySet()) {
                     int temporalLev = FuzzySearch.ratio(local, localidadCorrecta);
-                    if(temporalLev>=majorLev){
+                    if (temporalLev >= majorLev) {
                         majorLev = temporalLev;
                         answer += "El municipio que tiene a " + local + " y pertenece a " + departamentoCorrecto + " es: " + mncp + "\n";
                     }
@@ -426,10 +389,10 @@ public class CodeAssign {
                 //if (majorLev >= 100) break;
             }
         }
-        
+
         return answer;
     }
-    
+
     public String findByAll(String departamento, String municipio, String localidad) {
         String answer = "";
         String municipioCorrecto = municipio;
@@ -503,14 +466,6 @@ public class CodeAssign {
         return answer;
     }
 
-    public Hashtable<String, Hashtable<String, Hashtable<String, Integer>>> getListOfStandarNames() {
-        return diccionario_UbicacionLocalidad;
-    }
-
-    public Hashtable<Integer, String> getAllCodes() {
-        return codigo_localidad;
-    }
-
     /*
     private static String fixWords(String message) {
         String info = message;
@@ -543,5 +498,389 @@ public class CodeAssign {
         info = info.replace("├â┼í", "U");
         return info;
     }
-    */
+     */
 }
+
+
+   /*
+    public static void main(String args[]) {  
+    diccionario_UbicacionLocalidad = new Hashtable<>();
+    codigo_Dpto = new Hashtable<>();
+    codigo_Municipio = new Hashtable<>();
+    dpto_Municipio = new Hashtable<>();
+    codigo_localidad = new Hashtable<>();
+    codigo_municipioLocalidad = new Hashtable<>();
+    localidad_X = new Hashtable<>();
+    localidad_Y = new Hashtable<>();
+    
+        XSSFSheet xsheet = Lecture.lectureXLSX("C:\\Users\\Dell\\Downloads\\codigosDaneArreglados.xlsx", 0);
+        for (Row row : xsheet) {
+            if(row.getRowNum() >4){
+            String departamento = "";
+            int codigoMunicipio = 0;
+            int codigoDpto = 0;
+            String codigoMun = "";
+            String municipio = "";
+            
+            for (Cell cell : row) {
+                if (cell.getColumnIndex() == 0) 
+                    departamento = cell.getStringCellValue();
+                
+                if (cell.getColumnIndex() == 2) 
+                    municipio = cell.getStringCellValue();
+                
+                if (cell.getColumnIndex() == 1) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            codigoMun = cell.getStringCellValue();
+                            codigoMunicipio = Integer.parseInt(codigoMun);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            codigoMunicipio = (int) cell.getNumericCellValue();
+                            codigoMun = String.valueOf(codigoMunicipio);
+                            break;
+                    }
+                    
+                    String temporal = codigoMun.charAt(0) + "" + codigoMun.charAt(1);
+                    codigoDpto = Integer.parseInt(temporal);
+                }
+                
+                try{
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            String contenido = cell.getStringCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido + "\t\t");
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            double contenido_Numerico = cell.getNumericCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido_Numerico + "\t\t");
+                    }
+                } catch(Exception e){}
+            }
+            System.out.println();
+            
+            if (!diccionario_UbicacionLocalidad.containsKey(departamento)) {
+                    Hashtable<String, Hashtable<String, Double>> primerMunicipio = new Hashtable<>();
+                    Hashtable<String, Double> primerLocalidad = new Hashtable<>();
+                    Hashtable<Integer, String> primerMncp = new Hashtable<>();
+                    Hashtable<Double, String> primerLocalidadporNumero = new Hashtable<>();
+                    
+                    codigo_Dpto.put(codigoDpto, departamento);
+                    
+                    primerMunicipio.put(municipio, primerLocalidad);
+                    diccionario_UbicacionLocalidad.put(departamento, primerMunicipio);
+                    codigo_Municipio.put(codigoMunicipio, municipio);
+                    codigo_municipioLocalidad.put(codigoMunicipio, primerLocalidadporNumero);
+                    primerMncp.put(codigoMunicipio, municipio);
+                    dpto_Municipio.put(codigoDpto, primerMncp);
+                    
+            } else if (!diccionario_UbicacionLocalidad.get(departamento).containsKey(municipio)) {
+                    Hashtable<String, Double> primerLocalidad = new Hashtable<>();
+                    Hashtable<Double, String> primerLocalidadporNumero = new Hashtable<>();
+                    
+                    diccionario_UbicacionLocalidad.get(departamento).put(municipio, primerLocalidad);
+                    codigo_Municipio.put(codigoMunicipio, municipio);
+                    codigo_municipioLocalidad.put(codigoMunicipio, primerLocalidadporNumero);
+                    dpto_Municipio.get(codigoDpto).put(codigoMunicipio, municipio);
+            } else {
+            }
+        }
+        }
+        
+        xsheet = Lecture.lectureXLSX("C:\\Users\\Dell\\Downloads\\veredasCodigosArreglados.xlsx", 0);
+        for (Row row : xsheet) {
+            if(row.getRowNum() >0){
+            String departamento = "";
+            String municipio = "";
+            String vereda = "";
+            
+            int codigoMunicipio = 0;
+            int codigoDpto = 0;
+            double codigoVereda = 0;
+            String codigoMun = "";
+            String codigoVer = "";
+            double veredaX = 0;
+            String verX = "";
+            double veredaY = 0;
+            String verY = "";
+            
+            
+            System.out.print(row.getRowNum() + "| ");
+            for (Cell cell : row) {
+                if (cell.getColumnIndex() == 5) 
+                    vereda = cell.getStringCellValue();
+                
+                if (cell.getColumnIndex() == 2) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Vereda String: ");
+                            codigoVer = cell.getStringCellValue();
+                            codigoVereda = Integer.parseInt(codigoVer);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("numerico: ");
+                            codigoVereda = (int) cell.getNumericCellValue();
+                            //codigoVer = String.valueOf(codigoVereda);
+                            break;
+                    }
+                }
+                
+                if (cell.getColumnIndex() == 12) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("X String: ");
+                            verX = cell.getStringCellValue();
+                            veredaX = Double.parseDouble(verX);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("X numerico: ");
+                            veredaX = cell.getNumericCellValue();
+                            //codigoVer = String.valueOf(codigoVereda);
+                            break;
+                    }
+                }
+                
+                if (cell.getColumnIndex() == 13) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Y String: ");
+                            verY = cell.getStringCellValue();
+                            veredaY = Double.parseDouble(verY);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("Y numerico: ");
+                            veredaY = cell.getNumericCellValue();
+                            break;
+                    }
+                }
+                
+                
+                if (cell.getColumnIndex() == 1) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Dpto String: ");
+                            codigoMun = cell.getStringCellValue();
+                            codigoMunicipio = Integer.parseInt(codigoMun);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("numerico: ");
+                            codigoMunicipio = (int) cell.getNumericCellValue();
+                            codigoMun = String.valueOf(codigoMunicipio);
+                            break;
+                    }
+                    
+                    System.out.print(codigoMunicipio);
+                    String temporal = codigoMun.charAt(0) + "" + codigoMun.charAt(1);
+                    codigoDpto = Integer.parseInt(temporal);
+                }
+                
+                try{
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            String contenido = cell.getStringCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido + "\t\t");
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            double contenido_Numerico = cell.getNumericCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido_Numerico + "\t\t");
+                    }
+                } catch(Exception e){}
+            }
+            System.out.println();
+            
+            departamento = codigo_Dpto.get(codigoDpto);
+            municipio = codigo_Municipio.get(codigoMunicipio);
+            
+            if(!diccionario_UbicacionLocalidad.get(departamento).get(municipio).containsKey(vereda)){
+                codigo_localidad.put(codigoVereda, vereda);
+                diccionario_UbicacionLocalidad.get(departamento).get(municipio).put(vereda, codigoVereda);
+                codigo_municipioLocalidad.get(codigoMunicipio).put(codigoVereda, vereda);
+                localidad_X.put(codigoVereda, veredaX);
+                localidad_Y.put(codigoVereda, veredaY);
+            }
+        }
+        }
+        
+        
+        xsheet = Lecture.lectureXLSX("C:\\Users\\Dell\\Downloads\\centrospobladosArreglados.xlsx", 0);
+        for (Row row : xsheet) {
+            if(row.getRowNum() >0){
+            String departamento = "";
+            String municipio = "";
+            String vereda = "";
+            
+            int codigoMunicipio = 0;
+            int codigoDpto = 0;
+            double codigoVereda = 0;
+            String codigoMun = "";
+            String codigoVer = "";
+            double veredaX = 0;
+            String verX = "";
+            double veredaY = 0;
+            String verY = "";
+            
+            
+            System.out.print(row.getRowNum() + "| ");
+            for (Cell cell : row) {
+                if (cell.getColumnIndex() == 7) 
+                    vereda = cell.getStringCellValue();
+                
+                if (cell.getColumnIndex() == 8) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Vereda String: ");
+                            codigoVer = cell.getStringCellValue();
+                            codigoVereda = Double.parseDouble(codigoVer);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("numerico: ");
+                            codigoVereda = (int) cell.getNumericCellValue();
+                            //codigoVer = String.valueOf(codigoVereda);
+                            break;
+                    }
+                }
+                
+                if (cell.getColumnIndex() == 16) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("X String: ");
+                            verX = cell.getStringCellValue();
+                            veredaX = Double.parseDouble(verX);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("X numerico: ");
+                            veredaX = cell.getNumericCellValue();
+                            //codigoVer = String.valueOf(codigoVereda);
+                            break;
+                    }
+                }
+                
+                if (cell.getColumnIndex() == 17) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Y String: ");
+                            verY = cell.getStringCellValue();
+                            veredaY = Double.parseDouble(verY);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("Y numerico: ");
+                            veredaY = cell.getNumericCellValue();
+                            break;
+                    }
+                }
+                
+                
+                if (cell.getColumnIndex() == 1) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Dpto String: ");
+                            String codigoDepto = cell.getStringCellValue();
+                            codigoDpto = Integer.parseInt(codigoDepto);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("numerico: ");
+                            codigoDpto = (int) cell.getNumericCellValue();
+                            break;
+                    }
+                }
+                
+                if (cell.getColumnIndex() == 2) {
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print("Mncp String: ");
+                            codigoMun = cell.getStringCellValue();
+                            codigoMunicipio = Integer.parseInt(codigoMun);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print("numerico: ");
+                            codigoMunicipio = (int) cell.getNumericCellValue();
+                            codigoMun = String.valueOf(codigoMunicipio);
+                            break;
+                    }
+                }
+                
+                try{
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            String contenido = cell.getStringCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido + "\t\t");
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            double contenido_Numerico = cell.getNumericCellValue();
+                            System.out.print(cell.getColumnIndex() + ": " + contenido_Numerico + "\t\t");
+                    }
+                } catch(Exception e){}
+            }
+            System.out.println();
+            
+            codigoMunicipio += (codigoDpto*1000);
+            departamento = codigo_Dpto.get(codigoDpto);
+            municipio = codigo_Municipio.get(codigoMunicipio);
+            
+            if(!diccionario_UbicacionLocalidad.get(departamento).get(municipio).containsKey(vereda)){
+                codigo_localidad.put(codigoVereda, vereda);
+                diccionario_UbicacionLocalidad.get(departamento).get(municipio).put(vereda, codigoVereda);
+                codigo_municipioLocalidad.get(codigoMunicipio).put(codigoVereda, vereda);
+                localidad_X.put(codigoVereda, veredaX);
+                localidad_Y.put(codigoVereda, veredaY);
+            }
+        }
+        }
+        
+        XSSFWorkbook xwb = new XSSFWorkbook();
+        XSSFSheet sheet = xwb.createSheet("StandarCodes");
+
+        int rowCount = 0;
+        int columnCount = 0;
+        Row row = sheet.createRow(rowCount);
+        Cell cell = row.createCell(columnCount);
+        cell.setCellValue("Cod_Departamento");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Departamento");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Cod_Municipio");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Municipio");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Cod_Localidad");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Localidad");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("X");
+        cell = row.createCell(++columnCount);
+        cell.setCellValue("Y");
+        
+        for(int codDpto: codigo_Dpto.keySet()){
+            for(int codMncp: dpto_Municipio.get(codDpto).keySet()){
+                for(double codLoc: codigo_municipioLocalidad.get(codMncp).keySet()){
+                    row = sheet.createRow(++rowCount);
+                    columnCount = 0;
+                    cell = row.createCell(columnCount);
+                    cell.setCellValue(codDpto);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(codigo_Dpto.get(codDpto));
+                    
+                    
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(codMncp);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(codigo_Municipio.get(codMncp));
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(codLoc);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(codigo_localidad.get(codLoc));
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(localidad_X.get(codLoc));
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(localidad_Y.get(codLoc));
+                }
+            }
+        }
+        
+        try (FileOutputStream outputStream = new FileOutputStream("C:\\St.xlsx")) {
+            xwb.write(outputStream);
+        } catch(Exception e){}
+        
+        
+    }
+     */

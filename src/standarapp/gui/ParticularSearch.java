@@ -28,7 +28,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
         this.setTitle("StandarApp");
-        ca = new CodeAssign(nameExcel);
+        //ca = new CodeAssign(nameExcel);
     }
 
     /**
