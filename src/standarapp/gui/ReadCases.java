@@ -275,7 +275,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         percentTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         percentTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        percentTextField.setText("50");
+        percentTextField.setText("80");
         percentTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 percentTextFieldActionPerformed(evt);

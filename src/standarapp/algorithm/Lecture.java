@@ -26,6 +26,21 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
  */
 public class Lecture{
 
+    /*
+    public static void main(String args[]) {
+        double levPrueba = FuzzySearch.ratio("LA VASCULA", "LAS VEGAS");
+        double levPrueba2 = FuzzySearch.partialRatio("LA VASCULA", "LAS VEGAS");
+        double levPrueba3 = FuzzySearch.tokenSetPartialRatio("LA VASCULA", "LAS VEGAS");
+        double levPrueba4 = FuzzySearch.weightedRatio("LA VASCULA", "LAS VEGAS");
+        double levPrueba5 = FuzzySearch.tokenSetRatio("LA VASCULA", "LAS VEGAS");
+        System.out.println("Prueba 1 ratio: " + levPrueba);
+        System.out.println("Prueba 2 partialRatio: " + levPrueba2);
+        System.out.println("Prueba 3 tokenSetPartialRatio: " + levPrueba3);
+        System.out.println("Prueba 4 weithedRatio: " + levPrueba4);
+        System.out.println("Prueba 5 tokenSetRatio: " + levPrueba4);
+    
+    }*/
+    
     /**
      * 
      * @param nameFile

@@ -28,7 +28,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
         this.setTitle("StandarApp");
-        //ca = new CodeAssign(nameExcel);
+        ca = new CodeAssign(nameExcel);
     }
 
     /**
@@ -51,8 +51,6 @@ public class ParticularSearch extends javax.swing.JFrame {
         departamentoTextField = new javax.swing.JTextField();
         localidadLabel = new javax.swing.JLabel();
         localidadTextField = new javax.swing.JTextField();
-        codigoLabel = new javax.swing.JLabel();
-        codigoTextField = new javax.swing.JTextField();
         answerPanel = new javax.swing.JScrollPane();
         answerTextArea = new javax.swing.JTextArea();
         doButton = new javax.swing.JButton();
@@ -80,86 +78,79 @@ public class ParticularSearch extends javax.swing.JFrame {
         getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 20, 20));
 
         iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
-        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, 40));
+        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, 40));
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
         labelTittle.setFont(new java.awt.Font("Gill Sans MT", 0, 28)); // NOI18N
         labelTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTittle.setText("StandarApp 2.3");
-        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 620, 40));
+        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 620, 40));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
-        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 260, 20));
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 260, 20));
 
         derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
-        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, 260, 20));
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 260, 20));
 
         municipioLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         municipioLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         municipioLabel.setText("Municipio:");
-        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
+        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, 30));
 
-        municipioTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        municipioTextField.setText("Ingrese un nombre de un municipio");
+        municipioTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        municipioTextField.setText("Nombre o código");
         municipioTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 municipioTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 220, 30));
+        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 110, 30));
 
         departamentoLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         departamentoLabel.setText("D/mento:");
-        getContentPane().add(departamentoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 90, 30));
+        getContentPane().add(departamentoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 90, 30));
 
         departamentoTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        departamentoTextField.setText("Ingrese un nombre de departamento");
+        departamentoTextField.setText("Nombre o código");
         departamentoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 departamentoTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 220, 30));
+        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 110, 30));
 
         localidadLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         localidadLabel.setText("Localidad:");
-        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 100, 30));
+        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 70, 30));
 
         localidadTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        localidadTextField.setText("Ingrese un nombre de localidad");
+        localidadTextField.setText("Nombre o código");
         localidadTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 localidadTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 210, 30));
-
-        codigoLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        codigoLabel.setText("Codigo:");
-        getContentPane().add(codigoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 100, 30));
-
-        codigoTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        codigoTextField.setText("Ingrese un codigo de localidad");
-        getContentPane().add(codigoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 210, 30));
+        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 110, 30));
 
         answerPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         answerPanel.setFocusable(false);
 
         answerTextArea.setColumns(20);
+        answerTextArea.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 9)); // NOI18N
         answerTextArea.setLineWrap(true);
         answerTextArea.setRows(5);
-        answerTextArea.setText("Resultado: \nIngrese texto en el campo por el cual desea buscar y luego  presione el boton búscar.");
+        answerTextArea.setText("Aquí se mostrará el resultado de su búsqueda personalizada donde se mostrara:\n\t-Centroides\n\t-Posibles nombres oficiales\n\nLos criterios para realizar la búsqueda son:\n\t-Departamento: Puede ingresar un nombre o un codigo si lo conoce\n\t-Municipio: Puede ingresar un nombre o un codigo si lo conoce\n\t-Localidad: Puede ingresar un nombre o un codigo si lo conoce\n\nEn caso de tener algún problema al realizar la búsqueda, presione el botón reiniciar busqueda,\nsi persiste el problema comunicarse con el encargado o envie correo al desarrollador");
         answerTextArea.setWrapStyleWord(true);
         answerTextArea.setDragEnabled(true);
         answerPanel.setViewportView(answerTextArea);
 
-        getContentPane().add(answerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 570, 80));
+        getContentPane().add(answerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 570, 300));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
         doButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -170,7 +161,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 doButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 570, -1));
+        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 570, -1));
 
         resetButton.setBackground(new java.awt.Color(255, 255, 255));
         resetButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -180,7 +171,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 resetButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 140, -1));
+        getContentPane().add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 140, -1));
 
         backButton.setBackground(new java.awt.Color(0, 153, 153));
         backButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -191,7 +182,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 110, -1));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
         exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -201,7 +192,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 70, -1));
 
         dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -213,11 +204,11 @@ public class ParticularSearch extends javax.swing.JFrame {
                 dragLabelMousePressed(evt);
             }
         });
-        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 640, 330));
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 640, 480));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
-        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 330));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -232,7 +223,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         String dpto = departamentoTextField.getText();
         String mncp = municipioTextField.getText();
         String local = localidadTextField.getText();
-        String codigo = codigoTextField.getText();
+        String codigo = "";
 
         dpto = dpto.toUpperCase();
         mncp = mncp.toUpperCase();
@@ -347,12 +338,21 @@ public class ParticularSearch extends javax.swing.JFrame {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
-        departamentoTextField.setText("Ingrese un nombre de departamento");
-        municipioTextField.setText("Ingrese un nombre de un municipio");
-        localidadTextField.setText("Ingrese un nombre de localidad");
-        codigoTextField.setText("Ingrese un codigo de localidad");
-        answerTextArea.setText("Resultado: \n"
-                + "Ingrese texto en el campo por el cual desea buscar y luego  presione el boton búscar.");
+        departamentoTextField.setText("Nombre o código");
+        municipioTextField.setText("Nombre o código");
+        localidadTextField.setText("Nombre o código");
+        answerTextArea.setText(
+                "Aquí se mostrará el resultado de su búsqueda personalizada donde se mostrara:\n"
+                + "	-Centroides\n"
+                + "	-Posibles nombres oficiales\n"
+                + "\n"
+                + "Los criterios para realizar la búsqueda son:\n"
+                + "	-Departamento: Puede ingresar un nombre o un codigo si lo conoce\n"
+                + "	-Municipio: Puede ingresar un nombre o un codigo si lo conoce\n"
+                + "	-Localidad: Puede ingresar un nombre o un codigo si lo conoce\n"
+                + "\n"
+                + "En caso de tener algún problema al realizar la búsqueda, presione el botón reiniciar busqueda,\n"
+                + "si persiste el problema comunicarse con el encargado o envie correo al desarrollador");
     }//GEN-LAST:event_resetButtonActionPerformed
 
 
@@ -361,8 +361,6 @@ public class ParticularSearch extends javax.swing.JFrame {
     private javax.swing.JTextArea answerTextArea;
     private javax.swing.JButton backButton;
     private javax.swing.JLabel backgroundLabel;
-    private javax.swing.JLabel codigoLabel;
-    private javax.swing.JTextField codigoTextField;
     private javax.swing.JLabel departamentoLabel;
     private javax.swing.JTextField departamentoTextField;
     private javax.swing.JLabel derechosEmailLabel;

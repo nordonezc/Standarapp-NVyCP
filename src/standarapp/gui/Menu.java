@@ -48,14 +48,16 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         menuButtonGroup = new javax.swing.ButtonGroup();
-        menuButton = new javax.swing.JButton();
         fixCharacters = new javax.swing.JRadioButton();
         readRegistry = new javax.swing.JRadioButton();
+        readVectors = new javax.swing.JRadioButton();
         search = new javax.swing.JRadioButton();
+        labelNumber4 = new javax.swing.JLabel();
         labelNumber3 = new javax.swing.JLabel();
         labelNumber2 = new javax.swing.JLabel();
         labelNumber1 = new javax.swing.JLabel();
         labelTittle = new javax.swing.JLabel();
+        menuButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         minimizeButton = new javax.swing.JButton();
         iconLabel = new javax.swing.JLabel();
@@ -70,17 +72,6 @@ public class Menu extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        menuButton.setBackground(new java.awt.Color(0, 153, 153));
-        menuButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        menuButton.setForeground(new java.awt.Color(255, 255, 255));
-        menuButton.setText("Seleccionar");
-        menuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 110, -1));
 
         menuButtonGroup.add(fixCharacters);
         fixCharacters.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -103,6 +94,16 @@ public class Menu extends javax.swing.JFrame {
         });
         getContentPane().add(readRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 160, -1));
 
+        menuButtonGroup.add(readVectors);
+        readVectors.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        readVectors.setText("Asignación de vectores");
+        readVectors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readVectorsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(readVectors, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 210, -1));
+
         menuButtonGroup.add(search);
         search.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         search.setText("Búsqueda personalizada");
@@ -112,6 +113,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 210, -1));
+
+        labelNumber4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        labelNumber4.setText("4.");
+        getContentPane().add(labelNumber4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 40, 20));
 
         labelNumber3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         labelNumber3.setText("3.");
@@ -131,6 +136,17 @@ public class Menu extends javax.swing.JFrame {
         labelTittle.setText("StandarApp 2.3");
         getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 220, 40));
 
+        menuButton.setBackground(new java.awt.Color(0, 153, 153));
+        menuButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuButton.setForeground(new java.awt.Color(255, 255, 255));
+        menuButton.setText("Seleccionar");
+        menuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 110, -1));
+
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
         exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         exitButton.setText("Salir");
@@ -139,7 +155,7 @@ public class Menu extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 70, -1));
 
         minimizeButton.setBackground(new java.awt.Color(0, 153, 153));
         minimizeButton.setFont(new java.awt.Font("Adobe Arabic", 0, 3)); // NOI18N
@@ -160,13 +176,13 @@ public class Menu extends javax.swing.JFrame {
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
-        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 260, 20));
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 190, 20));
 
         derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
-        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 260, 20));
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 190, 20));
 
         dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -178,11 +194,11 @@ public class Menu extends javax.swing.JFrame {
                 dragLabelMousePressed(evt);
             }
         });
-        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 290, 260));
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 290, 330));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 11)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
-        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 250));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,8 +220,7 @@ public class Menu extends javax.swing.JFrame {
             int option = chooser.showOpenDialog(this);
             if (JFileChooser.CANCEL_OPTION == option) {
                 //this.setVisible(true);
-            }
-            else if (JFileChooser.APPROVE_OPTION == option) {
+            } else if (JFileChooser.APPROVE_OPTION == option) {
                 try {
                     ReadCases windowTwo;
                     windowTwo = new ReadCases(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
@@ -226,16 +241,36 @@ public class Menu extends javax.swing.JFrame {
             int option = chooser.showOpenDialog(this);
             if (JFileChooser.CANCEL_OPTION == option) {
                 //this.setVisible(true);
-            }
-            else if (JFileChooser.APPROVE_OPTION == option) {
+            } else if (JFileChooser.APPROVE_OPTION == option) {
                 try {
-                ParticularSearch windowTwo;
-                windowTwo = new ParticularSearch(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
-                windowTwo.setVisible(true);
-                this.setVisible(false);
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                    ParticularSearch windowTwo;
+                    windowTwo = new ParticularSearch(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
+                    windowTwo.setVisible(true);
+                    this.setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        }
+        if (readVectors.isSelected()) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setToolTipText("Seleccione el archivo xlsx con la base de datos");
+            chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+            chooser.setAcceptAllFileFilterUsed(false);
+
+            int option = chooser.showOpenDialog(this);
+            if (JFileChooser.CANCEL_OPTION == option) {
+                //this.setVisible(true);
+            } else if (JFileChooser.APPROVE_OPTION == option) {
+                try {
+                    ReadVectors windowTwo;
+                    windowTwo = new ReadVectors(this.getX(), this.getY(), chooser.getSelectedFile().getAbsolutePath());
+                    windowTwo.setVisible(true);
+                    this.setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_menuButtonActionPerformed
@@ -275,6 +310,10 @@ public class Menu extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_dragLabelMousePressed
+
+    private void readVectorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readVectorsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_readVectorsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,11 +361,13 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel labelNumber1;
     private javax.swing.JLabel labelNumber2;
     private javax.swing.JLabel labelNumber3;
+    private javax.swing.JLabel labelNumber4;
     private javax.swing.JLabel labelTittle;
     private javax.swing.JButton menuButton;
     private javax.swing.ButtonGroup menuButtonGroup;
     private javax.swing.JButton minimizeButton;
     private javax.swing.JRadioButton readRegistry;
+    private javax.swing.JRadioButton readVectors;
     private javax.swing.JRadioButton search;
     // End of variables declaration//GEN-END:variables
 }
