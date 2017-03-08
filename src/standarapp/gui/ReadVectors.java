@@ -91,53 +91,54 @@ public class ReadVectors extends javax.swing.JFrame {
                 minimizeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 20, 20));
+        getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 20, 20));
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
-        labelTittle.setFont(new java.awt.Font("Gill Sans MT", 0, 28)); // NOI18N
-        labelTittle.setText("StandarApp 2.3");
-        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 220, 40));
+        labelTittle.setFont(new java.awt.Font("Castellar", 1, 24)); // NOI18N
+        labelTittle.setText("StandarApp 3.0");
+        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 40));
 
-        instructionOne.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        instructionOne.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         instructionOne.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        instructionOne.setText("Indique la ruta del archivo de entrada");
-        getContentPane().add(instructionOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 20));
+        instructionOne.setText("Indique la ruta del archivo(xlsx) de entrada");
+        getContentPane().add(instructionOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 20));
 
-        inFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        inFileTextField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         inFileTextField.setText("Dirección del archivo de entrada...");
-        getContentPane().add(inFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 240, 30));
+        getContentPane().add(inFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 240, 30));
 
-        inFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        inFileButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         inFileButton.setText("jButton1");
         inFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inFileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 30, 30));
+        getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 30, 30));
 
-        filaEncabezado1Label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        filaEncabezado1Label.setText("Ingresar fila donde comienzan");
-        getContentPane().add(filaEncabezado1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 210, 30));
+        filaEncabezado1Label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        filaEncabezado1Label.setText("Ingresar fila donde comienzan los datos");
+        getContentPane().add(filaEncabezado1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 230, -1));
 
-        filaEncabezado2Label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        filaEncabezado2Label.setText("los datos (SIN ENCABEZADO)");
-        getContentPane().add(filaEncabezado2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 210, 30));
+        filaEncabezado2Label.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
+        filaEncabezado2Label.setForeground(new java.awt.Color(255, 0, 0));
+        filaEncabezado2Label.setText("(SIN ENCABEZADO)");
+        getContentPane().add(filaEncabezado2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 210, 20));
 
-        fila_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        fila_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         fila_textField.setText("21");
         fila_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fila_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(fila_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, 30));
+        getContentPane().add(fila_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 30, 30));
 
-        especieLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        especieLabel.setText("especie");
-        getContentPane().add(especieLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 60, 30));
+        especieLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        especieLabel.setText("Especie");
+        getContentPane().add(especieLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 110, 30));
 
-        especie_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        especie_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         especie_textField.setText("19");
         especie_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,24 +147,24 @@ public class ReadVectors extends javax.swing.JFrame {
         });
         getContentPane().add(especie_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 30, 30));
 
-        localidadLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        localidadLabel.setText("localidad");
-        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 70, 30));
+        localidadLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        localidadLabel.setText("Localidad");
+        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 100, 30));
 
-        localidad_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        localidad_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         localidad_textField.setText("17");
         localidad_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 localidad_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 30, 30));
+        getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 30, 30));
 
-        fechaLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        fechaLabel.setText("fecha");
-        getContentPane().add(fechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 40, 30));
+        fechaLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        fechaLabel.setText("Fecha");
+        getContentPane().add(fechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 40, 30));
 
-        fecha_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        fecha_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         fecha_textField.setText("20");
         fecha_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,55 +173,55 @@ public class ReadVectors extends javax.swing.JFrame {
         });
         getContentPane().add(fecha_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 30, 30));
 
-        municipioLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        municipioLabel.setText("municipio");
-        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 80, 30));
+        municipioLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        municipioLabel.setText("Municipio");
+        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 100, 30));
 
-        municipio_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        municipio_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         municipio_textField.setText("16");
         municipio_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 municipio_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(municipio_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 30, 30));
+        getContentPane().add(municipio_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 30, 30));
 
-        instructionFive.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        instructionFive.setText("Indique la ruta del archivo de salida");
-        getContentPane().add(instructionFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 230, 20));
+        instructionFive.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        instructionFive.setText("Indique donde guardar el archivo de salida");
+        getContentPane().add(instructionFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 270, 20));
 
-        outFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        outFileTextField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         outFileTextField.setText("Ubicación para el archivo de salida...");
-        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 240, 30));
+        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 240, 30));
 
-        outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        outFileButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         outFileButton.setText("jButton1");
         outFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outFileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 30, 30));
+        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 30, 30));
 
-        omitLabelThree.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
+        omitLabelThree.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
         omitLabelThree.setForeground(new java.awt.Color(51, 51, 51));
         omitLabelThree.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         omitLabelThree.setText("(Si desea sobreescribir el archivo de entrada");
         getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
 
-        omitLabelThree1.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
+        omitLabelThree1.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
         omitLabelThree1.setForeground(new java.awt.Color(51, 51, 51));
         omitLabelThree1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         omitLabelThree1.setText("ignore este paso, y presione arreglar)");
         getContentPane().add(omitLabelThree1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, -1, -1));
 
-        answerLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 11)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         answerLabel.setText("Presione arreglar para continuar");
-        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 330, 20));
+        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 270, 20));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
-        doButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        doButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         doButton.setForeground(new java.awt.Color(255, 255, 255));
         doButton.setText("Arreglar");
         doButton.addActionListener(new java.awt.event.ActionListener() {
@@ -228,10 +229,10 @@ public class ReadVectors extends javax.swing.JFrame {
                 doButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 110, -1));
+        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 270, -1));
 
         backButton.setBackground(new java.awt.Color(0, 153, 153));
-        backButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        backButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Regresar");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -239,32 +240,32 @@ public class ReadVectors extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 110, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 190, -1));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
-        exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        exitButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         exitButton.setText("Salir");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 70, -1));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
-        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 260, 20));
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 260, 20));
 
         derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
-        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 260, 20));
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 260, 20));
 
         iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
-        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
+        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 40));
 
         dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -276,11 +277,11 @@ public class ReadVectors extends javax.swing.JFrame {
                 dragLabelMousePressed(evt);
             }
         });
-        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 430));
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 440));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
-        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 430));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -362,8 +363,7 @@ public class ReadVectors extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xls", "xlsx"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("xls Files", "xls"));
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("xlsx Files", "xlsx"));
         chooser.setAcceptAllFileFilterUsed(false);
         

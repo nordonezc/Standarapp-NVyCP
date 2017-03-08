@@ -53,6 +53,8 @@ public class Menu extends javax.swing.JFrame {
         readVectors = new javax.swing.JRadioButton();
         search = new javax.swing.JRadioButton();
         labelNumber4 = new javax.swing.JLabel();
+        indicationLabel2 = new javax.swing.JLabel();
+        indicationLabel1 = new javax.swing.JLabel();
         labelNumber3 = new javax.swing.JLabel();
         labelNumber2 = new javax.swing.JLabel();
         labelNumber1 = new javax.swing.JLabel();
@@ -74,7 +76,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menuButtonGroup.add(fixCharacters);
-        fixCharacters.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        fixCharacters.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         fixCharacters.setSelected(true);
         fixCharacters.setText("Arreglar Caracteres");
         fixCharacters.addActionListener(new java.awt.event.ActionListener() {
@@ -82,62 +84,72 @@ public class Menu extends javax.swing.JFrame {
                 fixCharactersActionPerformed(evt);
             }
         });
-        getContentPane().add(fixCharacters, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 180, -1));
+        getContentPane().add(fixCharacters, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 180, -1));
 
         menuButtonGroup.add(readRegistry);
-        readRegistry.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        readRegistry.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         readRegistry.setText("Lectura de Casos");
         readRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 readRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(readRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 160, -1));
+        getContentPane().add(readRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 160, -1));
 
         menuButtonGroup.add(readVectors);
-        readVectors.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        readVectors.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         readVectors.setText("Asignación de vectores");
         readVectors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 readVectorsActionPerformed(evt);
             }
         });
-        getContentPane().add(readVectors, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 210, -1));
+        getContentPane().add(readVectors, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 210, -1));
 
         menuButtonGroup.add(search);
-        search.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        search.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         search.setText("Búsqueda personalizada");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
             }
         });
-        getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 210, -1));
+        getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 210, -1));
 
-        labelNumber4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        labelNumber4.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         labelNumber4.setText("4.");
-        getContentPane().add(labelNumber4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 40, 20));
+        getContentPane().add(labelNumber4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 40, 20));
 
-        labelNumber3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        indicationLabel2.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
+        indicationLabel2.setForeground(new java.awt.Color(0, 153, 153));
+        indicationLabel2.setText("que se encuentra en la carpeta del programa");
+        getContentPane().add(indicationLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 20));
+
+        indicationLabel1.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
+        indicationLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        indicationLabel1.setText("Indicar la ruta del archivo baseDatosLoaclidades.xlsx ");
+        getContentPane().add(indicationLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 20));
+
+        labelNumber3.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         labelNumber3.setText("3.");
-        getContentPane().add(labelNumber3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 40, 20));
+        getContentPane().add(labelNumber3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 40, 20));
 
-        labelNumber2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        labelNumber2.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         labelNumber2.setText("2.");
-        getContentPane().add(labelNumber2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 40, 20));
+        getContentPane().add(labelNumber2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 40, 20));
 
-        labelNumber1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        labelNumber1.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         labelNumber1.setText("1.");
         getContentPane().add(labelNumber1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 40, 20));
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
-        labelTittle.setFont(new java.awt.Font("Gill Sans MT", 1, 28)); // NOI18N
+        labelTittle.setFont(new java.awt.Font("Castellar", 1, 24)); // NOI18N
         labelTittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTittle.setText("StandarApp 2.3");
-        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 220, 40));
+        labelTittle.setText("StandarApp 3.0");
+        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 250, 40));
 
         menuButton.setBackground(new java.awt.Color(0, 153, 153));
-        menuButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuButton.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         menuButton.setForeground(new java.awt.Color(255, 255, 255));
         menuButton.setText("Seleccionar");
         menuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -145,17 +157,17 @@ public class Menu extends javax.swing.JFrame {
                 menuButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 110, -1));
+        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 110, 30));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
-        exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        exitButton.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         exitButton.setText("Salir");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 70, 30));
 
         minimizeButton.setBackground(new java.awt.Color(0, 153, 153));
         minimizeButton.setFont(new java.awt.Font("Adobe Arabic", 0, 3)); // NOI18N
@@ -167,22 +179,22 @@ public class Menu extends javax.swing.JFrame {
                 minimizeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 20, 20));
+        getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
 
         iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
-        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 22, -1, 40));
+        getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 40));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
-        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 190, 20));
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 190, 20));
 
         derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
-        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 190, 20));
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 190, 20));
 
         dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -194,11 +206,11 @@ public class Menu extends javax.swing.JFrame {
                 dragLabelMousePressed(evt);
             }
         });
-        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 290, 330));
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 340));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 11)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
-        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 320));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -358,6 +370,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton exitButton;
     private javax.swing.JRadioButton fixCharacters;
     private javax.swing.JLabel iconLabel;
+    private javax.swing.JLabel indicationLabel1;
+    private javax.swing.JLabel indicationLabel2;
     private javax.swing.JLabel labelNumber1;
     private javax.swing.JLabel labelNumber2;
     private javax.swing.JLabel labelNumber3;

@@ -46,15 +46,14 @@ public class FixChar extends javax.swing.JFrame {
         minimizeButton = new javax.swing.JButton();
         labelTittle = new javax.swing.JLabel();
         instructionOne = new javax.swing.JLabel();
+        instructionOne1 = new javax.swing.JLabel();
         inFileTextField = new javax.swing.JTextField();
         inFileButton = new javax.swing.JButton();
-        instructionTwo = new javax.swing.JLabel();
-        collumnsTextField = new javax.swing.JTextField();
-        omitLabelOne = new javax.swing.JLabel();
         numberPageLabel = new javax.swing.JLabel();
         numberPageTextField = new javax.swing.JTextField();
         omitLabelTwo = new javax.swing.JLabel();
         instructionFour = new javax.swing.JLabel();
+        instructionFour1 = new javax.swing.JLabel();
         outFileTextField = new javax.swing.JTextField();
         outFileButton = new javax.swing.JButton();
         omitLabelThree = new javax.swing.JLabel();
@@ -86,18 +85,23 @@ public class FixChar extends javax.swing.JFrame {
         getContentPane().add(minimizeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 20, 20));
 
         labelTittle.setBackground(new java.awt.Color(79, 152, 43));
-        labelTittle.setFont(new java.awt.Font("Gill Sans MT", 0, 28)); // NOI18N
-        labelTittle.setText("StandarApp 2.3");
-        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 220, 40));
+        labelTittle.setFont(new java.awt.Font("Castellar", 1, 24)); // NOI18N
+        labelTittle.setText("StandarApp 3.0");
+        getContentPane().add(labelTittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 270, 40));
 
-        instructionOne.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        instructionOne.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         instructionOne.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        instructionOne.setText("Indique la ruta del archivo de entrada");
-        getContentPane().add(instructionOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 20));
+        instructionOne.setText("contiene caracteres especiales");
+        getContentPane().add(instructionOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
 
-        inFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        inFileTextField.setText("Dirección del archivo de entrada...");
-        getContentPane().add(inFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 390, 30));
+        instructionOne1.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        instructionOne1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        instructionOne1.setText("Indique la ruta del archivo (xlsx) que");
+        getContentPane().add(instructionOne1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 20));
+
+        inFileTextField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        inFileTextField.setText("Archivo de entrada...");
+        getContentPane().add(inFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 200, 30));
 
         inFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         inFileButton.setText("jButton1");
@@ -106,30 +110,11 @@ public class FixChar extends javax.swing.JFrame {
                 inFileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 30, 30));
+        getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 30, 30));
 
-        instructionTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        instructionTwo.setText("Digite los numeros de las columnas:");
-        getContentPane().add(instructionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 240, 30));
-
-        collumnsTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        collumnsTextField.setText("0,1,2,...");
-        collumnsTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                collumnsTextFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(collumnsTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 210, 30));
-
-        omitLabelOne.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
-        omitLabelOne.setForeground(new java.awt.Color(51, 51, 51));
-        omitLabelOne.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        omitLabelOne.setText("(Si desea corregir todo el archivo, ignore este paso)");
-        getContentPane().add(omitLabelOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
-
-        numberPageLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        numberPageLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         numberPageLabel.setText("Digite el numero de la pagina:");
-        getContentPane().add(numberPageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 200, 30));
+        getContentPane().add(numberPageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 180, 30));
 
         numberPageTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         numberPageTextField.setText("0");
@@ -138,21 +123,30 @@ public class FixChar extends javax.swing.JFrame {
                 numberPageTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(numberPageTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 80, 30));
+        getContentPane().add(numberPageTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 30, 30));
 
-        omitLabelTwo.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
+        omitLabelTwo.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
         omitLabelTwo.setForeground(new java.awt.Color(51, 51, 51));
         omitLabelTwo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         omitLabelTwo.setText("(Omitir, en caso de no conocer)");
-        getContentPane().add(omitLabelTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 150, 30));
+        getContentPane().add(omitLabelTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 140, 20));
 
-        instructionFour.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        instructionFour.setText("Indique la ruta del archivo de salida");
-        getContentPane().add(instructionFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 230, 20));
+        instructionFour.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        instructionFour.setText("salida");
+        getContentPane().add(instructionFour, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 40, 20));
 
-        outFileTextField.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        outFileTextField.setText("Ubicacion para el archivo de salida...");
-        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 390, 30));
+        instructionFour1.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        instructionFour1.setText("Indique la ubicación para el archivo de");
+        getContentPane().add(instructionFour1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 220, 20));
+
+        outFileTextField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        outFileTextField.setText("Ubicacion de archivo de salida...");
+        outFileTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outFileTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(outFileTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 200, 30));
 
         outFileButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         outFileButton.setText("jButton1");
@@ -161,21 +155,21 @@ public class FixChar extends javax.swing.JFrame {
                 outFileButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 30, 30));
+        getContentPane().add(outFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 30, 30));
 
-        omitLabelThree.setFont(new java.awt.Font("Gill Sans MT", 0, 10)); // NOI18N
+        omitLabelThree.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         omitLabelThree.setForeground(new java.awt.Color(51, 51, 51));
         omitLabelThree.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        omitLabelThree.setText("(Si desea sobreescribir el archivo de entrada,  ignore este paso, y presione arreglar)");
-        getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
+        omitLabelThree.setText("(Ignorar para sobreescribir)");
+        getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, 20));
 
-        answerLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 11)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        answerLabel.setText("Presione arreglar para continuar");
-        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 430, -1));
+        answerLabel.setText("Selccione archivo y despues arreglar para continuar");
+        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 460, 30));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
-        doButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        doButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         doButton.setForeground(new java.awt.Color(255, 255, 255));
         doButton.setText("Arreglar");
         doButton.addActionListener(new java.awt.event.ActionListener() {
@@ -183,10 +177,10 @@ public class FixChar extends javax.swing.JFrame {
                 doButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 110, -1));
+        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 230, 30));
 
         backButton.setBackground(new java.awt.Color(0, 153, 153));
-        backButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        backButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Regresar");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -194,29 +188,29 @@ public class FixChar extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 110, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 110, -1));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
-        exitButton.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        exitButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         exitButton.setText("Salir");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 70, -1));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosLabel.setText("Designed by Nicolas Ordoñez Chala, 2017");
-        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 260, 20));
+        getContentPane().add(derechosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 260, 20));
 
         derechosEmailLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosEmailLabel.setForeground(new java.awt.Color(153, 153, 153));
         derechosEmailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         derechosEmailLabel.setText("info: nordonezc@unal.edu.co");
-        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 260, 20));
+        getContentPane().add(derechosEmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 260, 20));
 
         iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SPicon.png"))); // NOI18N
         getContentPane().add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, 40));
@@ -231,11 +225,11 @@ public class FixChar extends javax.swing.JFrame {
                 dragLabelMousePressed(evt);
             }
         });
-        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 530, 420));
+        getContentPane().add(dragLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 530, 260));
 
         backgroundLabel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenPolygons.jpg"))); // NOI18N
-        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 410));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 270));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -245,11 +239,12 @@ public class FixChar extends javax.swing.JFrame {
         Lecture lec = new Lecture();
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
-        String collumns = collumnsTextField.getText();
+        ///String collumns = "";
         int[] col = {};
 
         double pages = Double.valueOf(numberPageTextField.getText());
 
+        /*
         if (!collumns.equals("0,1,2,...")) {
             String[] temporal = collumns.split(",");
             col = new int[temporal.length];
@@ -258,6 +253,8 @@ public class FixChar extends javax.swing.JFrame {
                 col[i] = (int) tmp;
             }
         }
+        */
+        
         try {
             //C:\Users\Niki\Downloads\municipio de cada casco urbano.xls
             if (!nameIn.contains("...")) {
@@ -303,10 +300,6 @@ public class FixChar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_numberPageTextFieldActionPerformed
 
-    private void collumnsTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_collumnsTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_collumnsTextFieldActionPerformed
-
     private void minimizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeButtonActionPerformed
         // TODO add your handling code here:
         setState(this.ICONIFIED);
@@ -330,9 +323,9 @@ public class FixChar extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xls", "xlsx"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("xls Files", "xls"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("xlsx Files", "xlsx"));
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
+        //chooser.addChoosableFileFilter(new FileNameExtensionFilter("xls Files", "xls"));
+        //chooser.addChoosableFileFilter(new FileNameExtensionFilter("xlsx Files", "xlsx"));
         chooser.setAcceptAllFileFilterUsed(false);
         int option = chooser.showOpenDialog(this);
 
@@ -359,12 +352,15 @@ public class FixChar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_outFileButtonActionPerformed
 
+    private void outFileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outFileTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_outFileTextFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel answerLabel;
     private javax.swing.JButton backButton;
     private javax.swing.JLabel backgroundLabel;
-    private javax.swing.JTextField collumnsTextField;
     private javax.swing.JLabel derechosEmailLabel;
     private javax.swing.JLabel derechosLabel;
     private javax.swing.JButton doButton;
@@ -374,13 +370,13 @@ public class FixChar extends javax.swing.JFrame {
     private javax.swing.JButton inFileButton;
     private javax.swing.JTextField inFileTextField;
     private javax.swing.JLabel instructionFour;
+    private javax.swing.JLabel instructionFour1;
     private javax.swing.JLabel instructionOne;
-    private javax.swing.JLabel instructionTwo;
+    private javax.swing.JLabel instructionOne1;
     private javax.swing.JLabel labelTittle;
     private javax.swing.JButton minimizeButton;
     private javax.swing.JLabel numberPageLabel;
     private javax.swing.JTextField numberPageTextField;
-    private javax.swing.JLabel omitLabelOne;
     private javax.swing.JLabel omitLabelThree;
     private javax.swing.JLabel omitLabelTwo;
     private javax.swing.JButton outFileButton;
