@@ -251,10 +251,10 @@
     <Component class="javax.swing.JLabel" name="answerLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="14" style="0"/>
+          <Font name="Lao UI" size="16" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Selccione archivo y despues arreglar para continuar"/>
+        <Property name="text" type="java.lang.String" value="Selccione un archivo y desp&#xfa;es arreglar para continuar"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

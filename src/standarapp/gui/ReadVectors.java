@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import standarapp.algorithm.Lecture;
+import standarapp.algorithm.ReadFileVector;
 import standarapp.algorithm.ReadRegistry;
 
 /**
@@ -24,7 +25,7 @@ public class ReadVectors extends javax.swing.JFrame {
 
     int xMouse;
     int yMouse;
-    private ReadRegistry rr;
+    private ReadFileVector rr;
     /**
      * Creates new form Menu
      */
@@ -33,7 +34,7 @@ public class ReadVectors extends javax.swing.JFrame {
         this.setLocation(x, y);
         this.setIconImage(new ImageIcon(getClass().getResource("/images/SPicon.png")).getImage());
         this.setTitle("StandarApp");
-        rr = new ReadRegistry(nameExcel);
+        rr = new ReadFileVector(nameExcel);
     }
 
     /**
@@ -50,9 +51,11 @@ public class ReadVectors extends javax.swing.JFrame {
         instructionOne = new javax.swing.JLabel();
         inFileTextField = new javax.swing.JTextField();
         inFileButton = new javax.swing.JButton();
-        filaEncabezado1Label = new javax.swing.JLabel();
         filaEncabezado2Label = new javax.swing.JLabel();
         fila_textField = new javax.swing.JTextField();
+        filaEncabezado1Label = new javax.swing.JLabel();
+        filaEncabezado1Label1 = new javax.swing.JLabel();
+        filaEncabezado1Label2 = new javax.swing.JLabel();
         especieLabel = new javax.swing.JLabel();
         especie_textField = new javax.swing.JTextField();
         localidadLabel = new javax.swing.JLabel();
@@ -116,17 +119,14 @@ public class ReadVectors extends javax.swing.JFrame {
         });
         getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 30, 30));
 
-        filaEncabezado1Label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        filaEncabezado1Label.setText("Ingresar fila donde comienzan los datos");
-        getContentPane().add(filaEncabezado1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 230, -1));
-
         filaEncabezado2Label.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
         filaEncabezado2Label.setForeground(new java.awt.Color(255, 0, 0));
         filaEncabezado2Label.setText("(SIN ENCABEZADO)");
-        getContentPane().add(filaEncabezado2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 210, 20));
+        getContentPane().add(filaEncabezado2Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 100, 20));
 
         fila_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        fila_textField.setText("21");
+        fila_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fila_textField.setText("1");
         fila_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fila_textFieldActionPerformed(evt);
@@ -134,25 +134,43 @@ public class ReadVectors extends javax.swing.JFrame {
         });
         getContentPane().add(fila_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 30, 30));
 
-        especieLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        filaEncabezado1Label.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        filaEncabezado1Label.setForeground(new java.awt.Color(0, 102, 102));
+        filaEncabezado1Label.setText("encuentran los datos de:");
+        getContentPane().add(filaEncabezado1Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 166, 230, 30));
+
+        filaEncabezado1Label1.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        filaEncabezado1Label1.setText("Ingresar fila donde comienzan los datos");
+        getContentPane().add(filaEncabezado1Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 230, -1));
+
+        filaEncabezado1Label2.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        filaEncabezado1Label2.setForeground(new java.awt.Color(0, 102, 102));
+        filaEncabezado1Label2.setText("Ingresar columnas donde se ");
+        getContentPane().add(filaEncabezado1Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 230, 30));
+
+        especieLabel.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        especieLabel.setForeground(new java.awt.Color(0, 102, 102));
         especieLabel.setText("Especie");
-        getContentPane().add(especieLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 110, 30));
+        getContentPane().add(especieLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 50, 30));
 
         especie_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        especie_textField.setText("19");
+        especie_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        especie_textField.setText("3");
         especie_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 especie_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(especie_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 30, 30));
+        getContentPane().add(especie_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 30, 30));
 
-        localidadLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        localidadLabel.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        localidadLabel.setForeground(new java.awt.Color(0, 102, 102));
         localidadLabel.setText("Localidad");
-        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 100, 30));
+        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 60, 30));
 
         localidad_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        localidad_textField.setText("17");
+        localidad_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        localidad_textField.setText("2");
         localidad_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 localidad_textFieldActionPerformed(evt);
@@ -160,25 +178,29 @@ public class ReadVectors extends javax.swing.JFrame {
         });
         getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 30, 30));
 
-        fechaLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        fechaLabel.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        fechaLabel.setForeground(new java.awt.Color(0, 102, 102));
         fechaLabel.setText("Fecha");
         getContentPane().add(fechaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 40, 30));
 
         fecha_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        fecha_textField.setText("20");
+        fecha_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fecha_textField.setText("0");
         fecha_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fecha_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(fecha_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 30, 30));
+        getContentPane().add(fecha_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 30, 30));
 
-        municipioLabel.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
+        municipioLabel.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        municipioLabel.setForeground(new java.awt.Color(0, 102, 102));
         municipioLabel.setText("Municipio");
-        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 100, 30));
+        getContentPane().add(municipioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 60, 30));
 
         municipio_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        municipio_textField.setText("16");
+        municipio_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        municipio_textField.setText("1");
         municipio_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 municipio_textFieldActionPerformed(evt);
@@ -215,15 +237,15 @@ public class ReadVectors extends javax.swing.JFrame {
         omitLabelThree1.setText("ignore este paso, y presione arreglar)");
         getContentPane().add(omitLabelThree1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, -1, -1));
 
-        answerLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Lao UI", 1, 16)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        answerLabel.setText("Presione arreglar para continuar");
+        answerLabel.setText("Seleccione archivo de especies");
         getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 270, 20));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
         doButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         doButton.setForeground(new java.awt.Color(255, 255, 255));
-        doButton.setText("Arreglar");
+        doButton.setText("Generar coordenadas");
         doButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doButtonActionPerformed(evt);
@@ -290,29 +312,29 @@ public class ReadVectors extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
-        String collumns = municipio_textField.getText();
         int number1 = Integer.valueOf(municipio_textField.getText());
         int number2 = Integer.valueOf(localidad_textField.getText());
         int number3 = Integer.valueOf(especie_textField.getText());
         int number4 = Integer.valueOf(fecha_textField.getText());
-        int number5 = Integer.valueOf(fila_textField.getText());
+        int rowBegin = Integer.valueOf(fila_textField.getText());
       
+        int[] col = {number1,number2,number3,number4};
+               
         try {
             if (!nameIn.contains("...")) {
                 if (nameOut.contains("...")) {
-                    System.out.println("Holi");
-                    //String answer = rr.lectureRegistry(nameIn, nameIn);
+                    String answer = rr.lectureRegistry(nameIn, nameIn, col, 80, rowBegin);
                     answerLabel.setForeground(Color.BLUE);
-                    //answerLabel.setText(answer + nameIn);
+                    answerLabel.setText(answer + nameIn);
 
                 } else if (Lecture.determineExtensionFile(nameIn)) {
-                    //String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xlsx", col, percent);
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xlsx", col, 80, rowBegin);
                     answerLabel.setForeground(Color.BLUE);
-                    //answerLabel.setText(answer + " en: " + nameOut + "\\standarizedRegistries.xlsx");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\standarizedRegistries.xlsx");
                 } else {
-                    //String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xls", col, percent);
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xls", col, 80, rowBegin);
                     answerLabel.setForeground(Color.BLUE);
-                    //answerLabel.setText(answer + " en: " + nameOut + "\\fixedFile.xls");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\fixedFile.xls");
                 }
             } else {
                 answerLabel.setForeground(Color.red);
@@ -419,6 +441,8 @@ public class ReadVectors extends javax.swing.JFrame {
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JTextField fecha_textField;
     private javax.swing.JLabel filaEncabezado1Label;
+    private javax.swing.JLabel filaEncabezado1Label1;
+    private javax.swing.JLabel filaEncabezado1Label2;
     private javax.swing.JLabel filaEncabezado2Label;
     private javax.swing.JTextField fila_textField;
     private javax.swing.JLabel iconLabel;

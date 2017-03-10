@@ -20,8 +20,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documentos/GitHub/Standarapp-NVyCP/src/standarapp/gui/Menu.java</file>
-            <file>file:/D:/Documentos/GitHub/Standarapp-NVyCP/src/standarapp/gui/ReadCases.java</file>
+            <file>file:/D:/Documentos/GitHub/Standarapp-NVyCP/src/standarapp/algorithm/ReadFileVector.java</file>
+            <file>file:/D:/Documentos/GitHub/Standarapp-NVyCP/src/standarapp/algorithm/CodeAssign.java</file>
+            <file>file:/D:/Documentos/GitHub/Standarapp-NVyCP/src/standarapp/gui/ReadVectors.java</file>
         </group>
     </open-files>
 </project-private>

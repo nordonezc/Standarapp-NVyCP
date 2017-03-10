@@ -135,8 +135,8 @@ public class ReadCases extends javax.swing.JFrame {
         getContentPane().add(inFileButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 40, 30));
 
         cod_dpto_o_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        cod_dpto_o_label.setText("cod Dpto");
-        getContentPane().add(cod_dpto_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 80, 30));
+        cod_dpto_o_label.setText("cod Dpto Ocurren");
+        getContentPane().add(cod_dpto_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 120, 30));
 
         cod_dpto_o_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         cod_dpto_o_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -146,11 +146,11 @@ public class ReadCases extends javax.swing.JFrame {
                 cod_dpto_o_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(cod_dpto_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 30, 30));
+        getContentPane().add(cod_dpto_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 30, 30));
 
         cod_mun_o_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        cod_mun_o_label.setText("cod Municipio");
-        getContentPane().add(cod_mun_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 80, 30));
+        cod_mun_o_label.setText("cod Mncp Ocurren");
+        getContentPane().add(cod_mun_o_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 100, 30));
 
         cod_mun_o_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         cod_mun_o_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -160,10 +160,10 @@ public class ReadCases extends javax.swing.JFrame {
                 cod_mun_o_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(cod_mun_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 30, 30));
+        getContentPane().add(cod_mun_o_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 30, 30));
 
         localidad_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
-        localidad_label.setText("localidad");
+        localidad_label.setText("Localidad");
         getContentPane().add(localidad_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 80, 30));
 
         localidad_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
@@ -174,11 +174,11 @@ public class ReadCases extends javax.swing.JFrame {
                 localidad_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 30, 30));
+        getContentPane().add(localidad_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 30, 30));
 
         cen_pobla_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         cen_pobla_label.setText("Centro poblado");
-        getContentPane().add(cen_pobla_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 100, 30));
+        getContentPane().add(cen_pobla_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, 30));
 
         cen_pobla_textField.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
         cen_pobla_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -188,7 +188,7 @@ public class ReadCases extends javax.swing.JFrame {
                 cen_pobla_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(cen_pobla_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 30, 30));
+        getContentPane().add(cen_pobla_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 30, 30));
 
         dir_res_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         dir_res_label.setText("Direccion residencia");
@@ -206,7 +206,7 @@ public class ReadCases extends javax.swing.JFrame {
 
         vereda_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         vereda_label.setText("Vereda");
-        getContentPane().add(vereda_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 80, 30));
+        getContentPane().add(vereda_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 80, 30));
 
         vereda_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         vereda_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -216,11 +216,11 @@ public class ReadCases extends javax.swing.JFrame {
                 vereda_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(vereda_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 30, 30));
+        getContentPane().add(vereda_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 30, 30));
 
         bar_ver_label.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         bar_ver_label.setText("Barrio vereda");
-        getContentPane().add(bar_ver_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 100, 30));
+        getContentPane().add(bar_ver_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 100, 30));
 
         bar_ver_textField.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         bar_ver_textField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -230,7 +230,7 @@ public class ReadCases extends javax.swing.JFrame {
                 bar_ver_textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(bar_ver_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 30, 30));
+        getContentPane().add(bar_ver_textField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 30, 30));
 
         nmun_proce_label.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         nmun_proce_label.setText("Municipio procedencia");
@@ -321,21 +321,21 @@ public class ReadCases extends javax.swing.JFrame {
         omitLabelThree.setText("(Si desea sobreescribir el archivo de entrada,  ignore este paso, y presione arreglar)");
         getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
 
-        answerLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Lao UI", 1, 16)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        answerLabel.setText("Presione arreglar para continuar");
-        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 430, 20));
+        answerLabel.setText("Seleccione un archivo y presione generar coordendas");
+        getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 450, 30));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
         doButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
         doButton.setForeground(new java.awt.Color(255, 255, 255));
-        doButton.setText("Arreglar");
+        doButton.setText("Generar coordenadas");
         doButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 130, -1));
+        getContentPane().add(doButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 220, -1));
 
         backButton.setBackground(new java.awt.Color(0, 153, 153));
         backButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
@@ -346,7 +346,7 @@ public class ReadCases extends javax.swing.JFrame {
                 backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 140, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 130, -1));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
         exitButton.setFont(new java.awt.Font("Lao UI", 0, 12)); // NOI18N
@@ -356,7 +356,7 @@ public class ReadCases extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, 110, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 90, -1));
 
         derechosLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         derechosLabel.setForeground(new java.awt.Color(153, 153, 153));
@@ -396,7 +396,6 @@ public class ReadCases extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
-        String collumns = cod_dpto_o_textField.getText();
         double percent = Double.valueOf(percentTextField.getText());
         int number1 = Integer.valueOf(cod_dpto_o_textField.getText());
         int number2 = Integer.valueOf(cod_mun_o_textField.getText());
@@ -419,15 +418,11 @@ public class ReadCases extends javax.swing.JFrame {
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText(answer + nameIn);
 
-                } else if (Lecture.determineExtensionFile(nameIn)) {
+                } else {
                     String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xlsx", col, percent);
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText(answer + " en: " + nameOut + "\\standarizedRegistries.xlsx");
-                } else {
-                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xls", col, percent);
-                    answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText(answer + " en: " + nameOut + "\\fixedFile.xls");
-                }
+                } 
             } else {
                 answerLabel.setForeground(Color.red);
                 answerLabel.setText("No ha seleccionado ningun archivo");

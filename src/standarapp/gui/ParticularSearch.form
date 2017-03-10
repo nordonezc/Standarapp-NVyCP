@@ -143,7 +143,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="290" y="50" width="110" height="30"/>
+          <AbsoluteConstraints x="290" y="50" width="120" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -172,7 +172,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="50" width="110" height="30"/>
+          <AbsoluteConstraints x="90" y="50" width="120" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -185,7 +185,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="50" width="70" height="30"/>
+          <AbsoluteConstraints x="420" y="50" width="70" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -201,7 +201,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="490" y="50" width="110" height="30"/>
+          <AbsoluteConstraints x="480" y="50" width="120" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -229,7 +229,7 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Aqu&#xed; se mostrar&#xe1; el resultado de su b&#xfa;squeda personalizada donde se mostrara:&#xa;&#x9;-Centroides&#xa;&#x9;-Posibles nombres oficiales&#xa;&#xa;Los criterios para realizar la b&#xfa;squeda son:&#xa;&#x9;-Departamento: Puede ingresar un nombre o un codigo si lo conoce&#xa;&#x9;-Municipio: Puede ingresar un nombre o un codigo si lo conoce&#xa;&#x9;-Localidad: Puede ingresar un nombre o un codigo si lo conoce&#xa;&#xa;En caso de tener alg&#xfa;n problema al realizar la b&#xfa;squeda, presione el bot&#xf3;n reiniciar busqueda,&#xa;si persiste el problema comunicarse con el encargado o envie correo al desarrollador"/>
+            <Property name="text" type="java.lang.String" value="Aqu&#xed; se mostrar&#xe1; el resultado de su b&#xfa;squeda personalizada donde se mostrara:&#xa;&#x9;-Centroides&#xa;&#x9;-Posibles nombres oficiales&#xa;&#xa;Los criterios para realizar la b&#xfa;squeda son:&#xa;&#x9;-Departamento: Puede ingresar un nombre o un c&#xf3;digo si lo conoce&#xa;&#x9;-Municipio: Puede ingresar un nombre o un c&#xf3;digo si lo conoce&#xa;&#x9;-Localidad: Puede ingresar un nombre o un c&#xf3;digo si lo conoce&#xa;&#xa;En caso de tener alg&#xfa;n problema al realizar la b&#xfa;squeda, presione el bot&#xf3;n reiniciar busqueda,&#xa;si persiste el problema comunicarse con el encargado o envie correo al desarrollador"/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="dragEnabled" type="boolean" value="true"/>
           </Properties>
@@ -273,7 +273,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="430" width="140" height="-1"/>
+          <AbsoluteConstraints x="140" y="430" width="160" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -314,7 +314,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="280" y="430" width="70" height="-1"/>
+          <AbsoluteConstraints x="300" y="430" width="70" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

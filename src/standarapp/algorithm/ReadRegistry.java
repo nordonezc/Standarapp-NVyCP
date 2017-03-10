@@ -81,8 +81,8 @@ public class ReadRegistry {
         int quantityFound = 0;
         float percentFound = 0;
 
-        boolean xlsx = Lecture.determineExtensionFile(nameFile);
-        if (xlsx) {
+        /*boolean xlsx = Lecture.determineExtensionFile(nameFile);
+        if (xlsx) {*/
             workbook = Lecture.lectureXLSX(nameFile);
             sheet = workbook.getSheetAt(0);
 
@@ -109,47 +109,14 @@ public class ReadRegistry {
                 }
                 registry.add(cellsWI);
             }
-        } else {
-            hworkbook = Lecture.lectureXLS(nameFile);
-            hsheet = hworkbook.getSheetAt(0);
-
-            for (Row row : hsheet) {
-                if (row.getRowNum() < 1) {
-                    continue;
-                }
-
-                String[] cellsWI = new String[col.length];
-                for (int i = 0; i < col.length; i++) {
-                    cellsWI[i] = "";
-                    try {
-                        Cell cell = row.getCell(col[i]);
-                        if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-                            cellsWI[i] = deleteTrash(cell.getStringCellValue());
-                        }
-                        if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            cellsWI[i] = String.valueOf(cell.getNumericCellValue());
-                        }
-                    } catch (Exception e) {
-                        continue;
-                    }
-
-                }
-                registry.add(cellsWI);
-            }
-        }
-
+        
         System.out.println("size: " + registry.size());
         int rowCount = 0;
         int columnCount = 0;
         Row row;
 
-        if (xlsx) {
-            sheet = workbook.createSheet();
-            row = sheet.createRow(rowCount);
-        } else {
-            hsheet = hworkbook.createSheet();
-            row = hsheet.createRow(rowCount);
-        }
+        sheet = workbook.createSheet();
+        row = sheet.createRow(rowCount);
 
         Cell cell = row.createCell(columnCount);
         cell.setCellValue("Cod_Dpto");
@@ -178,15 +145,15 @@ public class ReadRegistry {
                 row = sheet.createRow(++rowCount);
                 double levenstein = percent;
                 double localidad_oficial = 0;
-
+                
                 for (int j = 2; j < 6; j++) {
                     for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
                         String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
                         try {
                             int levenstein_local = FuzzySearch.partialRatio(registro[j], loc);
                             if (determinarBarrio(registro[j])) {
-                                //System.err.println(i + " Encontro barrio " + levenstein);
                                 j = 6;
+                                registro[6] = registro[6].concat("Barrio");
                                 levenstein = percent;
                                 break;
                             }
@@ -202,14 +169,14 @@ public class ReadRegistry {
                     }
                 }
 
-                //System.err.println(i + " " + levenstein + " " + localidad_oficial);
                 if (levenstein == percent) {
+                    
                     if (registro[8].equals(registro[7])) {
                         String direccion = registro[6];
 
                         if (findWords(direccion)) {
                             direccion = codigo_Municipio.get(cod_Mncp);
-                            System.err.println(cod_Mncp + " " + i + " Centro poblado " + direccion);
+                            //System.err.println(cod_Mncp + " " + i + " Centro poblado " + direccion);
                         }
 
                         direccion = deleteTrash(direccion);
@@ -274,11 +241,7 @@ public class ReadRegistry {
         percentFound = ((quantityFound) * 100) / (registry.size());
         answer = "Se rescato un " + percentFound + "% de la información.";
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {
-            if (xlsx) {
-                workbook.write(outputStream);
-            } else {
-                hworkbook.write(outputStream);
-            }
+            workbook.write(outputStream);
         } catch (IOException ex) {
             Logger.getLogger(ReadRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -348,7 +311,11 @@ public class ReadRegistry {
         info = info.replace("CALLE", "");
         info = info.replace("CLL", "");
         info = info.replace("CL", "");
-
+        
+        info = info.replace("BARRIO", "");
+        info = info.replace("BAR", "");
+        info = info.replace("BRIO", "");
+        
         info = info.replace("KM", "");
         info = info.replace("KDX", "");
         info = info.replace("LOTE", "");
@@ -357,7 +324,7 @@ public class ReadRegistry {
         info = info.replace("-", "");
         info = info.replace("°", "");
 
-        if (message.equals(info)) {
+        if (!message.equals(info)) {
             answer = true;
         }
 

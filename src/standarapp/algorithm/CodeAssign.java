@@ -189,6 +189,26 @@ public class CodeAssign {
                 } 
             }
         }
+        
+    }
+    
+    public void showDictionary(){
+        for (String dpto : diccionario_UbicacionLocalidad.keySet()) {
+            for(String mncp : diccionario_UbicacionLocalidad.get(dpto).keySet()){
+                for(String local : diccionario_UbicacionLocalidad.get(dpto).get(mncp).keySet()){
+                    System.out.println("Dpto: " + dpto + " | Mncp: " + mncp + " | Local: " + local + " | Cod: " + diccionario_UbicacionLocalidad.get(dpto).get(mncp).get(local));
+                }
+            }
+        }
+    }
+    
+    public void showMncpLocalidad(){
+        int cont = 0;
+        for (Integer mncp : codigo_municipioLocalidad.keySet()) {
+            for(Double local : codigo_municipioLocalidad.get(mncp).keySet()){
+                System.out.println(cont++ + "Mncp: " + mncp + " | Local: " + local + " | " + codigo_municipioLocalidad.get(mncp).get(local));
+            }
+        }
     }
 
 
@@ -213,7 +233,6 @@ public class CodeAssign {
         for (String mncp : diccionario_UbicacionLocalidad.get(departamentoCorrecto).keySet()) {
             answer += mncp + "\n";
         }
-
         return answer;
     }
 
@@ -456,7 +475,7 @@ public class CodeAssign {
         return answer;
     }
 
-    public String findByCode(int code) {
+    /*public String findByCode(int code) {
         String answer = "El codigo " + code + " corresponde a: \n";
         String localidadCorrecta = codigo_localidad.get(code);
         String departamentoCorrecto = "", municipioCorrecto = "";
@@ -475,7 +494,7 @@ public class CodeAssign {
 
         answer += "Departamento " + departamentoCorrecto + " con municipio " + municipioCorrecto + " con localidad " + localidadCorrecta;
         return answer;
-    }
+    }*/
 
     /*
     private static String fixWords(String message) {

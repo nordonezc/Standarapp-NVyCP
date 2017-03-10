@@ -110,7 +110,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 municipioTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 110, 30));
+        getContentPane().add(municipioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 120, 30));
 
         departamentoLabel.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         departamentoLabel.setText("D/mento:");
@@ -123,11 +123,11 @@ public class ParticularSearch extends javax.swing.JFrame {
                 departamentoTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 110, 30));
+        getContentPane().add(departamentoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 120, 30));
 
         localidadLabel.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         localidadLabel.setText("Localidad:");
-        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 70, 30));
+        getContentPane().add(localidadLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 70, 30));
 
         localidadTextField.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         localidadTextField.setText("Nombre o código");
@@ -136,7 +136,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 localidadTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 110, 30));
+        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 120, 30));
 
         answerPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         answerPanel.setFocusable(false);
@@ -145,7 +145,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         answerTextArea.setFont(new java.awt.Font("Lao UI", 0, 10)); // NOI18N
         answerTextArea.setLineWrap(true);
         answerTextArea.setRows(5);
-        answerTextArea.setText("Aquí se mostrará el resultado de su búsqueda personalizada donde se mostrara:\n\t-Centroides\n\t-Posibles nombres oficiales\n\nLos criterios para realizar la búsqueda son:\n\t-Departamento: Puede ingresar un nombre o un codigo si lo conoce\n\t-Municipio: Puede ingresar un nombre o un codigo si lo conoce\n\t-Localidad: Puede ingresar un nombre o un codigo si lo conoce\n\nEn caso de tener algún problema al realizar la búsqueda, presione el botón reiniciar busqueda,\nsi persiste el problema comunicarse con el encargado o envie correo al desarrollador");
+        answerTextArea.setText("Aquí se mostrará el resultado de su búsqueda personalizada donde se mostrara:\n\t-Centroides\n\t-Posibles nombres oficiales\n\nLos criterios para realizar la búsqueda son:\n\t-Departamento: Puede ingresar un nombre o un código si lo conoce\n\t-Municipio: Puede ingresar un nombre o un código si lo conoce\n\t-Localidad: Puede ingresar un nombre o un código si lo conoce\n\nEn caso de tener algún problema al realizar la búsqueda, presione el botón reiniciar busqueda,\nsi persiste el problema comunicarse con el encargado o envie correo al desarrollador");
         answerTextArea.setWrapStyleWord(true);
         answerTextArea.setDragEnabled(true);
         answerPanel.setViewportView(answerTextArea);
@@ -171,7 +171,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 resetButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 140, -1));
+        getContentPane().add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 160, -1));
 
         backButton.setBackground(new java.awt.Color(0, 153, 153));
         backButton.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
@@ -192,7 +192,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 70, -1));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 70, -1));
 
         dragLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -218,8 +218,7 @@ public class ParticularSearch extends javax.swing.JFrame {
         boolean dptoFilled = false;
         boolean mncpFilled = false;
         boolean localFilled = false;
-        boolean codeFilled = false;
-
+        
         String dpto = departamentoTextField.getText();
         String mncp = municipioTextField.getText();
         String local = localidadTextField.getText();
@@ -230,20 +229,21 @@ public class ParticularSearch extends javax.swing.JFrame {
         local = local.toUpperCase();
         codigo = codigo.toUpperCase();
 
-        if (!dpto.contains("DEPARTAMENTO")) {
+        if (!dpto.contains("ó")) 
             dptoFilled = true;
-        }
-        if (!mncp.contains("MUNICIPIO")) {
+        
+        if (!mncp.contains("ó")) 
             mncpFilled = true;
-        }
-        if (!local.contains("LOCALIDAD")) {
+        
+        if (!local.contains("ó")) 
             localFilled = true;
-        }
+        
         if (!codigo.contains("LOCALIDAD")) {
-            codeFilled = true;
+//            codeFilled = true;
         }
 
         resetButtonActionPerformed(evt);
+        
         try {
             if (dptoFilled == true) {
                 if (mncpFilled == true) {
@@ -254,36 +254,30 @@ public class ParticularSearch extends javax.swing.JFrame {
                     }
                 } else if (localFilled == true) {
                     answerTextArea.setText(ca.finbByLocalidadAndDepartamento(local, dpto));
-                } else if (codeFilled == true) {
-                    double codigoTemporal = Double.valueOf(codigo);
-                    int code = (int) codigoTemporal;
-                    answerTextArea.setText(ca.findByCode(code));
-                } else {
-                    answerTextArea.setText(ca.findByDepartamento(dpto));
                 }
             } else if (mncpFilled == true) {
                 if (localFilled == true) {
                     answerTextArea.setText(ca.findByLocalidadAndMunicipio(local, mncp));
-                } else if (codeFilled == true) {
+                } /*else if (codeFilled == true) {
                     double codigoTemporal = Double.valueOf(codigo);
                     int code = (int) codigoTemporal;
                     answerTextArea.setText(ca.findByCode(code));
-                } else {
+                }*/ else {
                     answerTextArea.setText(ca.findByMunicipio(mncp));
                 }
             } else if (localFilled == true) {
-                if (codeFilled == true) {
+                /*if (codeFilled == true) {
                     double codigoTemporal = Double.valueOf(codigo);
                     int code = (int) codigoTemporal;
                     answerTextArea.setText(ca.findByCode(code));
-                } else {
+                 else {
                     answerTextArea.setText(ca.findByLocalidad(local));
-                }
-            } else if (codeFilled == true) {
+                }*/
+            } /*else if (codeFilled == true) {
                 double codigoTemporal = Double.valueOf(codigo);
                 int code = (int) codigoTemporal;
                 answerTextArea.setText(ca.findByCode(code));
-            } else {
+            }*/ else {
                 answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n"
                         + "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
             }

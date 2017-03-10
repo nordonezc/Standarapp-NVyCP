@@ -120,15 +120,15 @@ public class Menu extends javax.swing.JFrame {
         labelNumber4.setText("4.");
         getContentPane().add(labelNumber4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 40, 20));
 
-        indicationLabel2.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
-        indicationLabel2.setForeground(new java.awt.Color(0, 153, 153));
+        indicationLabel2.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        indicationLabel2.setForeground(new java.awt.Color(0, 102, 102));
         indicationLabel2.setText("que se encuentra en la carpeta del programa");
-        getContentPane().add(indicationLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 20));
+        getContentPane().add(indicationLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
 
-        indicationLabel1.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
-        indicationLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        indicationLabel1.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
+        indicationLabel1.setForeground(new java.awt.Color(0, 102, 102));
         indicationLabel1.setText("Indicar la ruta del archivo baseDatosLoaclidades.xlsx ");
-        getContentPane().add(indicationLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, 20));
+        getContentPane().add(indicationLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, 30));
 
         labelNumber3.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
         labelNumber3.setText("3.");
@@ -157,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
                 menuButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 110, 30));
+        getContentPane().add(menuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 110, 30));
 
         exitButton.setBackground(new java.awt.Color(204, 51, 0));
         exitButton.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
@@ -167,7 +167,7 @@ public class Menu extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 70, 30));
+        getContentPane().add(exitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 70, 30));
 
         minimizeButton.setBackground(new java.awt.Color(0, 153, 153));
         minimizeButton.setFont(new java.awt.Font("Adobe Arabic", 0, 3)); // NOI18N

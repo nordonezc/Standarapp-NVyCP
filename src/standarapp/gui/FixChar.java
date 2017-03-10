@@ -163,9 +163,9 @@ public class FixChar extends javax.swing.JFrame {
         omitLabelThree.setText("(Ignorar para sobreescribir)");
         getContentPane().add(omitLabelThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, -1, 20));
 
-        answerLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Lao UI", 1, 16)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        answerLabel.setText("Selccione archivo y despues arreglar para continuar");
+        answerLabel.setText("Selccione un archivo y despúes arreglar para continuar");
         getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 460, 30));
 
         doButton.setBackground(new java.awt.Color(0, 153, 153));
@@ -239,39 +239,22 @@ public class FixChar extends javax.swing.JFrame {
         Lecture lec = new Lecture();
         String nameIn = inFileTextField.getText();
         String nameOut = outFileTextField.getText();
-        ///String collumns = "";
         int[] col = {};
 
         double pages = Double.valueOf(numberPageTextField.getText());
 
-        /*
-        if (!collumns.equals("0,1,2,...")) {
-            String[] temporal = collumns.split(",");
-            col = new int[temporal.length];
-            for (int i = 0; i < temporal.length; i++) {
-                double tmp = Double.valueOf(temporal[i]);
-                col[i] = (int) tmp;
-            }
-        }
-        */
-        
         try {
-            //C:\Users\Niki\Downloads\municipio de cada casco urbano.xls
             if (!nameIn.contains("...")) {
                 if (nameOut.contains("...")) {
                     lec.fixFile(nameIn, (int) pages, col);
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText("Archivo corregido en: " + nameIn);
 
-                } else if (Lecture.determineExtensionFile(nameIn)) {
+                } else{
                     lec.fixFile(nameIn, nameOut + "\\fixedFile.xlsx", (int) pages, col);
                     answerLabel.setForeground(Color.BLUE);
                     answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xlsx");
-                } else {
-                    lec.fixFile(nameIn, nameOut + "\\fixedFile.xls", (int) pages, col);
-                    answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText("Archivo corregido en: " + nameOut + "\\fixedFile.xls");
-                }
+                } 
             } else {
                 answerLabel.setForeground(Color.red);
                 answerLabel.setText("No ha seleccionado ningun archivo");
