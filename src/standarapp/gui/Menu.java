@@ -98,7 +98,7 @@ public class Menu extends javax.swing.JFrame {
 
         menuButtonGroup.add(readVectors);
         readVectors.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N
-        readVectors.setText("Asignación de vectores");
+        readVectors.setText("Muestreo de vectores");
         readVectors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 readVectorsActionPerformed(evt);

@@ -237,7 +237,7 @@ public class ReadVectors extends javax.swing.JFrame {
         omitLabelThree1.setText("ignore este paso, y presione arreglar)");
         getContentPane().add(omitLabelThree1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, -1, -1));
 
-        answerLabel.setFont(new java.awt.Font("Lao UI", 1, 16)); // NOI18N
+        answerLabel.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
         answerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         answerLabel.setText("Seleccione archivo de especies");
         getContentPane().add(answerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 270, 20));

@@ -142,6 +142,9 @@ public class ReadFileVector {
         cell.setCellValue("Codigo Vereda");
         cell.setCellStyle(cs);
         cell = row.createCell(++columnCount);
+        cell.setCellValue("Mes");
+        cell.setCellStyle(cs);
+        cell = row.createCell(++columnCount);
         cell.setCellValue("Año");
         cell.setCellStyle(cs);
         cell = row.createCell(++columnCount);
@@ -213,11 +216,15 @@ public class ReadFileVector {
                 double locX = localidad_x.get(localidad_oficial);
                 double locY = localidad_y.get(localidad_oficial);
                 int year = 0;
+                int month = 0;
                 try{
                     year = Integer.parseInt(registro[3].split(" ")[5]);
+                    month = Integer.parseInt(registro[3].split(" ")[4]);
                 }catch(Exception e){
                     year = Integer.parseInt(registro[3].substring(registro[3].length()-4));
+                    month = Integer.parseInt(registro[3].substring(registro[3].length()-5));
                 }
+                
                 quantityFound++;
 
                 cell = row.createCell(++columnCount);
@@ -234,6 +241,9 @@ public class ReadFileVector {
                 cell.setCellStyle(cs);
                 cell = row.createCell(++columnCount);
                 cell.setCellValue(localidad_oficial);
+                cell.setCellStyle(cs);
+                cell = row.createCell(++columnCount);
+                cell.setCellValue(month);
                 cell.setCellStyle(cs);
                 cell = row.createCell(++columnCount);
                 cell.setCellValue(year);
@@ -255,8 +265,9 @@ public class ReadFileVector {
         sheet.setColumnWidth(3, 5800);
         sheet.setColumnWidth(4, 3000);
         sheet.setColumnWidth(5, 3000);
-        sheet.setColumnWidth(6, 6400);
+        sheet.setColumnWidth(6, 3000);
         sheet.setColumnWidth(7, 6400);
+        sheet.setColumnWidth(8, 6400);
         
         answer = "Se generaron " + quantityFound + " vector(es)";
         try (FileOutputStream outputStream = new FileOutputStream(nameOut)) {

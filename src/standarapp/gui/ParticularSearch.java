@@ -136,7 +136,7 @@ public class ParticularSearch extends javax.swing.JFrame {
                 localidadTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 120, 30));
+        getContentPane().add(localidadTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 120, 30));
 
         answerPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         answerPanel.setFocusable(false);
@@ -218,66 +218,137 @@ public class ParticularSearch extends javax.swing.JFrame {
         boolean dptoFilled = false;
         boolean mncpFilled = false;
         boolean localFilled = false;
-        
+
         String dpto = departamentoTextField.getText();
         String mncp = municipioTextField.getText();
         String local = localidadTextField.getText();
-        String codigo = "";
 
         dpto = dpto.toUpperCase();
         mncp = mncp.toUpperCase();
         local = local.toUpperCase();
-        codigo = codigo.toUpperCase();
 
-        if (!dpto.contains("ó")) 
+        if (!dpto.contains("Ó")) {
             dptoFilled = true;
-        
-        if (!mncp.contains("ó")) 
-            mncpFilled = true;
-        
-        if (!local.contains("ó")) 
-            localFilled = true;
-        
-        if (!codigo.contains("LOCALIDAD")) {
-//            codeFilled = true;
         }
 
-        resetButtonActionPerformed(evt);
-        
+        if (!mncp.contains("Ó")) {
+            mncpFilled = true;
+        }
+
+        if (!local.contains("Ó")) {
+            localFilled = true;
+        }
+
         try {
             if (dptoFilled == true) {
                 if (mncpFilled == true) {
                     if (localFilled == true) {
-                        answerTextArea.setText(ca.findByAll(dpto, mncp, local));
+                        try {
+                            double localCode = Double.valueOf(local);
+                            System.out.println("codigo");
+                            answerTextArea.setText(ca.findByLocalidadesCode(localCode));
+                        } catch (Exception e) {
+                            try {
+                                int dptoCode = Integer.valueOf(dpto);
+                                int mncpCode = Integer.valueOf(mncp);
+                                System.out.println("codigo");
+                                answerTextArea.setText(ca.findByDptoMncpCodeAndLocalidadString(dptoCode, mncpCode, local));
+                            } catch (Exception ex) {
+                                try {
+                                    int mncpCode = Integer.valueOf(mncp);
+                                    System.out.println("codigo");
+                                    answerTextArea.setText(ca.findByMncpCodeAndLocalidadString(mncpCode, local));
+                                } catch (Exception exc) {
+                                    try {
+                                        int dptoCode = Integer.valueOf(dpto);
+                                        System.out.println("codigo");
+                                        answerTextArea.setText(ca.findByDptoCodeAndLocalidadString(dptoCode, local));
+                                    } catch (Exception exce) {
+                                        System.err.println("texto");
+                                        answerTextArea.setText(ca.findByAllString(dpto, mncp, local));
+                                    }
+                                }
+                            }
+                        }
                     } else {
-                        answerTextArea.setText(ca.findByMunicipioAndDepartamento(mncp, dpto));
+                        try {
+                            int mncpCode = Integer.valueOf(mncp);
+                            System.out.println("codigo");
+                            answerTextArea.setText(ca.findByMunicipioCode(mncpCode));
+                        } catch (Exception e) {
+                            try {
+                            int dptoCode = Integer.valueOf(dpto);
+                            System.out.println("codigo");
+                            answerTextArea.setText(ca.finbByDepartamentoCodeAndMunicipioString(dptoCode, mncp));
+                        } catch (Exception ex) {
+                            System.err.println("texto");
+                            answerTextArea.setText(ca.findByMunicipioAndDepartamentoString(mncp, dpto));
+                        }
+                        }
                     }
                 } else if (localFilled == true) {
-                    answerTextArea.setText(ca.finbByLocalidadAndDepartamento(local, dpto));
+                    try {
+                        double localCode = Double.valueOf(local);
+                        System.out.println("codigo");
+                        answerTextArea.setText(ca.findByLocalidadesCode(localCode));
+                    } catch (Exception e) {
+                        try {
+                            int dptoCode = Integer.valueOf(dpto);
+                            System.out.println("codigo");
+                            answerTextArea.setText(ca.findByDptoCodeAndLocalidadString(dptoCode, local));
+                        } catch (Exception excpt) {
+                            System.err.println("texto");
+                            answerTextArea.setText(ca.finbByLocalidadAndDepartamento(local, dpto));
+                        }
+                    }
+                } else {
+                    try {
+                        int dptoCode = Integer.valueOf(dpto);
+                        System.out.println("codigo");
+                        answerTextArea.setText(ca.findByDepartamentoCode(dptoCode));
+                    } catch (Exception e) {
+                        System.err.println("texto");
+                        answerTextArea.setText(ca.findByDepartamentoString(dpto));
+                    }
+
                 }
+                
             } else if (mncpFilled == true) {
                 if (localFilled == true) {
-                    answerTextArea.setText(ca.findByLocalidadAndMunicipio(local, mncp));
-                } /*else if (codeFilled == true) {
-                    double codigoTemporal = Double.valueOf(codigo);
-                    int code = (int) codigoTemporal;
-                    answerTextArea.setText(ca.findByCode(code));
-                }*/ else {
-                    answerTextArea.setText(ca.findByMunicipio(mncp));
+                    try {
+                        double localCode = Double.valueOf(local);
+                        System.out.println("codigo");
+                        answerTextArea.setText(ca.findByLocalidadesCode(localCode));
+                    } catch (Exception e) {
+                        try {
+                            System.err.println("texto");
+                            int mncpCode = Integer.valueOf(mncp);
+                            answerTextArea.setText(ca.findByMncpCodeAndLocalidadString(mncpCode, local));
+                        } catch (Exception ex) {
+                            answerTextArea.setText(ca.findByLocalidadAndMunicipioString(local, mncp));
+                        }
+                    }
+                } else {
+                    try {
+                        int mncpCode = Integer.valueOf(mncp);
+                        System.out.println("codigo");
+                        answerTextArea.setText(ca.findByMunicipioCode(mncpCode));
+                    } catch (Exception e) {
+
+                        System.err.println("texto");
+                        answerTextArea.setText(ca.findByMunicipioString(mncp));
+                    }
                 }
             } else if (localFilled == true) {
-                /*if (codeFilled == true) {
-                    double codigoTemporal = Double.valueOf(codigo);
-                    int code = (int) codigoTemporal;
-                    answerTextArea.setText(ca.findByCode(code));
-                 else {
-                    answerTextArea.setText(ca.findByLocalidad(local));
-                }*/
-            } /*else if (codeFilled == true) {
-                double codigoTemporal = Double.valueOf(codigo);
-                int code = (int) codigoTemporal;
-                answerTextArea.setText(ca.findByCode(code));
-            }*/ else {
+                try {
+                    double localCode = Double.valueOf(local);
+                    System.out.println("codigo: " + localCode);
+                    answerTextArea.setText(ca.findByLocalidadesCode(localCode));
+                } catch (NumberFormatException e) {
+                    System.err.println("texto: " + local);
+                    answerTextArea.setText(ca.findByLocalidadString(local));
+                }
+            } else {
                 answerTextArea.setText("*VERIFIQUE QUE SI COMPLETO ALGUNO DE LOS CAMPOS CORRECTAMENTE" + "\n"
                         + "DE SER NECESARIO REINICIE LA BÚSQUEDA.");
             }

@@ -105,7 +105,6 @@ public class ReadRegistry {
                     } catch (Exception e) {
                         continue;
                     }
-
                 }
                 registry.add(cellsWI);
             }
