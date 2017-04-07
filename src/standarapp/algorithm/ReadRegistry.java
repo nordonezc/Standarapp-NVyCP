@@ -83,32 +83,32 @@ public class ReadRegistry {
 
         /*boolean xlsx = Lecture.determineExtensionFile(nameFile);
         if (xlsx) {*/
-            workbook = Lecture.lectureXLSX(nameFile);
-            sheet = workbook.getSheetAt(0);
+        workbook = Lecture.lectureXLSX(nameFile);
+        sheet = workbook.getSheetAt(0);
 
-            for (Row row : sheet) {
-                if (row.getRowNum() < 1) {
+        for (Row row : sheet) {
+            if (row.getRowNum() < 1) {
+                continue;
+            }
+
+            String[] cellsWI = new String[col.length];
+            for (int i = 0; i < col.length; i++) {
+                cellsWI[i] = "";
+                try {
+                    Cell cell = row.getCell(col[i]);
+                    if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        cellsWI[i] = deleteTrash(cell.getStringCellValue());
+                    }
+                    if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        cellsWI[i] = String.valueOf(cell.getNumericCellValue());
+                    }
+                } catch (Exception e) {
                     continue;
                 }
-
-                String[] cellsWI = new String[col.length];
-                for (int i = 0; i < col.length; i++) {
-                    cellsWI[i] = "";
-                    try {
-                        Cell cell = row.getCell(col[i]);
-                        if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-                            cellsWI[i] = deleteTrash(cell.getStringCellValue());
-                        }
-                        if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            cellsWI[i] = String.valueOf(cell.getNumericCellValue());
-                        }
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-                registry.add(cellsWI);
             }
-        
+            registry.add(cellsWI);
+        }
+
         System.out.println("size: " + registry.size());
         int rowCount = 0;
         int columnCount = 0;
@@ -137,104 +137,127 @@ public class ReadRegistry {
         cell.setCellValue("Levenstein");
 
         for (int i = 0; i < registry.size(); i++) {
-            try {
-                String[] registro = registry.get(i);
-                columnCount = -1;
-                int cod_Mncp = Integer.parseInt(registro[0]) * 1000 + Integer.parseInt(registro[1]);
-                row = sheet.createRow(++rowCount);
-                double levenstein = percent;
-                double localidad_oficial = 0;
-                
-                for (int j = 2; j < 6; j++) {
-                    for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
-                        String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
-                        try {
-                            int levenstein_local = FuzzySearch.partialRatio(registro[j], loc);
-                            if (determinarBarrio(registro[j])) {
-                                j = 6;
-                                registro[6] = registro[6].concat("Barrio");
-                                levenstein = percent;
-                                break;
-                            }
+            //if (i == 5 || i == 264 || i == 267) {
+                try {
+                    String[] registro = registry.get(i);
+                    columnCount = -1;
+                    int cod_Mncp = Integer.parseInt(registro[0]) * 1000 + Integer.parseInt(registro[1]);
+                    row = sheet.createRow(++rowCount);
+                    double levenstein = 0;
+                    double localidad_oficial = 0;
 
-                            if (levenstein_local > levenstein) {
-                                localidad_oficial = cod_Loc;
-                                levenstein = levenstein_local;
-                            }
-                        } catch (Exception e) {
-                            continue;
+                    if (true) { //i == 36) {
+
+                        /*
+                        System.out.println("-------------------");
+                        System.out.println("Registro numero " + (i + 1));
+                        for (int k = 0; k < registro.length; k++) {
+                            System.out.println(registro[k]);
                         }
 
+                        System.out.println("+++++++++++");*/
                     }
-                }
 
-                if (levenstein == percent) {
-                    
-                    if (registro[8].equals(registro[7])) {
-                        String direccion = registro[6];
-
-                        if (findWords(direccion)) {
-                            direccion = codigo_Municipio.get(cod_Mncp);
-                            //System.err.println(cod_Mncp + " " + i + " Centro poblado " + direccion);
-                        }
-
-                        direccion = deleteTrash(direccion);
-
+                    for (int j = 2; j < 6; j++) {
                         for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
                             String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
-
                             try {
+                                if (determinarBarrio(registro[j])) {
+                                    j = 6;
+                                    registro[6] = registro[6].concat("Barrio");
+                                    levenstein = 0;
+                                    break;
+                                }
 
-                                int levenstein_local = FuzzySearch.partialRatio(direccion, loc);
-                                if (levenstein_local > levenstein) {
-                                    localidad_oficial = cod_Loc;
-                                    levenstein = levenstein_local;
+                                int levenstein_local = FuzzySearch.tokenSetRatio(registro[j], loc);
+                                //System.out.println(registro[j] + " con " + loc + " dio un lev1 de " + levenstein_local);
+
+                                if (levenstein_local > percent) {
+                                    int levenstein_CapaDos = FuzzySearch.ratio(registro[j], loc);
+                                    //System.out.println(registro[j] + " con " + loc + " dio un lev2 de " + levenstein_local);
+                                    if (levenstein_CapaDos > levenstein) {
+                                        localidad_oficial = cod_Loc;
+                                        levenstein = levenstein_CapaDos;
+                                    }
                                 }
                             } catch (Exception e) {
-                                break;
+                                continue;
                             }
 
                         }
                     }
+
+                    if (levenstein == 0) {
+                        if (registro[8].equals(registro[7])) {
+                            //System.out.println("Entro a revisar DIRECCIÓN y mun de res y ocurr son iguales");
+                            String direccion = registro[6];
+
+                            if (findWords(direccion)) {
+                                direccion = codigo_Municipio.get(cod_Mncp);
+                                //System.err.println(cod_Mncp + " " + i + " Centro poblado " + direccion);
+                            }
+
+                            direccion = deleteTrash(direccion);
+
+                            for (Double cod_Loc : mncp_localidad.get(cod_Mncp).keySet()) {
+                                String loc = mncp_localidad.get(cod_Mncp).get(cod_Loc);
+                                try {
+
+                                    int levenstein_local = FuzzySearch.partialRatio(direccion, loc);
+                                    if (levenstein_local > percent) {
+                                        int levenstein_CapaDos = FuzzySearch.ratio(direccion, loc);
+
+                                        if (levenstein_CapaDos > levenstein) {
+                                            localidad_oficial = cod_Loc;
+                                            levenstein = levenstein_CapaDos;
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+
+                    String dpto_oficial = codigo_Dpto.get(Integer.parseInt(registro[0]));
+                    String mncp_oficial = codigo_Municipio.get(cod_Mncp);
+                    String loc_oficial = "";
+                    double locX = 0;
+                    double locY = 0;
+
+                    if (levenstein == 0) {
+                        loc_oficial = "Indeterminable";
+                    } else {
+                        loc_oficial = codigo_localidad.get(localidad_oficial);
+                        locX = localidad_x.get(localidad_oficial);
+                        locY = localidad_y.get(localidad_oficial);
+                        quantityFound++;
+                    }
+
+                    //System.out.println(dpto_oficial + ", " + mncp_oficial + ", " + loc_oficial);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(Integer.parseInt(registro[0]));
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(dpto_oficial);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(cod_Mncp);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(mncp_oficial);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(localidad_oficial);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(loc_oficial);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(locX);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(locY);
+                    cell = row.createCell(++columnCount);
+                    cell.setCellValue(levenstein);
+                } catch (Exception e) {
+                    continue;
                 }
-
-                String dpto_oficial = codigo_Dpto.get(Integer.parseInt(registro[0]));
-                String mncp_oficial = codigo_Municipio.get(cod_Mncp);
-                String loc_oficial = "";
-                double locX = 0;
-                double locY = 0;
-
-                if (levenstein == percent) {
-                    loc_oficial = "Indeterminable";
-                } else {
-                    loc_oficial = codigo_localidad.get(localidad_oficial);
-                    locX = localidad_x.get(localidad_oficial);
-                    locY = localidad_y.get(localidad_oficial);
-                    quantityFound++;
-                }
-
-                //System.out.println(dpto_oficial + ", " + mncp_oficial + ", " + loc_oficial);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(Integer.parseInt(registro[0]));
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(dpto_oficial);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(cod_Mncp);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(mncp_oficial);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(localidad_oficial);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(loc_oficial);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(locX);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(locY);
-                cell = row.createCell(++columnCount);
-                cell.setCellValue(levenstein);
-            } catch (Exception e) {
-                continue;
-            }
+            
         }
 
         percentFound = ((quantityFound) * 100) / (registry.size());
@@ -250,28 +273,29 @@ public class ReadRegistry {
 
     private static String deleteTrash(String message) {
         String info = message;
-        info = info.replace("VEREDA", "");
+        info = info.replace("VEREDA ", "");
         info = info.replace("V ", "");
         info = info.replace("VDA ", "");
 
-        info = info.replace("CORREGIMIENTO", "");
-        info = info.replace("CORR", "");
-        info = info.replace("COR", "");
-        info = info.replace("CRTO", "");
-        info = info.replace("CRRGTO", "");
-        info = info.replace("CTO", "");
+        info = info.replace("CORREGIMIENTO ", "");
+        info = info.replace("CORR ", "");
+        info = info.replace("COR ", "");
+        info = info.replace("COREG ", "");
+        info = info.replace("CRTO ", "");
+        info = info.replace("CRRGTO ", "");
+        info = info.replace("CTO ", "");
 
-        info = info.replace("CASERIO", "");
-        info = info.replace("CAS", "");
-        info = info.replace("CRIO", "");
-
-        info = info.replace("HACIENDA", "");
-        info = info.replace("HCDA", "");
-        info = info.replace("HDA", "");
+        info = info.replace("CASERIO ", "");
+        info = info.replace("CAS ", "");
+        info = info.replace("CRIO ", "");
+// Vereda las casitas
+        info = info.replace("HACIENDA ", "");
+        info = info.replace("HCDA ", "");
+        info = info.replace("HDA ", "");
         info = info.replace("H ", "");
 
-        info = info.replace("FINCA", "");
-        info = info.replace("FCA", "");
+        info = info.replace("FINCA ", "");
+        info = info.replace("FCA ", "");
         info = info.replace("F ", "");
 
         return info;
@@ -287,9 +311,9 @@ public class ReadRegistry {
         boolean answer = false;
         String info = message;
 
-        info = info.replace("BARRIO", "");
-        info = info.replace("BAR", "");
-        info = info.replace("BRIO", "");
+        info = info.replace("BARRIO ", "");
+        info = info.replace("BAR ", "");
+        info = info.replace("BRIO ", "");
 
         if (!info.equals(message)) {
             answer = true;
@@ -303,21 +327,21 @@ public class ReadRegistry {
         String info = message;
 
         info = info.replace("AVENIDA", "");
-        info = info.replace("AV", "");
+        info = info.replace("AV ", "");
         info = info.replace("CARRERA", "");
-        info = info.replace("KRA", "");
-        info = info.replace("KR", "");
+        info = info.replace("KRA ", "");
+        info = info.replace("KR ", "");
         info = info.replace("CALLE", "");
-        info = info.replace("CLL", "");
-        info = info.replace("CL", "");
-        
+        info = info.replace("CLL ", "");
+        info = info.replace("CL ", "");
+
         info = info.replace("BARRIO", "");
-        info = info.replace("BAR", "");
-        info = info.replace("BRIO", "");
-        
+        info = info.replace("BAR ", "");
+        info = info.replace("BRIO ", "");
+
         info = info.replace("KM", "");
         info = info.replace("KDX", "");
-        info = info.replace("LOTE", "");
+        info = info.replace("LOTE ", "");
 
         info = info.replace("#", ""); //Direccion y tambien N°
         info = info.replace("-", "");
@@ -334,8 +358,6 @@ public class ReadRegistry {
 //Si encuentra barrio, revisar direcccion
 //SI no encuentra formato de direccion buscar con las localidades actuales tal cual como esta
 //Prioridad corregimiento sobre direccion
-
-
 /*
         for (int i = 0; i < registry.size(); i++) {
             String[] registro = registry.get(i);

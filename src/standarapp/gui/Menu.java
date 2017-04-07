@@ -127,7 +127,7 @@ public class Menu extends javax.swing.JFrame {
 
         indicationLabel1.setFont(new java.awt.Font("Lao UI", 1, 12)); // NOI18N
         indicationLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        indicationLabel1.setText("Indicar la ruta del archivo baseDatosLoaclidades.xlsx ");
+        indicationLabel1.setText("Indicar la ruta del archivo baseDatosLocalidades.xlsx ");
         getContentPane().add(indicationLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, 30));
 
         labelNumber3.setFont(new java.awt.Font("Lao UI", 0, 14)); // NOI18N

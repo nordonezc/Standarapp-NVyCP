@@ -276,14 +276,20 @@ public class Lecture{
         //Centros poblados
         info = info.replace("├Ü", "A");
         info = info.replace("├ü", "A");
+        info = info.replace("├Ç", "A");
+        info = info.replace("├Ä", "A");
         
         info = info.replace("├ë", "E");
+        info = info.replace("├O", "E");
         
         info = info.replace("├ì", "I");
+        info = info.replace("├Î", "I");
         
         
         info = info.replace("├ô", "O");
+        
         info = info.replace("├£", "U");
+        info = info.replace("├Ö", "U");
         
         info = info.replace("├Ô", "O");
         info = info.replace("├Ô", "O");

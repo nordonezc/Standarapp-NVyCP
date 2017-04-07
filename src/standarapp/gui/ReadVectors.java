@@ -328,13 +328,13 @@ public class ReadVectors extends javax.swing.JFrame {
                     answerLabel.setText(answer + nameIn);
 
                 } else if (Lecture.determineExtensionFile(nameIn)) {
-                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xlsx", col, 80, rowBegin);
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\vectoresGenerados.xlsx", col, 80, rowBegin);
                     answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText(answer + " en: " + nameOut + "\\standarizedRegistries.xlsx");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\vectoresGenerados.xlsx");
                 } else {
-                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\standarizedRegistries.xls", col, 80, rowBegin);
+                    String answer = rr.lectureRegistry(nameIn, nameOut + "\\vectoresGenerados.xls", col, 80, rowBegin);
                     answerLabel.setForeground(Color.BLUE);
-                    answerLabel.setText(answer + " en: " + nameOut + "\\fixedFile.xls");
+                    answerLabel.setText(answer + " en: " + nameOut + "\\vectoresGenerados.xls");
                 }
             } else {
                 answerLabel.setForeground(Color.red);

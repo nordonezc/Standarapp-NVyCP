@@ -76,7 +76,7 @@ public class ReadFileVector {
                 continue;
             }
 
-            String[] cellsWI = new String[col.length];
+            String[] cellsWI = new String[col.length + 1];
             for (int i = 0; i < col.length; i++) {
                 cellsWI[i] = "";
                 try {
@@ -85,6 +85,7 @@ public class ReadFileVector {
                         cellsWI[i] = deleteTrash(cell.getStringCellValue());
                     } else {
                         cellsWI[i] = cell.getDateCellValue().toString();
+                        cellsWI[col.length] = String.valueOf(cell.getDateCellValue().getMonth());
                     }
                     if (i == 2) {
                         cellsWI[i] = cell.getStringCellValue();
@@ -174,7 +175,7 @@ public class ReadFileVector {
                     }
                     
                     try {
-                        double levenstein_local = FuzzySearch.partialRatio(registro[0], codigo_Municipio.get(codMunicipio));
+                        double levenstein_local = FuzzySearch.ratio(registro[0], codigo_Municipio.get(codMunicipio));
                         if (levenstein_local >= levensteinActual) {
                             cod_Mncp = codMunicipio;
                             levensteinActual = levenstein_local;
@@ -196,7 +197,7 @@ public class ReadFileVector {
                     }
                     
                     try {
-                        double levenstein_local = FuzzySearch.partialRatio(registro[1], loc);
+                        double levenstein_local = FuzzySearch.ratio(registro[1], loc);
                         if (levenstein_local >= levenstein) {
                             localidad_oficial = cod_Loc;
                             levenstein = levenstein_local;
@@ -217,12 +218,13 @@ public class ReadFileVector {
                 double locY = localidad_y.get(localidad_oficial);
                 int year = 0;
                 int month = 0;
+                System.out.println();
                 try{
                     year = Integer.parseInt(registro[3].split(" ")[5]);
-                    month = Integer.parseInt(registro[3].split(" ")[4]);
+                    month = Integer.parseInt(registro[registro.length-1]) + 1;
                 }catch(Exception e){
                     year = Integer.parseInt(registro[3].substring(registro[3].length()-4));
-                    month = Integer.parseInt(registro[3].substring(registro[3].length()-5));
+                    month = Integer.parseInt(registro[3].substring(registro[3].length()-7, registro[3].length()-5));
                 }
                 
                 quantityFound++;
